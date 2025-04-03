@@ -1,30 +1,34 @@
 from flask import Blueprint, request, jsonify
 from api.models.models import db, Field
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 fields = Blueprint('fields_api', __name__)
 
-# POST /fields - Crear una nueva parcela
+# POST /fields - Crear una nueva parcela vinculada al usuario autenticado
 @fields.route('/fields', methods=['POST'])
-@jwt_required() 
+@jwt_required()
 def create_field():
     body = request.get_json()
-
-    required_fields = ["name", "area", "crop", "sowing_date", "street", "number", "postal_code", "city", "user_id"]
+    
+    # Validar que se envíen los campos requeridos (sin user_id)
+    required_fields = ["name", "area", "crop", "sowing_date", "street", "number", "postal_code", "city"]
     if not body or not all(field in body for field in required_fields):
-        return jsonify({"error": "You must provide name, area, crop, sowing_date, street, number, postal_code, city and user_id"}), 400
+        return jsonify({"error": "Missing required field(s)"}), 400
+
+    # Extraer el user_id desde el token
+    current_user_id = get_jwt_identity()
 
     try:
         new_field = Field(
             name=body.get("name"),
             area=body.get("area"),
             crop=body.get("crop"),
-            sowing_date=body.get("sowing_date"), 
+            sowing_date=body.get("sowing_date"),  #  formato (YYYY-MM-DD)
             street=body.get("street"),
             number=body.get("number"),
             postal_code=body.get("postal_code"),
             city=body.get("city"),
-            user_id=body.get("user_id")
+            user_id=current_user_id
         )
         db.session.add(new_field)
         db.session.commit()
@@ -36,15 +40,13 @@ def create_field():
 
 # GET /fields - Obtener todas las parcelas
 @fields.route('/fields', methods=['GET'])
-@jwt_required() 
 def get_all_fields():
     all_fields = Field.query.all()
     serialized_fields = [field.serialize_field() for field in all_fields]
     return jsonify(serialized_fields), 200
 
-# GET /fields/<int:id> - Obtener una parcela por id
+# GET /fields/<int:id> - Obtener una parcela por ID
 @fields.route('/fields/<int:id>', methods=['GET'])
-@jwt_required() 
 def get_field_by_id(id):
     field = Field.query.get(id)
     if not field:
@@ -53,7 +55,7 @@ def get_field_by_id(id):
 
 # PUT /fields/<int:id> - Actualizar una parcela
 @fields.route('/fields/<int:id>', methods=['PUT'])
-@jwt_required()  # Se puede quitar o ajustar según sea necesario
+@jwt_required()
 def update_field(id):
     field = Field.query.get(id)
     if not field:
@@ -77,8 +79,6 @@ def update_field(id):
             field.postal_code = body["postal_code"]
         if "city" in body:
             field.city = body["city"]
-        if "user_id" in body:
-            field.user_id = body["user_id"]
 
         db.session.commit()
         db.session.refresh(field)
@@ -89,7 +89,7 @@ def update_field(id):
 
 # DELETE /fields/<int:id> - Eliminar una parcela
 @fields.route('/fields/<int:id>', methods=['DELETE'])
-@jwt_required()  # Se puede quitar o ajustar según los requerimientos
+@jwt_required()
 def delete_field(id):
     field = Field.query.get(id)
     if not field:
@@ -102,4 +102,5 @@ def delete_field(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
  
