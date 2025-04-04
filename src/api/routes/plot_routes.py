@@ -68,6 +68,20 @@ def get_field_by_id(id):
         return jsonify({"error": "Field not found"}), 404
     return jsonify(field.serialize_field()), 200
 
+#   GET PO USER_ID
+
+
+@fields.route('/field/<int:user_id>', methods=['GET'])
+@jwt_required()
+def get_fields_by_user(user_id):
+    fields = Field.query.filter_by(user_id=user_id).all()
+
+    if not fields:
+        return jsonify([]), 200  # Retornamos lista vacía si no hay parcelas
+
+    return jsonify([field.serialize_field() for field in fields]), 200
+
+
 # PUT /fields/<int:id> - Actualizar una parcela
 
 

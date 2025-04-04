@@ -45,7 +45,7 @@ const Signup = () => {
                 });
 
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/dashboard");
                 }, 1000);
             } else {
                 setError(data.error || "Error en el registro");
@@ -60,7 +60,7 @@ const Signup = () => {
         <div className="signup-background">
             <div className="signup-container">
                 <h2 className="signup-title">Registro</h2>
-                
+
                 <form className="signup-form" onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -71,7 +71,7 @@ const Signup = () => {
                         required
                         className="signup-input"
                     />
-                    
+
                     <input
                         type="text"
                         name="lastname"
@@ -81,7 +81,7 @@ const Signup = () => {
                         required
                         className="signup-input"
                     />
-                    
+
                     <input
                         type="text"
                         name="dni"
@@ -91,7 +91,7 @@ const Signup = () => {
                         required
                         className="signup-input"
                     />
-                    
+
                     <input
                         type="email"
                         name="email"
@@ -101,7 +101,7 @@ const Signup = () => {
                         required
                         className="signup-input"
                     />
-                    
+
                     <input
                         type="password"
                         name="password"
