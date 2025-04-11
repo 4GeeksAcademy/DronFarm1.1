@@ -1,4 +1,4 @@
-#👇 ❇️ Riki for the group success 10 Abril 👊
+#👇 ❇️ Riki for the group success 11 Abril 👊
 
 
 # routes/quote_routes.py (COMPLETO)
@@ -12,10 +12,10 @@ import tempfile
 
 print("✅ quote_routes CARGADO")
 
-quote_routes = Blueprint('quote_routes', __name__)
+quote = Blueprint('quote_routes', __name__)
 
 # POST /presupuesto (Crear nuevo presupuesto)
-@quote_routes.route('/presupuesto', methods=['POST'])
+@quote.route('/presupuesto', methods=['POST'])
 def create_quote():
     print("📥 Recibida petición en /presupuesto")
     try:
@@ -58,7 +58,7 @@ def create_quote():
         return jsonify({"error": str(e)}), 500
 
 # GET /presupuesto/<id> (Obtener presupuesto específico)
-@quote_routes.route('/presupuesto/<int:id>', methods=['GET'])
+@quote.route('/presupuesto/<int:id>', methods=['GET'])
 def get_quote(id):
     try:
         quote = Quote.query.options(joinedload(Quote.user), joinedload(Quote.field)).get(id)
@@ -77,7 +77,7 @@ def get_quote(id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@quote_routes.route('/test-crear-presupuesto', methods=['GET'])
+@quote.route('/test-crear-presupuesto', methods=['GET'])
 def crear_presupuesto_para_prueba():
     try:
         user = User.query.get(1)
@@ -106,7 +106,7 @@ def crear_presupuesto_para_prueba():
 
 
 # GET /presupuesto/<id>/pdf (Generar y devolver el PDF)
-@quote_routes.route('/presupuesto/<int:id>/pdf', methods=['GET'])
+@quote.route('/presupuesto/<int:id>/pdf', methods=['GET'])
 def generate_pdf(id):
     try:
         quote = Quote.query.options(joinedload(Quote.user), joinedload(Quote.field)).get(id)
@@ -135,7 +135,7 @@ def generate_pdf(id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-@quote_routes.route('/usuario/<int:user_id>/presupuestos', methods=['GET'])
+@quote.route('/usuario/<int:user_id>/presupuestos', methods=['GET'])
 def get_user_quotes(user_id):
     try:
         user = User.query.get(user_id)
@@ -158,4 +158,27 @@ def get_user_quotes(user_id):
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
+@quote.route("/presupuestos/<int:quote_id>/pdf", methods=["GET"])
+def get_quote_pdf(quote_id):
+    try:
+        quote = Quote.query.get(quote_id)
+        if not quote:
+            return jsonify({"error": "Presupuesto no encontrado"}), 404
+
+        # Ruta donde guardas tus PDFs
+        pdf_folder = os.path.join(os.getcwd(), "pdfs")
+        pdf_path = os.path.join(pdf_folder, f"presupuesto_{quote_id}.pdf")
+
+        # Si el archivo no existe, genera uno falso para probar (luego se reemplaza con generación real)
+        if not os.path.exists(pdf_path):
+            with open(pdf_path, "w") as f:
+                f.write(f"Presupuesto #{quote_id} - Simulación de PDF")
+
+        return send_file(pdf_path, as_attachment=True)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
