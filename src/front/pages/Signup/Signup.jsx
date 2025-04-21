@@ -6,7 +6,6 @@ import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import "./Signup.css";
 import { Link } from "react-router-dom";
 
-
 const Signup = () => {
   const navigate = useNavigate();
   const { dispatch } = useGlobalReducer();
@@ -71,7 +70,7 @@ const Signup = () => {
   };
 
   return (
-    <div className={`landing-container fade-in ${isDarkMode ? "dark-mode" : ""}`}>
+    <div className={`landing-container signup-container fade-in ${isDarkMode ? "dark-mode" : ""}`}>
       <DarkModeToggle />
       <div className="login-card">
         <h2 className="login-title">Registro</h2>
