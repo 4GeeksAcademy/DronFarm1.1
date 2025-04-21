@@ -1,36 +1,26 @@
 import React from 'react';
-import {
-    WiDaySunny,
-    WiNightClear,
-    WiCloud,
-    WiCloudy,
-    WiShowers,
-    WiRain,
-    WiThunderstorm,
-    WiSnow,
-    WiFog,
-} from 'react-icons/wi';
 import './WeatherForecast.css';
+import 'weather-icons/css/weather-icons.css'; // Asegúrate de tener esto instalado vía npm
 
 const iconMap = {
-    '01d': <WiDaySunny size={42} color="#facc15" />,
-    '01n': <WiNightClear size={42} color="#0ea5e9" />,
-    '02d': <WiCloud size={42} color="#60a5fa" />,
-    '02n': <WiCloud size={42} color="#3b82f6" />,
-    '03d': <WiCloudy size={42} color="#64748b" />,
-    '03n': <WiCloudy size={42} color="#475569" />,
-    '04d': <WiCloudy size={42} color="#4b5563" />,
-    '04n': <WiCloudy size={42} color="#374151" />,
-    '09d': <WiShowers size={42} color="#38bdf8" />,
-    '09n': <WiShowers size={42} color="#0ea5e9" />,
-    '10d': <WiRain size={42} color="#0284c7" />,
-    '10n': <WiRain size={42} color="#0369a1" />,
-    '11d': <WiThunderstorm size={42} color="#f87171" />,
-    '11n': <WiThunderstorm size={42} color="#dc2626" />,
-    '13d': <WiSnow size={42} color="#bae6fd" />,
-    '13n': <WiSnow size={42} color="#e0f2fe" />,
-    '50d': <WiFog size={42} color="#9ca3af" />,
-    '50n': <WiFog size={42} color="#6b7280" />,
+    '01d': 'wi-day-sunny',
+    '01n': 'wi-night-partly-cloudy', // Este tiene luna y nubes, visualmente más atractivo
+    '02d': 'wi-day-cloudy',
+    '02n': 'wi-night-alt-cloudy',
+    '03d': 'wi-cloud',
+    '03n': 'wi-cloud',
+    '04d': 'wi-cloudy',
+    '04n': 'wi-cloudy',
+    '09d': 'wi-showers',
+    '09n': 'wi-showers',
+    '10d': 'wi-day-rain',
+    '10n': 'wi-night-alt-rain',
+    '11d': 'wi-thunderstorm',
+    '11n': 'wi-thunderstorm',
+    '13d': 'wi-snow',
+    '13n': 'wi-snow',
+    '50d': 'wi-fog',
+    '50n': 'wi-fog',
 };
 
 const WeatherForecast = ({ daily, loading }) => {
@@ -43,16 +33,18 @@ const WeatherForecast = ({ daily, loading }) => {
                 const fecha = new Date(day.dt * 1000);
                 const nombreDia = fecha.toLocaleDateString('es-ES', { weekday: 'short' });
                 const iconCode = day.weather[0].icon;
-                const icono = iconMap[iconCode];
+                const iconClass = iconMap[iconCode] || 'wi-na';
 
                 return (
                     <div
                         key={index}
-                        className={`forecast-day ${index === 0 ? 'today-highlight' : ''} weather-${iconCode}`}
+                        className={`forecast-day ${index === 0 ? 'today-highlight' : ''}`}
                         style={{ animationDelay: `${index * 0.1}s` }}
                     >
                         <p className="day-name">{index === 0 ? 'Hoy' : nombreDia}</p>
-                        <div className="weather-icon">{icono}</div>
+                        <div className="weather-icon">
+                            <i className={`wi ${iconClass}`} />
+                        </div>
                         <p className="temp-range">
                             {Math.round(day.temp.max)}° / {Math.round(day.temp.min)}°
                         </p>

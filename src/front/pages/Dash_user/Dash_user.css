@@ -65,29 +65,31 @@ body.dark-mode .map-placeholder {
 }
 
 /* === BOTONES === */
-body.dark-mode .request-report-button {
-  background-color: #66bb6a;
-  color: #101010;
-  font-weight: 600;
+body.dark-mode .see-all-reports-btn,
+body.dark-mode .request-quote-btn,
+body.dark-mode .add-crop-btn,
+body.dark-mode .manage-lands-btn,
+body.dark-mode .request-report-button,
+body.dark-mode .add-field-button {
+  background-color: #eca65b; /* naranja con opacidad */
+  color: #000;
 }
 
-body.dark-mode .add-field-button {
-  background-color: #388e3c;
-  color: #f9f9f9;
-  font-weight: 600;
+body.dark-mode .see-all-reports-btn:hover,
+body.dark-mode .request-quote-btn:hover,
+body.dark-mode .add-crop-btn:hover,
+body.dark-mode .manage-lands-btn:hover,
+body.dark-mode .request-report-button:hover,
+body.dark-mode .add-field-button:hover {
+  background-color: rgba(15, 104, 70, 0.76);
+  transform: translateY(-2px);
+  opacity: 0.95;
 }
 
 body.dark-mode .change-field-button {
   background-color: rgba(255, 255, 255, 0.06);
   border: 1px dashed rgba(255, 255, 255, 0.2);
   color: #ccc;
-}
-
-body.dark-mode .request-report-button:hover,
-body.dark-mode .add-field-button:hover,
-body.dark-mode .change-field-button:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
 }
 
 /* === TEXTOS === */
@@ -136,6 +138,12 @@ body.dark-mode ::-webkit-scrollbar-thumb {
 }
 body.dark-mode ::-webkit-scrollbar-thumb:hover {
   background: rgba(140, 255, 140, 0.5);
+}
+
+body.dark-mode .map-container {
+  background: rgba(30, 30, 30, 0.85);
+  border: 5px solid rgba(255, 255, 255, 0.03); /* ligeramente más tenue */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
 }
 
 /* === LAYOUT === */
@@ -192,7 +200,13 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
 .map-container {
   width: 100%;
   height: 400px;
-  border-radius: 15px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 5px solid rgba(255, 255, 255, 0.04); /* borde más transparente, mismo grosor */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 .weather-container-wrapper {
@@ -252,27 +266,38 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
 }
 
 /* BOTONES */
+.see-all-reports-btn,
+.request-quote-btn,
+.add-crop-btn,
+.manage-lands-btn,
 .request-report-button,
-.add-field-button,
-.change-field-button {
-  padding: 12px;
+.add-field-button {
+  background-color: rgba(8, 57, 75, 0.88); /* #08394b con 88% opacidad */
+  color: #fff;
   font-weight: bold;
   font-size: 0.95rem;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   width: 100%;
+  padding: 12px;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.request-report-button {
-  background-color: var(--green-light);
-  color: #1e1e1e;
-}
-
-.add-field-button {
-  background-color: var(--green-medium);
-  color: white;
+.see-all-reports-btn:hover,
+.request-quote-btn:hover,
+.add-crop-btn:hover,
+.manage-lands-btn:hover,
+.request-report-button:hover,
+.add-field-button:hover {
+  background-color: rgba(
+    6,
+    45,
+    60,
+    0.95
+  ); /* un poco más oscuro al hacer hover */
+  transform: translateY(-2px);
+  opacity: 0.95;
 }
 
 .change-field-button {
@@ -284,6 +309,7 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
 .request-report-button:hover,
 .add-field-button:hover,
 .change-field-button:hover {
+  background-color: #e67c00; /* un poco más oscuro al hacer hover */
   transform: translateY(-2px);
   opacity: 0.95;
 }

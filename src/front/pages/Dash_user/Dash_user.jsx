@@ -229,7 +229,7 @@ const Dash_user = () => {
                                         className="request-report-button"
                                         onClick={() => setReportModalOpen(true)}
                                     >
-                                        📂 VER TODOS LOS INFORMES
+                                        VER TODOS LOS INFORMES
                                     </button>
                                 </div>
 
@@ -244,13 +244,13 @@ const Dash_user = () => {
                                     className="add-field-button"
                                     onClick={() => navigate("/app/plot_form")}
                                 >
-                                    ➕ AÑADIR NUEVO CULTIVO
+                                    AÑADIR NUEVO CULTIVO
                                 </button>
                                 <button
                                     onClick={() => setFieldModalOpen(true)}
                                     className="request-report-button"
                                 >
-                                    🛠️ GESTIONAR TIERRAS
+                                    GESTIONAR TIERRAS
                                 </button>
                             </>
                         )}
