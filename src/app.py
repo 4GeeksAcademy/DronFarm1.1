@@ -29,7 +29,7 @@ app = Flask(__name__)
 
 # 🔐 CORS CONFIG
 CORS(app, supports_credentials=True, resources={
-    r"/*": {"origins": "https://supreme-space-computing-machine-jj4vrjqxw5q4c5rvx-3000.app.github.dev"}
+    r"/*": {"origins": "https://supreme-space-computing-machine-jj4vrjqxw5q4c5rvx-3000.app.github.dev, https://special-space-halibut-r4pxpqgvpw75fpjx7-3000.app.github.dev"}
 })
 
 

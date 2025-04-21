@@ -56,7 +56,7 @@ const Contact = () => {
 
         {/* COLUMNS (CONTACTO INFO + FORM) */}
         <div className="contacto-columns">
-          {/* INFO DE CONTACTO */}
+          {/* INFO DE CONTACTO - Versión simplificada */}
           <motion.div
             className="contacto-info contacto-item"
             initial={{ opacity: 0, x: -30 }}
@@ -65,21 +65,18 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <h2>Información de contacto</h2>
-            <div className="info-item"><i>📍</i><p>Av. del Bootcamp 1234, Madrid, España</p></div>
-            <div className="info-item"><i>📞</i><p>+34 912 345 678</p></div>
-            <div className="info-item"><i>✉️</i><p>info@dronfarm.com</p></div>
-
-            <div className="contacto-social">
-              <h3>Síguenos</h3>
-              <div className="social-icons">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">📘</a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">🐦</a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">💼</a>
-              </div>
+            <div className="info-item">
+              <p><i className="fa fa-map-marker"></i> Av. del Bootcamp 1234, Madrid, España</p>
+            </div>
+            <div className="info-item">
+              <p><i className="fa fa-phone"></i> +34 912 345 678</p>
+            </div>
+            <div className="info-item">
+              <p><i className="fa fa-envelope"></i> info@dronfarm.com</p>
             </div>
           </motion.div>
 
-          {/* FORMULARIO */}
+          {/* FORMULARIO - Mejorado visualmente */}
           <motion.div
             className="contacto-form-container contacto-item"
             initial={{ opacity: 0, x: 30 }}
@@ -95,25 +92,68 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="contacto-form">
               <div className="form-group">
                 <label htmlFor="nombre">Nombre completo*</label>
-                <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleChange} required />
+                <input 
+                  type="text" 
+                  id="nombre" 
+                  name="nombre" 
+                  value={formData.nombre} 
+                  onChange={handleChange} 
+                  placeholder="Tu nombre"
+                  required 
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="email">Correo electrónico*</label>
-                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  value={formData.email} 
+                  onChange={handleChange} 
+                  placeholder="ejemplo@correo.com"
+                  required 
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" value={formData.telefono} onChange={handleChange} />
+                <input 
+                  type="tel" 
+                  id="telefono" 
+                  name="telefono" 
+                  value={formData.telefono} 
+                  onChange={handleChange} 
+                  placeholder="912 345 678"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="empresa">Empresa/Organización</label>
-                <input type="text" id="empresa" name="empresa" value={formData.empresa} onChange={handleChange} />
+                <input 
+                  type="text" 
+                  id="empresa" 
+                  name="empresa" 
+                  value={formData.empresa} 
+                  onChange={handleChange} 
+                  placeholder="Nombre de tu empresa"
+                />
               </div>
               <div className="form-group full-width">
                 <label htmlFor="mensaje">Mensaje*</label>
-                <textarea id="mensaje" name="mensaje" value={formData.mensaje} onChange={handleChange} rows="5" required></textarea>
+                <textarea 
+                  id="mensaje" 
+                  name="mensaje" 
+                  value={formData.mensaje} 
+                  onChange={handleChange} 
+                  rows="3" 
+                  placeholder="¿Cómo podemos ayudarte?"
+                  required
+                ></textarea>
               </div>
-              <motion.button type="submit" className="submit-button" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.button 
+                type="submit" 
+                className="submit-button" 
+                whileHover={{ scale: 1.02 }} 
+                whileTap={{ scale: 0.98 }}
+              >
                 Enviar mensaje
               </motion.button>
             </form>
