@@ -1,22 +1,17 @@
-/* === NAVBAR GLOBAL IGUAL QUE LANDING === */
 .navbar {
-  width: 100%;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
   height: 60px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
   background-color: transparent;
   z-index: 1000;
-  box-shadow: none;
-  border: none;
-  margin: 0;
-  position: fixed;
-  top: 70px; /* Mantiene tu posición actual exacta */
-  left: 0;
-  right: 0;
 }
-
 
 .navbar.scrolled {
   background: rgba(255, 255, 255, 0.2);
@@ -24,36 +19,30 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* === CONTENIDO DEL NAVBAR === */
 .navbar-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   max-width: 1600px;
+  width: 100%;
   padding: 0 30px;
-  gap: 30px;
 }
 
-/* === LOGO === */
 .logo-navbar {
   width: 420px;
-  height: auto;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  margin-right: auto;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .logo-navbar:hover {
   transform: scale(1.03);
   opacity: 0.9;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 /* === BOTONES === */
 .nav-buttons {
   display: flex;
   gap: 15px;
-  margin-left: auto;
 }
 
 .login-btn,
@@ -61,24 +50,17 @@
   padding: 8px 20px;
   font-size: 16px;
   border-radius: 6px;
-  border: none;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
   min-width: 120px;
-  text-align: center;
+  white-space: nowrap;
+  border: none;
+  transition: 0.3s;
 }
 
 .login-btn {
   background-color: rgba(56, 60, 170, 0.856);
-  color: #fffdfd;
-  transition: all 0.3s ease;
-}
-
-.login-btn:hover {
-  background-color: #2e4a2c;
-  transform: scale(1.05);
+  color: white;
 }
 
 .signup-btn {
@@ -86,6 +68,7 @@
   color: white;
 }
 
+.login-btn:hover,
 .signup-btn:hover {
   background-color: #2e4a2c;
   transform: scale(1.05);
@@ -109,39 +92,44 @@
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .hamburger-icon span {
-  display: block;
   height: 3px;
-  width: 100%;
-  background-color: #93c093;
+  background: #93c093;
   border-radius: 3px;
-  transition: all 0.3s ease;
 }
 
 .hamburger-icon:hover span {
-  background-color: #75e76b;
+  background: #75e76b;
 }
 
+.hamburger-menu-container.active .hamburger-icon span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.hamburger-menu-container.active .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu-container.active .hamburger-icon span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* === DROPDOWN === */
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
   width: 200px;
-  background-color: rgba(73, 133, 81, 0.9);
+  background: rgba(73, 133, 81, 0.95);
   border-radius: 8px;
   padding: 10px 0;
-  margin-top: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
 .hamburger-menu-container.active .dropdown-menu {
@@ -153,10 +141,11 @@
 .dropdown-menu a {
   display: block;
   padding: 10px 20px;
+  font-weight: 600;
   color: #405c3a;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .dropdown-menu a:hover {
@@ -172,150 +161,77 @@
   transform: translateX(-50%);
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid rgba(71, 107, 79, 0.9);
+  border-bottom: 8px solid rgba(71, 107, 79, 0.95);
 }
 
 /* === DARK MODE === */
+.dark-mode .dropdown-menu {
+  background-color: rgba(25, 35, 25, 0.95);
+}
+
+.dark-mode .dropdown-menu a {
+  color: #9ccc8a;
+}
+
+.dark-mode .dropdown-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
 .dark-mode .hamburger-icon span {
   background-color: #f0f0f0;
 }
 
-.dark-mode .dropdown-menu {
-  background-color: rgba(73, 102, 78, 0.9);
+.dark-mode .login-btn {
+  background-color: rgba(56, 60, 170, 0.856);
+  color: #eee;
 }
 
-.dark-mode .dropdown-menu::before {
-  border-bottom-color: rgba(30, 30, 30, 0.9);
+/* === DARK MODE TOGGLE === */
+.dark-toggle-link {
+  all: unset;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  display: block;
+  width: 80%;
+  color: #405c3a;
+  padding: 10px 20px;
 }
 
-.dark-mode .dropdown-menu a {
+.dark-toggle-link:hover {
+  background-color: rgba(55, 85, 52, 0.1);
+  color: #375534;
+}
+
+body.dark-mode .dark-toggle-link {
   color: #f0f0f0;
 }
 
-.dark-mode .dropdown-menu a:hover {
+body.dark-mode .dark-toggle-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: #9ccc8a;
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 1200px) {
-  .logo-navbar {
-    width: 320px;
-  }
-}
-
-@media (max-width: 992px) {
-  .navbar-content {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    height: auto;
-  }
-
-  .logo-navbar {
-    margin-right: 0;
-    width: 280px;
-    order: 1;
-  }
-
-  .nav-buttons {
-    margin-left: 0;
-    order: 2;
-  }
-}
-
 @media (max-width: 768px) {
-  .navbar-right {
+  .logo-navbar {
+    width: 280px;
+  }
+  .nav-buttons {
     gap: 10px;
   }
-
-  .hamburger-icon {
-    width: 25px;
-    height: 20px;
-  }
-
-  .dropdown-menu {
-    width: 180px;
-  }
 }
 
-@media (max-width: 576px) {
-  .logo-navbar {
-    width: 220px;
-  }
-
-  .login-btn,
-  .signup-btn {
-    padding: 8px 16px;
-    min-width: 110px;
-  }
-}
-
-/* === ANIMACIÓN DE ENTRADA DEL NAVBAR === */
-.fade-in-navbar {
-  animation: fadeInNavbar 1s ease-out forwards;
+.dropdown-menu {
   opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.3s ease;
 }
 
-@keyframes fadeInNavbar {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === ANIMACIÓN EN X para Hamburguesa === */
-.hamburger-menu-container.active .hamburger-icon span:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-.hamburger-menu-container.active .hamburger-icon span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger-menu-container.active .hamburger-icon span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
-
-/* === MODO OSCURO: menú con estilo social === */
-.dark-mode .dropdown-menu {
-  background-color: rgba(25, 35, 25, 0.9);
-  border: 1px solid rgba(156, 204, 138, 0.2);
-}
-
-.dark-mode .dropdown-menu::before {
-  border-bottom-color: rgba(25, 35, 25, 0.9);
-}
-
-.dark-mode .dropdown-menu a {
-  color: #9ccc8a;
-}
-
-.dark-mode .dropdown-menu a:hover {
-  background-color: rgba(156, 204, 138, 0.1);
-  color: #ffffff;
-}
-
-/* === MODO OSCURO: botón login más luminoso === */
-.dark-mode .login-btn {
-  background-color: rgba(56, 60, 170, 0.856); /* igual que íconos */
-  color: #cfd3ce !important;
-  font-weight: 700;
-}
-
-.dark-mode .login-btn:hover {
-  background-color: #2e4a2c; /* tono más claro al pasar el mouse */
-}
-
-/* === HAMBURGUESA EN MODO OSCURO SIEMPRE VERDE SOCIAL === */
-.dark-mode .hamburger-icon span {
-  background-color: #9ccc8a !important; /* fuerza el color siempre */
-}
-
-/* Hover: más brillante */
-.dark-mode .hamburger-icon:hover span {
-  background-color: #c0f3a5;
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }

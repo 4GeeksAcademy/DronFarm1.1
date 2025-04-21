@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { showErrorAlert, showSuccessAlert } from '../../components/modal_alerts/modal_alerts';
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
-import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 
 export const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -85,7 +84,6 @@ export const Login = () => {
 
   return (
     <div className={`login-container-landing fade-in ${isDarkMode ? "dark-mode" : ""}`}>
-      <DarkModeToggle />
       <div className="login-card">
         <h2 className="login-title">Iniciar Sesión</h2>
         <form className="login-form" onSubmit={handleSubmit}>

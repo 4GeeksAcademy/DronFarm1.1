@@ -8,7 +8,6 @@ import ReportModal from "../../components/ReportModal/ReportModal";
 import FieldManagerModal from "../../components/FieldManagerModal/FieldManagerModal";
 import FieldSelectorModal from "../../components/FieldSelectorModal/FieldSelectorModal";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
-import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle'; // 💡 Importamos el botón
 
 const Dash_user = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -153,7 +152,6 @@ const Dash_user = () => {
 
     return (
         <>
-            <DarkModeToggle /> {/* 🌙 Botón modo oscuro */}
 
             {!initialSelectionDone && fieldsList.length > 1 && (
                 <FieldSelectorModal

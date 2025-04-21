@@ -1,13 +1,9 @@
 import React from "react";
 import "./WeOffer.css";
-import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 
 const WeOffer = () => {
   return (
     <section className="landing-container">
-      {/* Mismo botón que Landing */}
-      <DarkModeToggle />
-
       <div className="weoffer-content">
         <div className="weoffer-header-box">
           <h2 className="section-title">Servicios</h2>

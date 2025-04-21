@@ -21,21 +21,24 @@ const Navbar = () => {
     const observer = new MutationObserver(() => {
       setIsDarkMode(root.classList.contains("dark-mode"));
     });
-
-    // Set initial state and observe body
     setIsDarkMode(root.classList.contains("dark-mode"));
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
-
     return () => observer.disconnect();
   }, []);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const goTo = (path) => {
     navigate(path);
-    setMenuOpen(false); // cerrar menú hamburguesa al hacer clic
+    setMenuOpen(false);
+  };
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    document.body.classList.toggle("dark-mode", newMode);
+    localStorage.setItem("darkMode", newMode);
+    setMenuOpen(false); // ¡Esto era lo que faltaba!
   };
 
   return (
@@ -46,7 +49,6 @@ const Navbar = () => {
           alt="Logo DronFarm"
           className="logo-navbar"
           onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
         />
 
         <div className="navbar-right">
@@ -56,11 +58,15 @@ const Navbar = () => {
               <span></span>
               <span></span>
             </div>
+
             <div className={`dropdown-menu ${menuOpen ? "show" : ""}`}>
               <a onClick={() => goTo("/")}>Inicio</a>
               <a onClick={() => goTo("/servicios")}>Servicios</a>
               <a onClick={() => goTo("/nosotros")}>Nosotros</a>
               <a onClick={() => goTo("/contacto")}>Contacto</a>
+              <a onClick={toggleDarkMode} className="dark-toggle-link">
+                {isDarkMode ? "Modo claro ☀️" : "Modo oscuro 🌙"}
+              </a>
             </div>
           </div>
 

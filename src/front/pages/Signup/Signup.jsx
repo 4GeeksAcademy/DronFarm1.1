@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../../components/modal_alerts/modal_alerts";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
-import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import "./Signup.css";
 import { Link } from "react-router-dom";
 
@@ -71,7 +70,6 @@ const Signup = () => {
 
   return (
     <div className={`landing-container signup-container fade-in ${isDarkMode ? "dark-mode" : ""}`}>
-      <DarkModeToggle />
       <div className="login-card">
         <h2 className="login-title">Registro</h2>
         <form className="login-form" onSubmit={handleSubmit}>
