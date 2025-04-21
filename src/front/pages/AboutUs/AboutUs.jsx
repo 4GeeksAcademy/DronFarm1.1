@@ -1,12 +1,10 @@
 import React from 'react';
 import './AboutUs.css';
 import { motion } from 'framer-motion';
-import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle';
 
 const AboutUs = () => {
   return (
     <div className="landing-container fade-in">
-      <DarkModeToggle />
 
       <div className="aboutus-container">
         {/* HERO PRINCIPAL */}

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Contact.css';
 import { motion } from 'framer-motion';
-import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -39,7 +38,6 @@ const Contact = () => {
 
   return (
     <div className="landing-container fade-in">
-      <DarkModeToggle />
 
       <div className="contacto-container">
         {/* HERO */}

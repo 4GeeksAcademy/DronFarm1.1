@@ -1,18 +1,16 @@
 import React from "react";
 import "./Landing.css";
-import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import mavicImage from "../../assets/img/Mavic 3 volando.png";
 
 const Landing = () => {
   return (
     <div className="landing-container fade-in">
-      <DarkModeToggle />
 
       <div className="cards-container">
         <div className="card card-main">
           <h1>Plataforma integral de monitoreo agrícola</h1>
           <h2>Decisiones inteligentes con datos reales</h2>
-          
+
           {/* Contenedor para la imagen (antes estaba en card-terms) */}
           <div className="main-image-container">
             <img src={mavicImage} alt="Drone Mavic 3 volando" />
