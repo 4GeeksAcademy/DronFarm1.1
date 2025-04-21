@@ -4,14 +4,11 @@ import axios from 'axios';
 import './Dash_user.css';
 import MapboxParcel from '../../components/MapboxParcel/MapboxParcel';
 import WeatherForecast from '../../components/WeatherForecast/WeatherForecast';
-import Report from '../../components/Reports/Reports'; // o ajusta la ruta según tu estructura
-import { useGlobalReducer } from "../../hooks/useGlobalReducer";
-import FieldSelectorModal from "../../components/FieldSelectorModal/FieldSelectorModal";
-import bgImage from '../../assets/img/DJI-Mavic-3-Multispectral-from-above-scaled.jpg';
 import ReportModal from "../../components/ReportModal/ReportModal";
 import FieldManagerModal from "../../components/FieldManagerModal/FieldManagerModal";
-
-
+import FieldSelectorModal from "../../components/FieldSelectorModal/FieldSelectorModal";
+import { useGlobalReducer } from "../../hooks/useGlobalReducer";
+import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle'; // 💡 Importamos el botón
 
 const Dash_user = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -63,7 +60,7 @@ const Dash_user = () => {
                 if (matchingField) {
                     setSelectedField(matchingField);
                     dispatch({ type: "SET_SELECTED_FIELD", payload: matchingField });
-                    setInitialSelectionDone(true); // ✅ no mostramos modal
+                    setInitialSelectionDone(true);
                 } else {
                     setSelectedField(userFields[0]);
                 }
@@ -88,10 +85,8 @@ const Dash_user = () => {
         };
 
         fetchData();
-    }, []);
+    }, [dispatch, store.auth.token, store.auth.userId]);
 
-
-    // clima en funcion del cultivo
     useEffect(() => {
         const fetchWeatherForField = async () => {
             if (!selectedField) return;
@@ -133,24 +128,6 @@ const Dash_user = () => {
         fetchWeatherForField();
     }, [selectedField]);
 
-
-    const pointsClave = selectedField ? [
-        {
-            lat: parseFloat(selectedField.coordinates.split(',')[0]) + 0.0003,
-            lon: parseFloat(selectedField.coordinates.split(',')[1]) + 0.0002,
-            name: "Sensor 1",
-            description: "Humedad: 68%",
-            color: "blue"
-        },
-        {
-            lat: parseFloat(selectedField.coordinates.split(',')[0]) - 0.0004,
-            lon: parseFloat(selectedField.coordinates.split(',')[1]) - 0.0001,
-            name: "Punto de riego",
-            description: "Activo",
-            color: "green"
-        }
-    ] : [];
-
     const handleDeleteReport = async (reportId) => {
         const confirm = window.confirm("¿Estás seguro de que quieres eliminar este informe?");
         if (!confirm) return;
@@ -158,11 +135,9 @@ const Dash_user = () => {
         try {
             await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/report_routes/delete/${reportId}`, {
                 headers: {
-                    Authorization: `Bearer ${store.auth.token}` // 👈 usamos el token desde el store
+                    Authorization: `Bearer ${store.auth.token}`
                 }
             });
-
-            // actualizar la lista
             setReports(prev => prev.filter(r => r.id !== reportId));
         } catch (err) {
             console.error("Error al eliminar informe:", err);
@@ -174,124 +149,13 @@ const Dash_user = () => {
         (report) => report.field_id === selectedField?.id
     );
 
-    // ✅ Eliminar tierra
-    const handleDeleteField = async (fieldId) => {
-        const confirm = window.confirm("¿Seguro que quieres eliminar esta tierra?");
-        if (!confirm) return;
-
-        try {
-            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/fields/fields/${fieldId}`, {
-                headers: {
-                    Authorization: `Bearer ${store.auth.token}`
-                }
-            });
-
-            // Filtrar la eliminada
-            setFieldsList(prev => prev.filter(f => f.id !== fieldId));
-
-            // Si la eliminada era la seleccionada, cambiarla
-            if (selectedField?.id === fieldId) {
-                const newSelected = fieldsList.find(f => f.id !== fieldId);
-                setSelectedField(newSelected || null);
-            }
-
-        } catch (err) {
-            console.error("Error al eliminar la tierra:", err);
-            alert("No se pudo eliminar la tierra.");
-        }
-    };
-
-    // ✅ Editar/Actualizar tierra
-    const handleUpdateField = async (updatedField) => {
-        try {
-            const response = await axios.put(
-                `${import.meta.env.VITE_BACKEND_URL}/fields/fields/${updatedField.id}`,
-                updatedField,
-                {
-                    headers: {
-                        Authorization: `Bearer ${store.auth.token}`, // Asegúrate de enviar el token
-                    }
-                }
-            );
-
-            // Después de la actualización exitosa, actualizamos el estado del campo
-            const updatedFieldData = response.data;
-
-            // Actualizamos las coordenadas y la información del campo en el estado
-            setSelectedField(updatedFieldData);
-
-            // Aquí actualizamos las coordenadas si se modificaron (mapa)
-            const [lat, lon] = updatedFieldData.coordinates.split(',').map(coord => parseFloat(coord.trim()));
-
-            // Actualizar el mapa con las nuevas coordenadas
-            setDrawInfo({
-                ...drawInfo,
-                latitude: lat,
-                longitude: lon
-            });
-
-            alert('La tierra ha sido actualizada correctamente');
-        } catch (error) {
-            console.error('Error al actualizar la parcela:', error);
-            alert('Hubo un problema al actualizar la tierra.');
-        }
-    };
-
-
-
-    const handleSendEmail = async () => {
-        if (!userData?.email || !selectedField) return;
-
-        const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-        const userEmail = userData.email;
-        const frequency = "Mensual";
-        const pricePerHectare = 30;
-        const services = ["fotogrametria"];
-        const total = (selectedField.area * pricePerHectare).toFixed(2);
-        const validUntil = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
-
-        const htmlBody = `
-          <div style="font-family: Arial, sans-serif; color: #333; font-size: 14px;">
-            <h2 style="color: #198754;">¡Hola ${userData?.name}!</h2>
-            <p>Gracias por confiar en <strong>DroneFarm</strong>.</p>
-            <p>Adjunto encontrarás el presupuesto generado para tu parcela <strong>${selectedField?.name}</strong>.</p>
-            <p><strong>Total estimado:</strong> ${total} €</p>
-            <p><strong>Válido hasta:</strong> ${new Date(validUntil).toLocaleDateString('es-ES')}</p>
-            <p style="margin-top: 20px;">Quedamos atentos para cualquier duda o ajuste.</p>
-            <p>Un saludo,<br/>Equipo DroneFarm 🚀</p>
-          </div>
-        `;
-
-        const payload = {
-            email: userEmail,
-            quoteDataHtml: htmlBody,
-            user: userData.name,
-            field: selectedField.name,
-            cropType: selectedField.crop,
-            hectares: selectedField.area,
-            services: services.join(", "),
-            frequency,
-            pricePerHectare,
-            total,
-            validUntil
-        };
-
-        try {
-            await axios.post(`${BACKEND_URL}/quote/enviar-presupuesto`, payload);
-            console.log("✅ Correo con PDF enviado desde Dashboard");
-        } catch (error) {
-            console.error("❌ Error al enviar el correo:", error);
-        }
-    };
-
-
-
     if (error) return <div className="error-message">{error}</div>;
-
 
     return (
         <>
-            {(!initialSelectionDone && fieldsList.length > 1) && (
+            <DarkModeToggle /> {/* 🌙 Botón modo oscuro */}
+
+            {!initialSelectionDone && fieldsList.length > 1 && (
                 <FieldSelectorModal
                     fields={fieldsList}
                     setSelected={(field) => {
@@ -305,41 +169,17 @@ const Dash_user = () => {
                 />
             )}
 
-            <div
-                className="dashboard-container"
-                style={{
-                    position: 'relative',
-                    backgroundImage: `url(${bgImage})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundAttachment: 'fixed',
-                    backgroundRepeat: 'no-repeat',
-                    overflow: 'hidden',
-                }}
-            >
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.45)',
-                        backdropFilter: 'blur(3px)',
-                        zIndex: 0,
-                    }}
-                ></div>
-
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div className="top-section two-column-layout">
-                        <div className="left-panel">
+            <div className="dashboard-container">
+                <div className="dashboard-content">
+                    <div className="left-panel">
+                        <div className="card card-main map-container-wrapper">
                             <div className="map-container">
                                 {selectedField && selectedField.coordinates ? (() => {
                                     const [lat, lon] = selectedField.coordinates.split(',').map(coord => parseFloat(coord.trim()));
                                     return (
                                         <MapboxParcel
-                                            latitude={drawInfo?.latitude || lat} // Aseguramos que drawInfo se pase si existe
-                                            longitude={drawInfo?.longitude || lon} // Aseguramos que drawInfo se pase si existe
+                                            latitude={drawInfo?.latitude || lat}
+                                            longitude={drawInfo?.longitude || lon}
                                             fields={fieldsList}
                                             onFieldClick={(field) => {
                                                 setSelectedField(field);
@@ -355,95 +195,82 @@ const Dash_user = () => {
                                     <div className="map-placeholder">Cargando mapa...</div>
                                 )}
                             </div>
-
-                            <div className="weather-horizontal-section">
-                                <WeatherForecast daily={forecast} loading={loading.weather} />
-                            </div>
                         </div>
 
-                        <div className="info-panel">
-                            {userData && selectedField && (
-                                <>
-                                    <div className="user-info">
-                                        <h2>{userData.name?.toUpperCase()}</h2>
-                                        {fieldsList.length > 1 && (
-                                            <button
-                                                className="change-field-button"
-                                                onClick={() => setInitialSelectionDone(false)}
-                                            >
-                                                🔄 Cambiar de cultivo
-                                            </button>
-                                        )}
-                                        <p>{selectedField.street}, {selectedField.number}</p>
-                                        <p>{selectedField.city}</p>
-                                        <p><strong>{selectedField.area} Ha</strong></p>
+                        <div className="card card-main weather-container-wrapper">
+                            <WeatherForecast daily={forecast} loading={loading.weather} />
+                        </div>
+                    </div>
 
-                                        {drawInfo && (
-                                            <div className="area-box">
-                                                Área del polígono: {drawInfo.area} ha
-                                            </div>
-                                        )}
+                    <div className="info-panel card card-support">
+                        {userData && selectedField && (
+                            <>
+                                <div className="user-info">
+                                    <h2>{userData.name?.toUpperCase()}</h2>
+                                    <p>{selectedField.street}, {selectedField.number}</p>
+                                    <p>{selectedField.city}</p>
+                                    <p><strong>{selectedField.area} Ha</strong></p>
+                                    {drawInfo && (
+                                        <div className="area-box">
+                                            Área del polígono: {drawInfo.area} ha
+                                        </div>
+                                    )}
+                                    <p>{selectedField.crop.toUpperCase()}</p>
+                                </div>
 
-                                        <p>{selectedField.crop.toUpperCase()}</p>
-                                    </div>
-
-                                    <div className="reports-section">
-                                        <h4>Mis Informes</h4>
-                                        {loading.reports ? (
-                                            <p className="loading-msg">🔄 Actualizando informes...</p>
-                                        ) : (
-                                            <p>{filteredReports.length} informes disponibles</p>
-                                        )}
-                                        <button
-                                            className="request-report-button"
-                                            onClick={() => setReportModalOpen(true)}
-                                        >
-                                            📂 VER TODOS LOS INFORMES
-                                        </button>
-                                    </div>
-
+                                <div className="reports-section">
+                                    <h4>Mis Informes</h4>
+                                    {loading.reports ? (
+                                        <p className="loading-msg">🔄 Actualizando informes...</p>
+                                    ) : (
+                                        <p>{filteredReports.length} informes disponibles</p>
+                                    )}
                                     <button
                                         className="request-report-button"
-                                        onClick={async () => {
-                                            await handleSendEmail();
-                                            navigate("/app/quote");
-                                        }}
+                                        onClick={() => setReportModalOpen(true)}
                                     >
-                                        SOLICITAR PRESUPUESTO
+                                        📂 VER TODOS LOS INFORMES
                                     </button>
+                                </div>
 
-                                    <button
-                                        className="add-field-button"
-                                        onClick={() => navigate("/app/plot_form")}
-                                    >
-                                        ➕ AÑADIR NUEVO CULTIVO
-                                    </button>
-                                    <button onClick={() => setFieldModalOpen(true)} className="request-report-button">
-                                        🛠️ GESTIONAR TIERRAS
-                                    </button>
+                                <button
+                                    className="request-report-button"
+                                    onClick={() => navigate("/app/quote")}
+                                >
+                                    SOLICITAR PRESUPUESTO
+                                </button>
 
-                                    {isFieldModalOpen && (
-                                        <FieldManagerModal
-                                            fields={fieldsList}
-                                            onClose={() => setFieldModalOpen(false)}
-                                            onDelete={handleDeleteField}
-                                            onUpdate={handleUpdateField}
-                                        />
-                                    )}
-                                </>
-                            )}
-                        </div>
+                                <button
+                                    className="add-field-button"
+                                    onClick={() => navigate("/app/plot_form")}
+                                >
+                                    ➕ AÑADIR NUEVO CULTIVO
+                                </button>
+                                <button
+                                    onClick={() => setFieldModalOpen(true)}
+                                    className="request-report-button"
+                                >
+                                    🛠️ GESTIONAR TIERRAS
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Modal de informes */}
             <ReportModal
                 isOpen={isReportModalOpen}
                 onClose={() => setReportModalOpen(false)}
                 reports={filteredReports}
                 onDelete={handleDeleteReport}
             />
+
+            {isFieldModalOpen && (
+                <FieldManagerModal
+                    fields={fieldsList}
+                    onClose={() => setFieldModalOpen(false)}
+                />
+            )}
         </>
     );
 };
