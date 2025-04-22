@@ -133,7 +133,6 @@ const DashboardAdmin = () => {
           }}
         />
       </div>
-      <Footer />
     </div>
   );
 };
