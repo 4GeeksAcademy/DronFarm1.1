@@ -4,6 +4,7 @@ import "./Dash_admin.css";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
 import Report from "../../components/Reports/Reports";
 import UserFormModal from "../../components/UserFormModal/UserFormModal";
+import Footer from "../../components/Footer/Footer"; // Asegúrate de ajustar la ruta
 
 const DashboardAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -66,72 +67,72 @@ const DashboardAdmin = () => {
       u.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-
   return (
-    <div className="dashboard-admin-container">
-      <h2 className="dashboard-title">Dashboard Admin</h2>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Buscar usuario..."
-          className="search-input"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button className="create-user-button" onClick={() => setCreateModalOpen(true)}>➕ Crear Usuario</button>
-      </div>
+    <div className="page-background">
+      <div className="dashboard-admin-container">
+        <h2 className="dashboard-title">Dashboard Admin</h2>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Buscar usuario..."
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button className="create-user-button" onClick={() => setCreateModalOpen(true)}>➕ Crear Usuario</button>
+        </div>
 
-      <div className="user-cards-grid">
-        {filteredUsers.map((user) => (
-          <div key={user.id} className="user-card">
-            <h4>{user.name} {user.lastname}</h4>
-            <p>{user.email}</p>
-            <p><strong>DNI:</strong> {user.dni}</p>
+        <div className="user-cards-grid">
+          {filteredUsers.map((user) => (
+            <div key={user.id} className="user-card">
+              <h4>{user.name} {user.lastname}</h4>
+              <p>{user.email}</p>
+              <p><strong>DNI:</strong> {user.dni}</p>
 
-            <div className="card-actions">
-              <button onClick={() => handleUserClick(user)}>📁 Subir Informe</button>
-              <button onClick={() => { setEditingUser(user); setEditModalOpen(true); }} className="edit-btn">✏️ Editar</button>
-              <button onClick={() => handleDeleteUser(user.id)} className="delete-btn">🗑️ Eliminar</button>
+              <div className="card-actions">
+                <button onClick={() => handleUserClick(user)}>📁 Subir Informe</button>
+                <button onClick={() => { setEditingUser(user); setEditModalOpen(true); }} className="edit-btn">✏️ Editar</button>
+                <button onClick={() => handleDeleteUser(user.id)} className="delete-btn">🗑️ Eliminar</button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {reportModalOpen && selectedUser && (
+          <div className="modal-overlay" onClick={() => setReportModalOpen(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <Report
+                userId={selectedUser.id}
+                fields={userFields}
+                onClose={() => setReportModalOpen(false)}
+                onUploaded={() => setReportModalOpen(false)}
+              />
             </div>
           </div>
-        ))}
+        )}
+
+        <UserFormModal
+          isOpen={editModalOpen || createModalOpen}
+          onClose={() => {
+            setEditModalOpen(false);
+            setCreateModalOpen(false);
+            setEditingUser(null);
+          }}
+          userToEdit={editingUser}
+          onSave={(newOrUpdatedUser) => {
+            setUsers((prevUsers) => {
+              const exists = prevUsers.find((u) => u.id === newOrUpdatedUser.id);
+              if (exists) {
+                return prevUsers.map((u) =>
+                  u.id === newOrUpdatedUser.id ? newOrUpdatedUser : u
+                );
+              } else {
+                return [...prevUsers, newOrUpdatedUser];
+              }
+            });
+          }}
+        />
       </div>
-
-      {reportModalOpen && selectedUser && (
-        <div className="modal-overlay" onClick={() => setReportModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <Report
-              userId={selectedUser.id}
-              fields={userFields}
-              onClose={() => setReportModalOpen(false)}
-              onUploaded={() => setReportModalOpen(false)}
-            />
-          </div>
-        </div>
-      )}
-
-      <UserFormModal
-        isOpen={editModalOpen || createModalOpen}
-        onClose={() => {
-          setEditModalOpen(false);
-          setCreateModalOpen(false);
-          setEditingUser(null);
-        }}
-        userToEdit={editingUser}
-        onSave={(newOrUpdatedUser) => {
-          setUsers((prevUsers) => {
-            const exists = prevUsers.find((u) => u.id === newOrUpdatedUser.id);
-            if (exists) {
-              return prevUsers.map((u) =>
-                u.id === newOrUpdatedUser.id ? newOrUpdatedUser : u
-              );
-            } else {
-              return [...prevUsers, newOrUpdatedUser];
-            }
-          });
-        }}
-      />
-
     </div>
   );
 };

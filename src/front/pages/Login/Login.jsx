@@ -107,12 +107,11 @@ export const Login = () => {
           />
           <button className="login-btn-submit" type="submit">Ingresar</button>
         </form>
-        <p className="login-footer">
-          ¿No tienes cuenta? <a href="/signup">Regístrate aquí</a>
-        </p>
-        <p className="login-footer">
-          ¿Olvidaste tu contraseña? <a href="/forgot-password">Recuperar acceso</a>
-        </p>
+        <div className="login-footer">
+          <p>¿No tienes cuenta? <a href="/signup">Regístrate aquí</a></p>
+          <p>¿Olvidaste tu contraseña? <a href="/forgot-password">Recuperar acceso</a></p>
+        </div>
+
       </div>
     </div>
   );
