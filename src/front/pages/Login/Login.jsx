@@ -33,6 +33,7 @@ export const Login = () => {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include', // Añadido para solucionar CORS
         body: JSON.stringify(form),
       });
 
@@ -55,7 +56,8 @@ export const Login = () => {
 
         if (Number(rolId) === 2) {
           const fieldRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/fields/user/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
+            credentials: 'include', // Añadido para solucionar CORS
           });
 
           const userFields = await fieldRes.json();
