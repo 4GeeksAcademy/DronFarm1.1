@@ -83,7 +83,6 @@ const Navbar = () => {
               <a onClick={() => goTo("/servicios")}>Servicios</a>
               <a onClick={() => goTo("/nosotros")}>Nosotros</a>
               <a onClick={() => goTo("/contacto")}>Contacto</a>
-              {isLoggedIn && <a onClick={() => goTo("/dash_user")}>Mi Panel</a>}
               <a onClick={toggleDarkMode} className="dark-toggle-link">
                 {isDarkMode ? "Modo claro ☀️" : "Modo oscuro 🌙"}
               </a>
@@ -92,9 +91,14 @@ const Navbar = () => {
 
           <div className="nav-buttons">
             {isLoggedIn ? (
-              <button className="logout-btn" onClick={handleLogout}>
-                Cerrar sesión
-              </button>
+              <>
+                <button className="panel-btn" onClick={() => goTo("/app/dashboard")}>
+                  Mi Panel
+                </button>
+                <button className="logout-btn" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
+              </>
             ) : (
               <>
                 <button className="login-btn" onClick={() => goTo("/login")}>
