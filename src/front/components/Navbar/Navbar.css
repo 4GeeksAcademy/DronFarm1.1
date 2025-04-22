@@ -47,6 +47,8 @@
 
 .login-btn,
 .signup-btn,
+.logout-btn,
+.panel-btn,
 .logout-btn {
   padding: 8px 20px;
   font-size: 16px;
@@ -58,6 +60,7 @@
   border: none;
   transition: 0.3s;
 }
+
 
 .login-btn {
   background-color: rgba(56, 60, 170, 0.856);
@@ -76,6 +79,22 @@
 
 .login-btn:hover,
 .signup-btn:hover,
+.logout-btn:hover,
+.panel-btn:hover {
+  transform: scale(1.05);
+}
+
+.panel-btn {
+  background-color: #198754;
+  color: white;
+}
+
+.panel-btn:hover {
+  background-color: #146c43;
+}
+
+
+.signup-btn:hover,
 .logout-btn:hover {
   transform: scale(1.05);
 }
@@ -87,6 +106,8 @@
 .logout-btn:hover {
   background-color: #b02a37;
 }
+
+
 
 /* === MODO OSCURO === */
 .dark-mode .login-btn {

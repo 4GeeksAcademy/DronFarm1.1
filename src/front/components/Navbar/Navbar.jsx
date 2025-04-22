@@ -13,12 +13,14 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // Detectar scroll
+  // Detectar scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Detectar modo oscuro en body
   // Detectar modo oscuro en body
   useEffect(() => {
     const root = document.body;
@@ -28,6 +30,14 @@ const Navbar = () => {
     setIsDarkMode(root.classList.contains("dark-mode"));
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
+  }, []);
+
+  // Detectar si hay token válido en localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const isValid =
+      token && token !== "undefined" && token !== "null" && token.trim().length > 10;
+    setIsLoggedIn(isValid);
   }, []);
 
   // Detectar si hay token válido en localStorage
@@ -58,6 +68,7 @@ const Navbar = () => {
     localStorage.removeItem("user_id");
     setIsLoggedIn(false);
     navigate("/");
+    setMenuOpen(false);
   };
 
   return (
@@ -91,9 +102,14 @@ const Navbar = () => {
 
           <div className="nav-buttons">
             {isLoggedIn ? (
-              <button className="logout-btn" onClick={handleLogout}>
-                Cerrar sesión
-              </button>
+              <>
+                <button className="panel-btn" onClick={() => goTo("/app/dashboard")}>
+                  Mi Panel
+                </button>
+                <button className="logout-btn" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
+              </>
             ) : (
               <>
                 <button className="login-btn" onClick={() => goTo("/login")}>
