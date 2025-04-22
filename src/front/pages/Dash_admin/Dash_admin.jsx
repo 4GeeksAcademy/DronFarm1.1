@@ -5,6 +5,7 @@ import { useGlobalReducer } from "../../hooks/useGlobalReducer";
 import Report from "../../components/Reports/Reports";
 import UserFormModal from "../../components/UserFormModal/UserFormModal";
 import Footer from "../../components/Footer/Footer"; // Asegúrate de ajustar la ruta
+import { showConfirmationAlert, showErrorAlert } from "../../components/modal_alerts/modal_alerts";
 
 const DashboardAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -49,16 +50,22 @@ const DashboardAdmin = () => {
     }
   };
 
-  const handleDeleteUser = async (userId) => {
-    if (!window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) return;
-    try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/users?id=${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setUsers((prev) => prev.filter((u) => u.id !== userId));
-    } catch (err) {
-      console.error("Error deleting user:", err);
-    }
+  const handleDeleteUser = (userId) => {
+    showConfirmationAlert(
+      "¿Eliminar usuario?",
+      "¿Estás seguro de que quieres eliminar este usuario?",
+      async () => {
+        try {
+          await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/users?id=${userId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          setUsers((prev) => prev.filter((u) => u.id !== userId));
+        } catch (err) {
+          console.error("Error al eliminar el usuario:", err);
+          showErrorAlert("No se pudo eliminar el usuario.");
+        }
+      }
+    );
   };
 
   const filteredUsers = users
