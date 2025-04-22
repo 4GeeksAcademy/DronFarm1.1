@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/img/Logo_DronFarm_Iconocolor_sinmarco.png";
 import logoDark from "../../assets/img/Logo_DronFarm_IconoBlanco_sinmarco.png";
+import { showSuccessAlert } from '../../components/modal_alerts/modal_alerts';
+
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -71,6 +73,40 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
+  const handleGoToPanel = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("user_id");
+
+      if (!token || !userId) {
+        navigate("/login");
+        return;
+      }
+
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/fields/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: 'include',
+      });
+
+      const fields = await response.json();
+
+      if (Array.isArray(fields) && fields.length > 0) {
+        navigate("/app/dashboard");
+      } else {
+        showSuccessAlert("¡Bienvenido! Aún no has registrado tu primer cultivo 🌱", () => {
+          navigate("/app/plot_form");
+        });
+      }
+
+      setMenuOpen(false);
+    } catch (error) {
+      console.error("Error al verificar campos del usuario:", error);
+      navigate("/login"); // Fallback
+    }
+  };
+
+
+
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-content">
@@ -103,7 +139,7 @@ const Navbar = () => {
           <div className="nav-buttons">
             {isLoggedIn ? (
               <>
-                <button className="panel-btn" onClick={() => goTo("/app/dashboard")}>
+                <button className="panel-btn" onClick={handleGoToPanel}>
                   Mi Panel
                 </button>
                 <button className="logout-btn" onClick={handleLogout}>
