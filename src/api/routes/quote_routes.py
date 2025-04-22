@@ -81,7 +81,7 @@ def enviar_presupuesto():
             data.get("validUntil"), "%Y-%m-%d").strftime("%d/%m/%Y")
 
         # ✅ Convertir el logo en base64
-        logo_path = "/workspaces/DronFarm1.1/src/front/assets/img/Logo_DronFarm1.png"
+        logo_path = "/workspaces/DronFarm1.1/src/static/img/Logo_DronFarm_Oficial_sinmarco.png"
         with open(logo_path, "rb") as logo_file:
             logo_base64 = base64.b64encode(logo_file.read()).decode("utf-8")
 
@@ -270,7 +270,7 @@ def descargar_presupuesto_pdf():
             data.get("valid_until"), "%Y-%m-%d").strftime("%d/%m/%Y")
 
         # Convertir logo a base64
-        logo_path = "/workspaces/DronFarm1.1/src/front/assets/img/Logo_DronFarm1.png"
+        logo_path = "/workspaces/DronFarm1.1/src/static/img/Logo_DronFarm_Oficial_sinmarco.png"
         with open(logo_path, "rb") as logo_file:
             logo_base64 = base64.b64encode(logo_file.read()).decode("utf-8")
 
