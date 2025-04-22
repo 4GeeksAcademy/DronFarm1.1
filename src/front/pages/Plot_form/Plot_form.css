@@ -253,3 +253,19 @@ select.form-input {
   gap: 0.4rem;
   opacity: 0.85;
 }
+
+.cancel-button {
+  background-color: transparent;
+  border: 2px solid #fbbf24;
+  color: #fbbf24;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: #fbbf24;
+  color: #1f2937;
+}

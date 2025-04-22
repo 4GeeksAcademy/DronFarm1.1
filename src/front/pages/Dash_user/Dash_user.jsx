@@ -27,6 +27,8 @@ const Dash_user = () => {
     const [drawInfo, setDrawInfo] = useState(null);
     const [isReportModalOpen, setReportModalOpen] = useState(false);
     const [isFieldModalOpen, setFieldModalOpen] = useState(false);
+    const isDarkMode = localStorage.getItem("darkMode") === "true";
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -267,8 +269,18 @@ const Dash_user = () => {
                 <FieldManagerModal
                     fields={fieldsList}
                     onClose={() => setFieldModalOpen(false)}
+                    isDarkMode={isDarkMode}
+                    onFieldDeleted={(deletedId) => {
+                        setFieldsList((prev) => prev.filter((f) => f.id !== deletedId));
+                        if (selectedField?.id === deletedId) {
+                            setSelectedField(null);
+                            localStorage.removeItem("selectedFieldId");
+                        }
+                    }}
                 />
+
             )}
+
         </>
     );
 };

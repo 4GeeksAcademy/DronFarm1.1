@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./Plot_form.css";
-import { showSuccessAlert, showErrorAlert } from "../../components/modal_alerts/modal_alerts";
+import {
+  showSuccessAlert,
+  showErrorAlert,
+  showConfirmationAlert
+} from "../../components/modal_alerts/modal_alerts";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
 import MapPicker from "../../components/MapPicker/MapPicker";
 import debounce from "lodash.debounce";
+import Swal from 'sweetalert2';
+
 
 const CROP_OPTIONS = {
   "Cereales y Cultivos Extensivos": ["Trigo", "Cebada", "Avena", "Maíz", "Arroz", "Girasol", "Algodón"],
@@ -21,17 +28,37 @@ const PlotForm = () => {
   const { store } = useGlobalReducer();
   const navigate = useNavigate();
   const [showTooltip, setShowTooltip] = useState(true);
+  const location = useLocation();
+  const plotToEdit = location?.state?.plotToEdit || null;
 
-  const [plotData, setPlotData] = useState({
-    name: "",
-    area: "",
-    cropType: "",
-    street: "",
-    number: "",
-    postalCode: "",
-    city: "",
-    coordinates: ""
+
+
+  const [plotData, setPlotData] = useState(() => {
+    if (plotToEdit) {
+      return {
+        name: plotToEdit.name || "",
+        area: plotToEdit.area || "",
+        cropType: plotToEdit.crop || "",
+        street: plotToEdit.street || "",
+        number: plotToEdit.number || "",
+        postalCode: plotToEdit.postal_code || "",
+        city: plotToEdit.city || "",
+        coordinates: plotToEdit.coordinates || ""
+      };
+    }
+
+    return {
+      name: "",
+      area: "",
+      cropType: "",
+      street: "",
+      number: "",
+      postalCode: "",
+      city: "",
+      coordinates: ""
+    };
   });
+
 
   const [error, setError] = useState(null);
 
@@ -103,11 +130,18 @@ const PlotForm = () => {
 
     try {
       const token = store.auth.token;
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/fields/fields`, {
-        method: "POST",
+
+      const url = plotToEdit
+        ? `${import.meta.env.VITE_BACKEND_URL}/fields/fields/${plotToEdit.id}`
+        : `${import.meta.env.VITE_BACKEND_URL}/fields/fields`;
+
+      const method = plotToEdit ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           name: plotData.name,
@@ -117,22 +151,68 @@ const PlotForm = () => {
           number: plotData.number,
           postal_code: plotData.postalCode,
           city: plotData.city,
-          coordinates: plotData.coordinates || ""
-        })
+          coordinates: plotData.coordinates || "",
+        }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        showSuccessAlert("Parcela registrada correctamente", () => navigate("/app/dashboard"));
+        const successMsg = plotToEdit
+          ? "Parcela actualizada correctamente"
+          : "Parcela registrada correctamente";
+
+        if (plotToEdit) {
+          showSuccessAlert(successMsg, () => navigate("/app/dashboard"));
+        } else {
+          // Mostrar éxito sin botón
+          await Swal.fire({
+            title: "¡Éxito!",
+            text: successMsg,
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+            background: "#f8f9fa",
+          });
+
+          // Luego preguntar
+          Swal.fire({
+            title: "¿Desea registrar otra parcela?",
+            text: "Puede registrar múltiples parcelas de forma consecutiva.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Sí, registrar otra",
+            cancelButtonText: "No, volver al dashboard",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#aaa",
+            background: "#f8f9fa",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              setPlotData({
+                name: "",
+                area: "",
+                cropType: "",
+                street: "",
+                number: "",
+                postalCode: "",
+                city: "",
+                coordinates: "",
+              });
+              setShowTooltip(true);
+            } else {
+              navigate("/app/dashboard");
+            }
+          });
+        }
       } else {
-        showErrorAlert(data.error || "Error al registrar la parcela");
+        showErrorAlert(data.error || "Error al guardar la parcela");
       }
     } catch (err) {
       setError("Error de conexión con el servidor");
       console.error(err);
     }
   };
+
 
   const handleAddAnother = async () => {
     setError(null);
@@ -201,7 +281,10 @@ const PlotForm = () => {
   return (
     <div className="plot-form-container">
       <div className="plot-form-card">
-        <h2 className="plot-form-title">Registro de Nueva Parcela</h2>
+        <h2 className="plot-form-title">
+          {plotToEdit ? "Editar Parcela" : "Registro de Nueva Parcela"}
+        </h2>
+
 
         <form onSubmit={handleSubmit} className="plot-form">
           <div className="form-section">
@@ -361,16 +444,18 @@ const PlotForm = () => {
 
           <div className="button-row">
             <button type="submit" className="submit-button">
-              Registrar Parcela
+              {plotToEdit ? "Guardar Cambios" : "Registrar Parcela"}
             </button>
 
-            <button
-              type="button"
-              onClick={handleAddAnother}
-              className="submit-button"
-            >
-              Añadir otro cultivo
-            </button>
+            {plotToEdit && (
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={() => navigate("/app/dashboard")}
+              >
+                Cancelar Edición
+              </button>
+            )}
           </div>
 
           {error && <p className="error-message">{error}</p>}
