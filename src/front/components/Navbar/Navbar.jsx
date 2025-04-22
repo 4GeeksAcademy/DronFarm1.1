@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/img/Logo_DronFarm_Iconocolor_sinmarco.png";
 import logoDark from "../../assets/img/Logo_DronFarm_IconoBlanco_sinmarco.png";
 import { showSuccessAlert } from '../../components/modal_alerts/modal_alerts';
-
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -14,7 +13,9 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  // Detectar scroll
+  const menuRef = useRef(null);
+  const hamburgerRef = useRef(null);
+
   // Detectar scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -22,8 +23,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Detectar modo oscuro en body
-  // Detectar modo oscuro en body
+  // Detectar modo oscuro
   useEffect(() => {
     const root = document.body;
     const observer = new MutationObserver(() => {
@@ -34,7 +34,7 @@ const Navbar = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Detectar si hay token válido en localStorage
+  // Detectar si hay token válido
   useEffect(() => {
     const token = localStorage.getItem("token");
     const isValid =
@@ -42,13 +42,17 @@ const Navbar = () => {
     setIsLoggedIn(isValid);
   }, []);
 
-  // Detectar si hay token válido en localStorage
+  // Cerrar el menú si se hace clic fuera de la hamburguesa o el menú
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const isValid =
-      token && token !== "undefined" && token !== "null" && token.trim().length > 10;
-    setIsLoggedIn(isValid);
-  }, []);
+    const handleClickOutside = (e) => {
+      if (menuOpen && !menuRef.current.contains(e.target) && !hamburgerRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -105,8 +109,6 @@ const Navbar = () => {
     }
   };
 
-
-
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-content">
@@ -118,14 +120,14 @@ const Navbar = () => {
         />
 
         <div className="navbar-right">
-          <div className={`hamburger-menu-container ${menuOpen ? "active" : ""}`}>
+          <div className={`hamburger-menu-container ${menuOpen ? "active" : ""}`} ref={hamburgerRef}>
             <div className="hamburger-icon" onClick={toggleMenu}>
               <span></span>
               <span></span>
               <span></span>
             </div>
 
-            <div className={`dropdown-menu ${menuOpen ? "show" : ""}`}>
+            <div className={`dropdown-menu ${menuOpen ? "show" : ""}`} ref={menuRef}>
               <a onClick={() => goTo("/")}>Inicio</a>
               <a onClick={() => goTo("/servicios")}>Servicios</a>
               <a onClick={() => goTo("/nosotros")}>Nosotros</a>

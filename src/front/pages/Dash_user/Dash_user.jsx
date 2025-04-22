@@ -233,7 +233,14 @@ const Dash_user = () => {
                         <div className="card card-main map-container-wrapper">
                             <div className="map-container">
                                 {selectedField && selectedField.coordinates ? (() => {
-                                    const [lat, lon] = selectedField.coordinates.split(',').map(coord => parseFloat(coord.trim()));
+                                    const coords = selectedField.coordinates.split(',');
+                                    const lat = parseFloat(coords[0]?.trim());
+                                    const lon = parseFloat(coords[1]?.trim());
+
+                                    if (isNaN(lat) || isNaN(lon)) {
+                                        return <div className="map-placeholder">📍 Coordenadas inválidas</div>;
+                                    }
+
                                     return (
                                         <MapboxParcel
                                             latitude={drawInfo?.latitude || lat}
@@ -265,6 +272,13 @@ const Dash_user = () => {
                             <>
                                 <div className="user-info">
                                     <h2>{userData.name?.toUpperCase()}</h2>
+                                    <button
+                                        className="change-field-button"
+                                        onClick={() => setInitialSelectionDone(false)}
+                                    >
+                                        Cambiar parcela
+                                    </button>
+
                                     <p>{selectedField.street}, {selectedField.number}</p>
                                     <p>{selectedField.city}</p>
                                     <p><strong>{selectedField.area} Ha</strong></p>
