@@ -220,105 +220,108 @@ const Quote = () => {
   if (isLoading) return <p className="quote-loading">Cargando datos...</p>;
 
   return (
-    <div className="quote-background-wrapper">
-      <div className="quote-editor-container">
-        <h2 className="editor-title">Vista Previa del Presupuesto</h2>
-
-        <div className="quote-preview-container">
-          <div className="quote-preview">
-            <div className="quote-preview-header">
-              <div className="logo-container">
-                <img src={LogoDronFarmColor} alt="DronFarm Logo" />
-                <h2>Presupuesto de Servicios Agrícolas</h2>
+    <div className="quote-page-wrapper">
+      <div className="quote-background-wrapper">
+        <div className="quote-editor-container">
+          <h2 className="editor-title">Vista Previa del Presupuesto</h2>
+  
+          <div className="quote-preview-container">
+            <div className="quote-preview">
+              <div className="quote-preview-header">
+                <div className="logo-container">
+                  <img src={LogoDronFarmColor} alt="DronFarm Logo" />
+                  <h2>Presupuesto de Servicios Agrícolas</h2>
+                </div>
+                <div className="quote-preview-date">
+                  <p><strong>Fecha:</strong> {new Date().toLocaleDateString('es-ES')}</p>
+                  <p><strong>Válido hasta:</strong> {formatDate(validUntil)}</p>
+                </div>
               </div>
-              <div className="quote-preview-date">
-                <p><strong>Fecha:</strong> {new Date().toLocaleDateString('es-ES')}</p>
-                <p><strong>Válido hasta:</strong> {formatDate(validUntil)}</p>
+  
+              <div className="quote-preview-section">
+                <h3>CLIENTE</h3>
+                <table className="quote-preview-table">
+                  <tbody>
+                    <tr><td>Cliente:</td><td>{userData?.name}</td></tr>
+                    <tr><td>Parcela:</td><td>{fieldData?.name}</td></tr>
+                    <tr><td>Cultivo:</td><td>{capitalize(fieldData?.crop)}</td></tr>
+                    <tr><td>Hectáreas:</td><td>{fieldData?.area} ha</td></tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-
-            <div className="quote-preview-section">
-              <h3>CLIENTE</h3>
-              <table className="quote-preview-table">
-                <tbody>
-                  <tr><td>Cliente:</td><td>{userData?.name}</td></tr>
-                  <tr><td>Parcela:</td><td>{fieldData?.name}</td></tr>
-                  <tr><td>Cultivo:</td><td>{capitalize(fieldData?.crop)}</td></tr>
-                  <tr><td>Hectáreas:</td><td>{fieldData?.area} ha</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="quote-preview-section">
-              <h3>SERVICIOS</h3>
-              <table className="quote-preview-table">
-                <tbody>
-                  <tr><td>Servicios incluidos:</td><td>{services.join(', ')}</td></tr>
-                  <tr><td>Periodicidad:</td><td>{capitalize(frequency)}</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="quote-preview-section">
-              <h3>DETALLES ECONÓMICOS</h3>
-              <table className="quote-preview-table">
-                <tbody>
-                  <tr><td>Precio por hectárea:</td><td>{pricePerHectare} €</td></tr>
-                  <tr><td>Hectáreas:</td><td>{fieldData?.area}</td></tr>
-                  <tr className="quote-preview-total"><td><strong>TOTAL:</strong></td><td><strong>{totalPrice()} €</strong></td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="quote-preview-footer">
-              <p>* Este presupuesto no incluye IVA</p>
-              <p>* Los servicios se realizarán según las condiciones meteorológicas</p>
-              <p>* DronFarm se reserva el derecho a modificar el servicio en caso de condiciones adversas</p>
+  
+              <div className="quote-preview-section">
+                <h3>SERVICIOS</h3>
+                <table className="quote-preview-table">
+                  <tbody>
+                    <tr><td>Servicios incluidos:</td><td>{services.join(', ')}</td></tr>
+                    <tr><td>Periodicidad:</td><td>{capitalize(frequency)}</td></tr>
+                  </tbody>
+                </table>
+              </div>
+  
+              <div className="quote-preview-section">
+                <h3>DETALLES ECONÓMICOS</h3>
+                <table className="quote-preview-table">
+                  <tbody>
+                    <tr><td>Precio por hectárea:</td><td>{pricePerHectare} €</td></tr>
+                    <tr><td>Hectáreas:</td><td>{fieldData?.area}</td></tr>
+                    <tr className="quote-preview-total"><td><strong>TOTAL:</strong></td><td><strong>{totalPrice()} €</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+  
+              <div className="quote-preview-footer">
+                <p>* Este presupuesto no incluye IVA</p>
+                <p>* Los servicios se realizarán según las condiciones meteorológicas</p>
+                <p>* DronFarm se reserva el derecho a modificar el servicio en caso de condiciones adversas</p>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <div className="quote-email-forward">
-          <div className="quote-email-forward-header">
-            <i className="fas fa-paper-plane forward-icon"></i>
-            <h3>Enviar a otra persona</h3>
+  
+          <div className="quote-email-forward">
+            <div className="quote-email-forward-header">
+              <i className="fas fa-paper-plane forward-icon"></i>
+              <h3>Enviar a otra persona</h3>
+            </div>
+            <p className="quote-email-forward-text">¿Quieres compartir este presupuesto con un jefe, socio u otra persona?</p>
+  
+            <form className="forward-form" onSubmit={(e) => { e.preventDefault(); handleSendToOther(); }}>
+              <input
+                type="text"
+                placeholder="Nombre del destinatario"
+                value={recipientName}
+                onChange={(e) => setRecipientName(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Correo del destinatario"
+                value={additionalEmail}
+                onChange={(e) => setAdditionalEmail(e.target.value)}
+                required
+              />
+              <button type="submit" disabled={isSendingToAdditional}>
+                {isSendingToAdditional ? "Enviando..." : "Enviar presupuesto"}
+              </button>
+            </form>
           </div>
-          <p className="quote-email-forward-text">¿Quieres compartir este presupuesto con un jefe, socio u otra persona?</p>
-
-          <form className="forward-form" onSubmit={(e) => { e.preventDefault(); handleSendToOther(); }}>
-            <input
-              type="text"
-              placeholder="Nombre del destinatario"
-              value={recipientName}
-              onChange={(e) => setRecipientName(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Correo del destinatario"
-              value={additionalEmail}
-              onChange={(e) => setAdditionalEmail(e.target.value)}
-              required
-            />
-            <button type="submit" disabled={isSendingToAdditional}>
-              {isSendingToAdditional ? "Enviando..." : "Enviar presupuesto"}
+  
+          <div className="footer-actions">
+            {isPdfReady && (
+              <button onClick={handleDownloadPDF} className="action-button orange-button">
+                Descargar PDF
+              </button>
+            )}
+            <button onClick={handleSubmit} className="action-button green-button">
+              Aceptar Presupuesto
             </button>
-          </form>
-        </div>
-
-        <div className="footer-actions">
-          {isPdfReady && (
-            <button onClick={handleDownloadPDF} className="action-button orange-button">
-              Descargar PDF
-            </button>
-          )}
-          <button onClick={handleSubmit} className="action-button green-button">
-            Aceptar Presupuesto
-          </button>
+          </div>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default Quote;
