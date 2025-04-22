@@ -48,7 +48,8 @@
 .login-btn,
 .signup-btn,
 .logout-btn,
-.panel-btn {
+.panel-btn,
+.logout-btn {
   padding: 8px 20px;
   font-size: 16px;
   border-radius: 6px;
@@ -92,6 +93,11 @@
   background-color: #146c43;
 }
 
+
+.signup-btn:hover,
+.logout-btn:hover {
+  transform: scale(1.05);
+}
 
 .signup-btn:hover {
   background-color: #2e4a2c;

@@ -10,8 +10,11 @@ const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
+  // Detectar scroll
   // Detectar scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -19,6 +22,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Detectar modo oscuro en body
   // Detectar modo oscuro en body
   useEffect(() => {
     const root = document.body;
@@ -28,6 +32,14 @@ const Navbar = () => {
     setIsDarkMode(root.classList.contains("dark-mode"));
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
+  }, []);
+
+  // Detectar si hay token válido en localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const isValid =
+      token && token !== "undefined" && token !== "null" && token.trim().length > 10;
+    setIsLoggedIn(isValid);
   }, []);
 
   // Detectar si hay token válido en localStorage
@@ -50,6 +62,14 @@ const Navbar = () => {
     setIsDarkMode(newMode);
     document.body.classList.toggle("dark-mode", newMode);
     localStorage.setItem("darkMode", newMode);
+    setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    setIsLoggedIn(false);
+    navigate("/");
     setMenuOpen(false);
   };
 

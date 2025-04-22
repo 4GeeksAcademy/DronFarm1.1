@@ -31,7 +31,7 @@
   font-family: "Arial", sans-serif;
   color: var(--text-dark);
   box-sizing: border-box;
-  padding-top: 170px;
+  padding-top: 230px;
   animation: fadeInOnly 1.2s ease-out forwards;
 }
 

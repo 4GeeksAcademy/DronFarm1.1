@@ -30,7 +30,7 @@
   font-family: "Arial", sans-serif;
   color: var(--text-dark);
   box-sizing: border-box;
-  padding-top: 100px; /* Good position for navbar */
+  padding-top: 140px; /* Good position for navbar */
   padding-bottom: 80px; /* Add padding at bottom for footer */
   animation: fadeInOnly 1.2s ease-out forwards;
 }
@@ -56,7 +56,7 @@
   font-family: "Arial", sans-serif;
   color: var(--text-dark);
   box-sizing: border-box;
-  padding-top: 110px; /* Space for navbar */
+  padding-top: 140px; /* Space for navbar */
   animation: fadeInOnly 1.2s ease-out forwards;
 }
 
