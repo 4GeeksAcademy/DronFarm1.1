@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import './Reports.css';
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
+import { showSuccessAlert, showErrorAlert } from "../modal_alerts/modal_alerts";
+
 
 const Report = ({ fieldId, fields = [], userId: userIdProp, onClose, onUploaded }) => {
   const { store } = useGlobalReducer();
@@ -46,7 +48,7 @@ const Report = ({ fieldId, fields = [], userId: userIdProp, onClose, onUploaded 
       });
 
       if (res.ok) {
-        alert('📁 Informe subido correctamente');
+        showSuccessAlert('📁 Informe subido correctamente');
         setFile(null);
         setTitle('');
         setDescription('');
@@ -54,7 +56,7 @@ const Report = ({ fieldId, fields = [], userId: userIdProp, onClose, onUploaded 
         if (onUploaded) onUploaded();
         if (onClose) onClose();
       } else {
-        alert('❌ Error al subir el informe');
+        showErrorAlert('❌ Error al subir el informe');
       }
     } catch (err) {
       console.error("Upload error:", err);
