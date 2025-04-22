@@ -129,7 +129,7 @@ def get_field_by_id(id):
 # 👇 ✅ PUT /fields/<int:id> - Actualizar una parcela
 
 @fields.route('/fields/<int:id>', methods=['PUT'])
-@jwt_required()  # Se puede quitar o ajustar según sea necesario
+@jwt_required()
 def update_field(id):
     field = Field.query.get(id)
     if not field:
@@ -155,6 +155,8 @@ def update_field(id):
             field.city = body["city"]
         if "user_id" in body:
             field.user_id = body["user_id"]
+        if "coordinates" in body:  # ✅ esto es lo que faltaba
+            field.coordinates = body["coordinates"]
 
         db.session.commit()
         db.session.refresh(field)

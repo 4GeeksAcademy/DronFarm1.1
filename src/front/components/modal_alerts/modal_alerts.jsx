@@ -5,12 +5,14 @@ import Swal from 'sweetalert2';
 
 // Configuración centralizada de estilos y fuentes
 const modalStyles = {
-  titleFont: 'Montserrat, sans-serif', // Coherente con h1, h2, h3
-  textFont: 'Roboto, sans-serif',      // Coherente con el body
-  errorColor: '#d33',                 // Rojo para errores
-  successColor: '#28a745',            // Verde para éxito
-  titleColor: '#4682B4',              // Color de títulos (como en index.css)
-  textColor: '#333',                  // Color de texto base (como en index.css)
+  titleFont: 'Montserrat, sans-serif',
+  textFont: 'Roboto, sans-serif',
+  errorColor: '#d33',
+  successColor: '#28a745',
+  confirmColor: '#3085d6',
+  cancelColor: '#aaa',
+  titleColor: '#4682B4',
+  textColor: '#333',
 };
 
 /**
@@ -23,18 +25,19 @@ export const showErrorAlert = (message) => {
     title: 'Error',
     text: message,
     confirmButtonColor: modalStyles.errorColor,
-    background: '#f8f9fa', // Fondo coherente con Layout.css
+    background: '#f8f9fa',
     customClass: {
-      title: 'modal-title-error', // Clase para títulos
-      htmlContainer: 'modal-text', // Clase para texto
+      title: 'modal-title-error',
+      htmlContainer: 'modal-text',
     },
   });
 };
 
 /**
- * Muestra un modal de éxito con mensaje y callback opcional (ej: redirección).
+ * Muestra un modal de éxito con mensaje y callback opcional.
  * @param {string} message - Mensaje a mostrar.
  * @param {function} [callback] - Función a ejecutar al cerrar el modal.
+ * @param {boolean} [forceButton=false] - Forzar botón en lugar de autodesaparecer.
  */
 export const showSuccessAlert = (message, callback = null, forceButton = false) => {
   Swal.fire({
@@ -44,16 +47,49 @@ export const showSuccessAlert = (message, callback = null, forceButton = false) 
     confirmButtonText: 'Okey',
     confirmButtonColor: modalStyles.successColor,
     background: '#f8f9fa',
-    showConfirmButton: forceButton,     // 👈 Solo si lo pedís
+    showConfirmButton: forceButton, // ✅ Solo se muestra si lo forzás
     timer: forceButton ? undefined : 3000,
     timerProgressBar: !forceButton,
     customClass: {
       title: 'modal-title-success',
       htmlContainer: 'modal-text',
     },
+    allowOutsideClick: false,
+    allowEscapeKey: false,
   }).then(() => {
-    if (typeof callback === 'function') {
+    if (!forceButton && typeof callback === 'function') {
       callback();
+    }
+  });
+};
+
+/**
+ * Muestra un modal de confirmación con dos opciones.
+ * @param {string} title - Título del modal.
+ * @param {string} text - Mensaje del modal.
+ * @param {function} onConfirm - Acción al confirmar.
+ * @param {function} [onCancel] - Acción al cancelar (opcional).
+ */
+export const showConfirmationAlert = (title, text, onConfirm, onCancel = null) => {
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'No',
+    confirmButtonColor: modalStyles.confirmColor,
+    cancelButtonColor: modalStyles.cancelColor,
+    background: '#f8f9fa',
+    customClass: {
+      title: 'modal-title-success',
+      htmlContainer: 'modal-text',
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (typeof onConfirm === 'function') onConfirm();
+    } else {
+      if (typeof onCancel === 'function') onCancel();
     }
   });
 };
@@ -68,7 +104,7 @@ export const showLoadingAlert = () => {
     didOpen: () => Swal.showLoading(),
     background: '#f8f9fa',
     customClass: {
-      title: 'modal-title-success', // Reutiliza estilos de éxito
+      title: 'modal-title-success',
     },
   });
 };

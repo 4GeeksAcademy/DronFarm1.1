@@ -1,10 +1,42 @@
+:root {
+  --color-bg-light: #ffffff;
+  --color-bg-dark: #1f2937;
+  --color-card-light: #f9fafb;
+  --color-card-dark: #374151;
+  --color-text-light: #111827;
+  --color-text-dark: #f3f4f6;
+
+  --color-border-light: #e5e7eb;
+  --color-border-dark: #4b5563;
+
+  --color-edit-btn: #3b82f6;
+  --color-delete-btn: #ef4444;
+  --color-cancel-btn-light: #e5e7eb;
+  --color-cancel-btn-dark: #4b5563;
+  --color-cancel-text-dark: #f3f4f6;
+
+  --color-accent-text: #fbbf24; /* NARANJA principal */
+}
+
 .field-manager-modal {
   max-width: 700px;
   width: 95%;
   padding: 2rem;
   border-radius: 1rem;
-  background-color: #fff;
+  background-color: var(--color-bg-light);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  color: var(--color-text-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.field-manager-modal.dark-mode {
+  background-color: var(--color-bg-dark);
+  color: var(--color-accent-text); /* Usamos naranja como texto principal */
+}
+
+/* 🎯 Título en naranja */
+.field-manager-modal.dark-mode .modal-header h2 {
+  color: var(--color-accent-text);
 }
 
 .fields-list {
@@ -15,11 +47,20 @@
   overflow-y: auto;
 }
 
+/* 🎯 Card con fondo semitransparente y borde sutil */
 .field-card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border-light);
   padding: 1rem;
   border-radius: 0.75rem;
-  background-color: #f9fafb;
+  background-color: var(--color-card-light);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.field-manager-modal.dark-mode .field-card {
+  background-color: rgba(55, 65, 81, 0.9); /* semi transparente oscuro */
+  border-color: var(--color-border-dark);
+  color: var(--color-accent-text);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
 }
 
 .field-card input {
@@ -27,9 +68,18 @@
   width: 100%;
   margin: 0.25rem 0;
   padding: 0.4rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-border-light);
   border-radius: 0.4rem;
   font-size: 0.85rem;
+  background-color: #fff;
+  color: var(--color-text-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.field-manager-modal.dark-mode .field-card input {
+  background-color: #1f2937;
+  color: var(--color-accent-text);
+  border-color: var(--color-border-dark);
 }
 
 .field-actions {
@@ -49,21 +99,76 @@
   cursor: pointer;
   border: none;
   font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .edit-btn {
-  background-color: #3b82f6;
+  background-color: var(--color-edit-btn);
   color: white;
 }
+
 .delete-btn {
-  background-color: #ef4444;
+  background-color: var(--color-delete-btn);
   color: white;
 }
+
 .save-btn {
   background-color: #22c55e;
   color: white;
 }
+
 .cancel-btn {
-  background-color: #e5e7eb;
+  background-color: var(--color-cancel-btn-light);
   color: #374151;
+}
+
+.field-manager-modal.dark-mode .cancel-btn {
+  background-color: var(--color-cancel-btn-dark);
+  color: var(--color-cancel-text-dark);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1001;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* 🎬 Sutil entrada animada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

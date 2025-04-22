@@ -1,66 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; // necesario para hacer la petición
 import "./FieldManagerModal.css";
+import { useGlobalReducer } from "../../hooks/useGlobalReducer"; // para obtener el token
 
-const FieldManagerModal = ({ fields, onClose, onUpdate, onDelete }) => {
-    const [editIndex, setEditIndex] = useState(null);
-    const [editedField, setEditedField] = useState({});
+const FieldManagerModal = ({ fields, onClose, isDarkMode, onFieldDeleted }) => {
+    const navigate = useNavigate();
+    const { store } = useGlobalReducer();
 
-    const handleEdit = (index) => {
-        setEditIndex(index);
-        setEditedField(fields[index]);
+    const handleEdit = (field) => {
+        navigate("/app/plot_form", { state: { plotToEdit: field } });
     };
 
-    const handleChange = (e) => {
-        setEditedField({
-            ...editedField,
-            [e.target.name]: e.target.value,
-        });
-    };
+    const handleDelete = async (fieldId) => {
+        const confirm = window.confirm("¿Estás seguro de que quieres eliminar esta tierra?");
+        if (!confirm) return;
 
-    const handleSave = () => {
-        onUpdate(editedField);
-        setEditIndex(null);
+        try {
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/fields/fields/${fieldId}`, {
+                headers: {
+                    Authorization: `Bearer ${store.auth.token}`,
+                },
+            });
+
+            if (onFieldDeleted) {
+                onFieldDeleted(fieldId); // Notifica al padre para que actualice su lista
+            }
+        } catch (err) {
+            console.error("Error al eliminar la tierra:", err);
+            alert("No se pudo eliminar la tierra.");
+        }
     };
 
     if (!fields) return null;
 
     return (
         <div className="modal-overlay">
-            <div className="modal-content field-manager-modal">
+            <div className={`modal-content field-manager-modal ${isDarkMode ? "dark-mode" : ""}`}>
                 <div className="modal-header">
                     <h2>🌾 Gestión de Tierras</h2>
                     <button className="close-button" onClick={onClose}>✖</button>
                 </div>
 
                 <div className="fields-list">
-                    {fields.map((field, index) => (
+                    {fields.map((field) => (
                         <div key={field.id} className="field-card">
-                            {editIndex === index ? (
-                                <>
-                                    <input name="name" value={editedField.name} onChange={handleChange} placeholder="Nombre" />
-                                    <input name="area" value={editedField.area} onChange={handleChange} placeholder="Ha" />
-                                    <input name="crop" value={editedField.crop} onChange={handleChange} placeholder="Cultivo" />
-                                    <input name="street" value={editedField.street} onChange={handleChange} placeholder="Calle" />
-                                    <input name="number" value={editedField.number} onChange={handleChange} placeholder="Número" />
-                                    <input name="city" value={editedField.city} onChange={handleChange} placeholder="Ciudad" />
-                                    <input name="postal_code" value={editedField.postal_code} onChange={handleChange} placeholder="CP" />
+                            <p><strong>{field.name}</strong> – {field.area} Ha</p>
+                            <p>{field.crop} | {field.street} {field.number}, {field.city}</p>
 
-                                    <div className="field-actions">
-                                        <button onClick={handleSave} className="save-btn">💾 Guardar</button>
-                                        <button onClick={() => setEditIndex(null)} className="cancel-btn">Cancelar</button>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <p><strong>{field.name}</strong> – {field.area} Ha</p>
-                                    <p>{field.crop} | {field.street} {field.number}, {field.city}</p>
-
-                                    <div className="field-actions">
-                                        <button onClick={() => handleEdit(index)} className="edit-btn">✏️ Editar</button>
-                                        <button onClick={() => onDelete(field.id)} className="delete-btn">🗑️ Eliminar</button>
-                                    </div>
-                                </>
-                            )}
+                            <div className="field-actions">
+                                <button onClick={() => handleEdit(field)} className="edit-btn">✏️ Editar</button>
+                                <button onClick={() => handleDelete(field.id)} className="delete-btn">🗑️ Eliminar</button>
+                            </div>
                         </div>
                     ))}
                 </div>
