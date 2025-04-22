@@ -113,7 +113,7 @@ body {
 }
 
 .quote-button:hover {
-  background: rgba(70, 130, 180, 0.5);
+  background: #426a3e;
   transform: scale(1.05);
 }
 
