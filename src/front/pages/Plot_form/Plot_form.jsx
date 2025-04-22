@@ -182,7 +182,7 @@ const PlotForm = () => {
             icon: "question",
             showCancelButton: true,
             confirmButtonText: "Sí, registrar otra",
-            cancelButtonText: "No, volver al dashboard",
+            cancelButtonText: "No, volver al panel",
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#aaa",
             background: "#f8f9fa",
@@ -365,7 +365,7 @@ const PlotForm = () => {
                     <button type="button" className="btn btn-cancel" onClick={() => navigate("/app/dashboard")}>Cancelar</button>
                   </>
                 ) : (
-                  <button type="submit" className="btn btn-register">Registrar Parcela</button>
+                  <button type="submit" onClick={handleSubmit} className="btn btn-register">Registrar Parcela</button>
                 )}
               </div>
             </div>
