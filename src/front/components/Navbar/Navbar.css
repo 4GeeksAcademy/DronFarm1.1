@@ -46,7 +46,8 @@
 }
 
 .login-btn,
-.signup-btn {
+.signup-btn,
+.logout-btn {
   padding: 8px 20px;
   font-size: 16px;
   border-radius: 6px;
@@ -68,10 +69,43 @@
   color: white;
 }
 
+.logout-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
 .login-btn:hover,
+.signup-btn:hover,
+.logout-btn:hover {
+  transform: scale(1.05);
+}
+
 .signup-btn:hover {
   background-color: #2e4a2c;
-  transform: scale(1.05);
+}
+
+.logout-btn:hover {
+  background-color: #b02a37;
+}
+
+/* === MODO OSCURO === */
+.dark-mode .login-btn {
+  background-color: rgba(56, 60, 170, 0.856);
+  color: #eee;
+}
+
+.dark-mode .signup-btn {
+  background-color: #f19a3e;
+  color: #eee;
+}
+
+.dark-mode .logout-btn {
+  background-color: #f06565;
+  color: #1e1e1e;
+}
+
+.dark-mode .logout-btn:hover {
+  background-color: #b34747;
 }
 
 /* === HAMBURGUESA === */
@@ -164,7 +198,6 @@
   border-bottom: 8px solid rgba(71, 107, 79, 0.95);
 }
 
-/* === DARK MODE === */
 .dark-mode .dropdown-menu {
   background-color: rgba(25, 35, 25, 0.95);
 }
@@ -180,11 +213,6 @@
 
 .dark-mode .hamburger-icon span {
   background-color: #f0f0f0;
-}
-
-.dark-mode .login-btn {
-  background-color: rgba(56, 60, 170, 0.856);
-  color: #eee;
 }
 
 /* === DARK MODE TOGGLE === */
