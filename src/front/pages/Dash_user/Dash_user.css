@@ -30,10 +30,67 @@
   font-family: "Arial", sans-serif;
   color: var(--text-dark);
   box-sizing: border-box;
-  padding-top: 130px;
+  padding-top: 100px; /* Good position for navbar */
+  padding-bottom: 80px; /* Add padding at bottom for footer */
   animation: fadeInOnly 1.2s ease-out forwards;
 }
 
+.dashboard-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/img/background-shape-verdeOscuro.svg"),
+    linear-gradient(to top right, #b0dad3, #e3eed4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px 1000px, cover;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+  color: var(--text-dark);
+  box-sizing: border-box;
+  padding-top: 110px; /* Space for navbar */
+  animation: fadeInOnly 1.2s ease-out forwards;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  align-items: stretch;
+  gap: 20px;
+  width: 90%;
+  max-width: 1100px;
+  max-height: 600px; /* Fixed height */
+  z-index: 1;
+  align-items: start;
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+/* Remove any absolute/fixed positioning from footer */
+.dashboard-footer {
+  position: static;
+  margin-top: 70px;
+  padding: 15px 0;
+}
+
+/* For smaller screens */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    padding: 60px 20px 80px; /* Increase bottom padding */
+  }
+
+  .dashboard-content {
+    max-height: calc(100vh - 180px);
+  }
+}
 /* === MODO OSCURO === */
 body.dark-mode .dashboard-container {
   background: linear-gradient(to bottom, #111, #1d1d1d);
@@ -151,12 +208,13 @@ body.dark-mode .map-container {
   display: grid;
   grid-template-columns: 1fr 360px;
   align-items: stretch;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
   max-width: 1300px;
+  max-height: 700px;
   z-index: 1;
   align-items: start;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .left-panel,
@@ -189,7 +247,7 @@ body.dark-mode .map-container {
 .left-panel {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 10px;
 }
 
 .map-container-wrapper {
@@ -363,4 +421,46 @@ body.dark-mode .map-container {
     padding: 60px 20px 20px;
     background-size: 100% auto;
   }
+}
+
+/* === FORMULARIO DE PARCELAS - BOTONES === */
+.button-row.row-horizontal {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.submit-button {
+  background-color: #4f46e5; /* Azul intenso como "Iniciar Sesión" */
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #4338ca;
+  transform: translateY(-1px);
+}
+
+.cancel-button {
+  background-color: #f59e0b; /* Naranja como "Registrarse" */
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: #d97706;
+  transform: translateY(-1px);
 }

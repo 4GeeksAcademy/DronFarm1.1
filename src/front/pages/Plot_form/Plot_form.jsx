@@ -280,54 +280,25 @@ const PlotForm = () => {
 
   return (
     <div className="plot-form-container">
-      <div className="plot-form-card">
-        <h2 className="plot-form-title">
-          {plotToEdit ? "Editar Parcela" : "Registro de Nueva Parcela"}
-        </h2>
-
-
-        <form onSubmit={handleSubmit} className="plot-form">
+      <div className="plot-form-grid">
+        {/* Columna Izquierda */}
+        <div className="plot-form-left">
           <div className="form-section">
             <h3 className="section-title">Información básica</h3>
             <div className="form-group">
               <label htmlFor="name">Nombre de parcela*</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={plotData.name}
-                onChange={handleChange}
-                required
-                className="form-input"
-              />
+              <input type="text" id="name" name="name" value={plotData.name} onChange={handleChange} required className="form-input" />
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="area">Nº de hectáreas*</label>
-                <input
-                  type="number"
-                  id="area"
-                  name="area"
-                  value={plotData.area}
-                  onChange={handleChange}
-                  step="0.01"
-                  min="0.1"
-                  required
-                  className="form-input"
-                />
+                <input type="number" id="area" name="area" value={plotData.area} onChange={handleChange} step="0.01" min="0.1" required className="form-input" />
               </div>
 
               <div className="form-group">
                 <label htmlFor="cropType">Tipo de Cultivo*</label>
-                <select
-                  id="cropType"
-                  name="cropType"
-                  value={plotData.cropType}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                >
+                <select id="cropType" name="cropType" value={plotData.cropType} onChange={handleChange} required className="form-input">
                   <option value="">Seleccione...</option>
                   {Object.entries(CROP_OPTIONS).map(([group, crops]) => (
                     <optgroup label={group} key={group}>
@@ -342,97 +313,8 @@ const PlotForm = () => {
             </div>
           </div>
 
-          <div className="form-section">
-            <h3 className="section-title">Ubicación</h3>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="street">Calle*</label>
-                <input
-                  type="text"
-                  id="street"
-                  name="street"
-                  value={plotData.street}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="number">Número*</label>
-                <input
-                  type="text"
-                  id="number"
-                  name="number"
-                  value={plotData.number}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="postalCode">Código Postal*</label>
-                <input
-                  type="text"
-                  id="postalCode"
-                  name="postalCode"
-                  value={plotData.postalCode}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="city">Ciudad*</label>
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  value={plotData.city}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="coordinates">Coordenadas (opcional)</label>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <input
-                  type="text"
-                  id="coordinates"
-                  name="coordinates"
-                  value={plotData.coordinates}
-                  onChange={handleChange}
-                  placeholder="Ej: 40.4168, -3.7038"
-                  className="form-input"
-                  style={{ flex: 1 }}
-                />
-                <div className="location-button-wrapper">
-                  <button
-                    type="button"
-                    onClick={handleGetLocation}
-                    className="location-button"
-                  >
-                    📍
-                  </button>
-
-                  <span className={`tooltip-initial ${showTooltip ? '' : 'hidden'}`}>
-                    Utilizar ubicación actual
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          {/* Mapa */}
           <div className="map-section">
-            <p className="map-note">🎯 Selecciona con precisión la parcela en el mapa:</p>
-
             <MapPicker
               initialCoordinates={plotData.coordinates}
               onCoordinatesChange={(coords) =>
@@ -440,29 +322,63 @@ const PlotForm = () => {
               }
             />
           </div>
+        </div>
 
+        {/* Columna Derecha */}
+        <div className="plot-form-right">
+          <div className="form-section">
+            <h3 className="section-title">Ubicación</h3>
 
-          <div className="button-row">
-            <button type="submit" className="submit-button">
-              {plotToEdit ? "Guardar Cambios" : "Registrar Parcela"}
-            </button>
+            <div className="form-group">
+              <label htmlFor="street">Calle*</label>
+              <input type="text" id="street" name="street" value={plotData.street} onChange={handleChange} required className="form-input" />
+            </div>
 
-            {plotToEdit && (
-              <button
-                type="button"
-                className="cancel-button"
-                onClick={() => navigate("/app/dashboard")}
-              >
-                Cancelar Edición
-              </button>
-            )}
+            <div className="form-group">
+              <label htmlFor="number">Número*</label>
+              <input type="text" id="number" name="number" value={plotData.number} onChange={handleChange} required className="form-input" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="postalCode">Código Postal*</label>
+              <input type="text" id="postalCode" name="postalCode" value={plotData.postalCode} onChange={handleChange} required className="form-input" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="city">Ciudad*</label>
+              <input type="text" id="city" name="city" value={plotData.city} onChange={handleChange} required className="form-input" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="coordinates">Coordenadas (opcional)</label>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input type="text" id="coordinates" name="coordinates" value={plotData.coordinates} onChange={handleChange} placeholder="Ej: 40.4168, -3.7038" className="form-input" style={{ flex: 1 }} />
+                <div className="location-button-wrapper">
+                  <button type="button" onClick={handleGetLocation} className="location-button">📍</button>
+                  <span className="tooltip-initial">Establecer ubicación actual</span>
+                </div>
+              </div>
+              <div className="button-row">
+                {plotToEdit ? (
+                  <>
+                    <button type="submit" className="btn btn-save">Guardar</button>
+                    <button type="button" className="btn btn-cancel" onClick={() => navigate("/app/dashboard")}>Cancelar</button>
+                  </>
+                ) : (
+                  <button type="submit" className="btn btn-register">Registrar Parcela</button>
+                )}
+              </div>
+            </div>
           </div>
 
+
+
           {error && <p className="error-message">{error}</p>}
-        </form>
+        </div>
       </div>
     </div>
   );
+
 };
 
 export default PlotForm;
