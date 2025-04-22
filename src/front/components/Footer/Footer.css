@@ -49,16 +49,20 @@
   color: #375534;
 }
 
-.landing-container.dark-mode .footer-glass {
+/* 🌙 Modo oscuro basado en body.dark-mode */
+body.dark-mode .footer-glass {
   background-color: rgba(0, 0, 0, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.landing-container.dark-mode .footer-content p,
-.landing-container.dark-mode .footer-links a {
+body.dark-mode .footer-content p {
+  color: #ffffff;
+}
+
+body.dark-mode .footer-links a {
   color: #eee;
 }
 
-.landing-container.dark-mode .footer-links a:hover {
+body.dark-mode .footer-links a:hover {
   color: #9ccc8a;
 }
