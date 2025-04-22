@@ -8,14 +8,18 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
+  // Detectar scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Detectar modo oscuro en body
   useEffect(() => {
     const root = document.body;
     const observer = new MutationObserver(() => {
@@ -24,6 +28,14 @@ const Navbar = () => {
     setIsDarkMode(root.classList.contains("dark-mode"));
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
+  }, []);
+
+  // Detectar si hay token válido en localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const isValid =
+      token && token !== "undefined" && token !== "null" && token.trim().length > 10;
+    setIsLoggedIn(isValid);
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -38,7 +50,14 @@ const Navbar = () => {
     setIsDarkMode(newMode);
     document.body.classList.toggle("dark-mode", newMode);
     localStorage.setItem("darkMode", newMode);
-    setMenuOpen(false); // ¡Esto era lo que faltaba!
+    setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    setIsLoggedIn(false);
+    navigate("/");
   };
 
   return (
@@ -64,6 +83,7 @@ const Navbar = () => {
               <a onClick={() => goTo("/servicios")}>Servicios</a>
               <a onClick={() => goTo("/nosotros")}>Nosotros</a>
               <a onClick={() => goTo("/contacto")}>Contacto</a>
+              {isLoggedIn && <a onClick={() => goTo("/dash_user")}>Mi Panel</a>}
               <a onClick={toggleDarkMode} className="dark-toggle-link">
                 {isDarkMode ? "Modo claro ☀️" : "Modo oscuro 🌙"}
               </a>
@@ -71,12 +91,20 @@ const Navbar = () => {
           </div>
 
           <div className="nav-buttons">
-            <button className="login-btn" onClick={() => goTo("/login")}>
-              Iniciar Sesión
-            </button>
-            <button className="signup-btn" onClick={() => goTo("/signup")}>
-              Registrarse
-            </button>
+            {isLoggedIn ? (
+              <button className="logout-btn" onClick={handleLogout}>
+                Cerrar sesión
+              </button>
+            ) : (
+              <>
+                <button className="login-btn" onClick={() => goTo("/login")}>
+                  Iniciar Sesión
+                </button>
+                <button className="signup-btn" onClick={() => goTo("/signup")}>
+                  Registrarse
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
