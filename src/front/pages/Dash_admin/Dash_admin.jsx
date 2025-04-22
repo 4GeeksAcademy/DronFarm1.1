@@ -70,7 +70,7 @@ const DashboardAdmin = () => {
   return (
     <div className="page-background">
       <div className="dashboard-admin-container">
-        <h2 className="dashboard-title">Dashboard Admin</h2>
+        <h2 className="dashboard-title">Panel de Control</h2>
         <div className="search-bar">
           <input
             type="text"
