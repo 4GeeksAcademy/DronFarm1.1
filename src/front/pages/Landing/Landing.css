@@ -898,3 +898,8 @@ body.dark-mode .landing-container .card-social {
 .landing-container .card-terms strong {
   font-weight: 500;
 }
+
+body.dark-mode .landing-container .card-terms p,
+body.dark-mode .landing-container .card-terms strong {
+  color: #f0f0f0;
+}
