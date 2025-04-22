@@ -86,10 +86,10 @@
 /* Botón de login */
 .login-btn-submit {
   padding: 0.75rem 1rem;
-  font-size: 1rem;
-  background-color: #9ccc8a;
+  font-size: 1.2rem;
+  background-color: #F19A3E !important;
   color: #1e1e1e;
-  font-weight: 600;
+  font-weight: 550;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -103,9 +103,18 @@
 /* Footer de links */
 .login-footer {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 3rem;       /* Separación del botón */
   font-size: 0.95rem;
   color: #333;
+  line-height: 1.2;       /* ⬆️ Un pelín más de aire entre líneas */
+}
+
+.login-footer p {
+  margin: 0 0 0.4rem 0;   /* ⬆️ Margen inferior suave entre párrafos */
+}
+
+.login-footer p:last-child {
+  margin-bottom: 0;       /* Evita margen extra innecesario al final */
 }
 
 .login-footer a {
@@ -117,6 +126,8 @@
 .login-footer a:hover {
   text-decoration: underline;
 }
+
+
 
 /* === DARK MODE === */
 .login-container-landing.dark-mode {
