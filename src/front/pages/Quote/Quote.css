@@ -1,249 +1,96 @@
-/* ✨ Estilo para página de presupuesto - versión final limpia */
+/* === QUOTE.CSS ORIGINAL QUE FUNCIONA === */
 
-/* Contenedor principal */
-.quote-editor-container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  font-family: "Roboto", sans-serif;
+.quote-background-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/img/background-shape-verdeOscuro.svg"),
+    linear-gradient(to top right, #b0dad3, #e3eed4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px 1000px, cover;
+  overflow-x: hidden; /* ✅ Permitimos scroll horizontal bloqueado */
+  overflow-y: auto; /* ✅ Permitimos scroll vertical si hace falta */
+  position: fixed;
+  padding-top: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Arial", sans-serif;
   color: #333;
+  box-sizing: border-box;
+  animation: fadeInOnly 1.2s ease-out forwards;
 }
 
-/* Título principal */
+.quote-editor-container {
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  z-index: 1;
+  margin-top: 210px;
+  margin-bottom: 40px;
+}
+
 .editor-title {
   font-family: "Montserrat", sans-serif;
   font-size: 2rem;
   font-weight: 700;
   color: #198754;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-/* Email: enviar a otra persona */
-.quote-email-forward {
-  margin: 30px 0;
-  padding: 25px;
-  border: 1px solid #ddd;
-  border-radius: 14px;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-}
-
-.quote-email-forward-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.quote-email-forward-header .forward-icon {
-  font-size: 1.6rem;
-}
-
-.quote-email-forward-header h3 {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #0d6efd;
-}
-
-.quote-email-forward-text {
-  margin-bottom: 15px;
-  color: #444;
-}
-
-.forward-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 500px;
-  margin-top: 15px;
-}
-
-.forward-form .form-input {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 15px;
-  background-color: #fff;
-  transition: border-color 0.2s;
-}
-
-.forward-form .form-input:focus {
-  border-color: #0d6efd;
-  outline: none;
-}
-
-.forward-form .blue-button {
-  background-color: #0d6efd;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: fit-content;
-  margin-top: 5px;
-}
-
-.forward-form .blue-button:hover {
-  background-color: #0b5ed7;
-}
-
-/* Botones generales */
-.button-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.action-button,
-.button {
-  flex: 1;
-  height: 45px;
-  border: none;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  transition: all 0.2s ease;
-  min-width: 160px;
-}
-
-.green-button {
-  background-color: #198754;
-}
-
-.green-button:hover {
-  background-color: #146c43;
-}
-
-.blue-button {
-  background-color: #0d6efd;
-}
-
-.blue-button:hover {
-  background-color: #0a58ca;
-}
-
-.orange-button {
-  background-color: #fd7e14;
-}
-
-.orange-button:hover {
-  background-color: #d76b11;
-}
-
-/* Confirmación email enviada */
-.email-confirmation-box {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin: 20px 0;
-  background-color: #e6f4ea;
-  border-left: 5px solid #198754;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.1);
-}
-
-.email-icon {
-  font-size: 2rem;
-}
-
-.email-message h4 {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
-  color: #198754;
-}
-
-.email-message p {
-  margin: 4px 0;
-  color: #333;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-/* Vista previa del presupuesto */
+/* Vista previa */
 .quote-preview-container {
-  margin-top: 30px;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.quote-preview-title {
-  font-size: 1.4rem;
-  color: #198754;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .quote-preview {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 30px;
-  font-family: "Helvetica", "Arial", sans-serif;
-  color: #333;
   background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container img {
+  width: 350px;
+  height: auto;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.quote-preview-header,
+.quote-preview-section,
+.quote-preview-footer {
+  margin-bottom: 1.5rem;
 }
 
 .quote-preview-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #198754;
-  padding-bottom: 20px;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.logo-container h1 {
-  font-size: 1.5rem;
-  color: #4682b4;
-  margin-top: 15px;
-  text-align: center;
-}
-
-.quote-preview-date {
-  text-align: right;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .quote-preview-date p {
-  margin: 8px 0;
-  font-size: 1rem;
-}
-
-.quote-preview-section {
-  margin-bottom: 30px;
+  margin: 0.3rem 0;
 }
 
 .quote-preview-section h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #198754;
-  margin-bottom: 15px;
-  font-weight: 600;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 8px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
 }
 
 .quote-preview-table {
@@ -252,59 +99,214 @@
 }
 
 .quote-preview-table td {
-  padding: 10px 0;
-  line-height: 1.6;
-  font-size: 1rem;
+  padding: 0.5rem 0;
+  vertical-align: top;
 }
 
 .quote-preview-table td:first-child {
+  font-weight: bold;
   width: 40%;
-  padding-right: 20px;
 }
 
 .quote-preview-total td {
-  padding-top: 20px;
+  padding-top: 1rem;
   font-size: 1.2rem;
   color: #198754;
 }
 
 .quote-preview-footer {
-  margin-top: 40px;
   font-size: 0.9rem;
   color: #666;
-  border-top: 1px solid #e5e7eb;
-  padding-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
 }
 
-.quote-preview-footer p {
-  margin: 8px 0;
+/* Email forward */
+.quote-email-forward {
+  margin-top: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
-/* Estado de carga */
+.quote-email-forward-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.quote-email-forward-header h3 {
+  font-size: 1.2rem;
+  color: #0d6efd;
+  margin: 0;
+}
+
+.quote-email-forward-text {
+  margin-bottom: 1rem;
+  color: #444;
+  text-align: center;
+}
+
+.forward-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.forward-form input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.forward-form button {
+  display: block;
+  width: 50%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #0d6efd;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.forward-form button:hover {
+  background-color: #0a58ca;
+}
+
+/* Botones de acción */
+.footer-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 220px;
+  text-align: center;
+}
+
+.green-button {
+  background-color: #198754;
+  color: white;
+}
+
+.green-button:hover {
+  background-color: #157347;
+}
+
+.orange-button {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.orange-button:hover {
+  background-color: #e06c0a;
+}
+
+/* Loading */
 .quote-loading {
   text-align: center;
-  padding: 30px;
-  font-size: 1.1rem;
+  padding: 3rem;
+  font-size: 1.2rem;
   color: #666;
+}
+
+/* Animación */
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .button-container {
-    flex-direction: column;
-  }
-
   .quote-preview-header {
     flex-direction: column;
+    align-items: flex-start;
   }
-
-  .quote-preview-date {
-    text-align: left;
-    margin-top: 15px;
+  
+  .footer-actions {
+    flex-direction: column;
+    gap: 1rem;
   }
-
-  .button,
+  
   .action-button {
     width: 100%;
   }
+}
+
+/* Modo oscuro */
+body.dark-mode .quote-background-wrapper {
+  background-image: url("../../assets/img/background-shape.svg"),
+    linear-gradient(to bottom, #111, #1d1d1d);
+  color: #eee;
+}
+
+body.dark-mode .quote-editor-container {
+  background: rgba(30, 30, 30, 0.85);
+  color: #f5f5f5;
+}
+
+body.dark-mode .quote-preview {
+  background-color: rgba(40, 40, 40, 0.95);
+  color: #eee;
+}
+
+body.dark-mode .quote-preview-section h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ccc8a;
+}
+
+body.dark-mode .quote-preview-footer {
+  color: #aaa;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .quote-email-forward {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #eee;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .forward-form input {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #eee;
+}
+
+body.dark-mode .forward-form button {
+  background-color: #2266cc;
+}
+
+body.dark-mode .forward-form button:hover {
+  background-color: #114cb2;
 }
