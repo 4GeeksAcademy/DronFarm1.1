@@ -1,8 +1,48 @@
+.map-picker-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .map-picker-container {
-  height: 300px;
+  height: 100%;
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 🌀 Mensaje de ubicación en movimiento */
+.map-fly-overlay-blur {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  animation: fadeInScale 0.3s ease forwards;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ✨ Animación */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
