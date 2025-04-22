@@ -64,6 +64,8 @@ const Report = ({ fieldId, fields = [], userId: userIdProp, onClose, onUploaded 
     }
   };
 
+  //modificado 
+
   return (
     <div className="report-modal-content">
       <h3 className="modal-title">Subir nuevo informe</h3>
