@@ -10,8 +10,6 @@ const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const navigate = useNavigate();
 
   // Detectar scroll
@@ -71,13 +69,6 @@ const Navbar = () => {
     setIsLoggedIn(false);
     navigate("/");
     setMenuOpen(false);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
-    setIsLoggedIn(false);
-    navigate("/");
   };
 
   return (
