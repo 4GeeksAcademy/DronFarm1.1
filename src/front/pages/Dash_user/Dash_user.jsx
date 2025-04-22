@@ -8,6 +8,8 @@ import ReportModal from "../../components/ReportModal/ReportModal";
 import FieldManagerModal from "../../components/FieldManagerModal/FieldManagerModal";
 import FieldSelectorModal from "../../components/FieldSelectorModal/FieldSelectorModal";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
+import { showSuccessAlert, showErrorAlert } from "../../components/modal_alerts/modal_alerts";
+
 
 const Dash_user = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -150,6 +152,62 @@ const Dash_user = () => {
         (report) => report.field_id === selectedField?.id
     );
 
+    const handleRequestQuote = async () => {
+        try {
+            const token = store.auth.token;
+            const userId = store.auth.userId;
+            const fieldId = selectedField?.id;
+
+            if (!token || !userId || !fieldId) {
+                showErrorAlert("Faltan datos del usuario o del cultivo.");
+                return;
+            }
+
+            // Lógica para enviar email de presupuesto (como en Quote.jsx)
+            const userRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/user/${userId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            const userData = userRes.data;
+
+            const htmlBody = `
+            <div style="font-family: Arial, sans-serif; color: #333; font-size: 14px;">
+              <h2 style="color: #198754;">¡Hola ${userData.name}!</h2>
+              <p>Gracias por confiar en <strong>DroneFarm</strong>.</p>
+              <p>Adjunto encontrarás el presupuesto generado para tu parcela <strong>${selectedField.name}</strong>.</p>
+              <p><strong>Total estimado:</strong> ${selectedField.area * 30} €</p>
+              <p>Quedamos atentos para cualquier duda o ajuste.</p>
+              <p>Un saludo,<br/>Equipo DroneFarm 🚀</p>
+            </div>
+          `;
+
+            const payload = {
+                email: userData.email,
+                quoteDataHtml: htmlBody,
+                user: userData.name,
+                field: selectedField.name,
+                cropType: selectedField.crop,
+                hectares: selectedField.area,
+                services: "fotogrametría",
+                frequency: "mensual",
+                pricePerHectare: 30,
+                total: selectedField.area * 30,
+                validUntil: new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().split('T')[0]
+            };
+
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/quote/enviar-presupuesto`, payload);
+
+            showSuccessAlert("Presupuesto enviado por correo electrónico ✅", () => {
+                navigate("/app/quote");
+            });
+
+        } catch (err) {
+            console.error("Error al enviar el presupuesto:", err);
+            showErrorAlert("No se pudo enviar el presupuesto por email.");
+        }
+    };
+
+
     if (error) return <div className="error-message">{error}</div>;
 
     return (
@@ -235,10 +293,11 @@ const Dash_user = () => {
 
                                 <button
                                     className="request-report-button"
-                                    onClick={() => navigate("/app/quote")}
+                                    onClick={handleRequestQuote}
                                 >
                                     SOLICITAR PRESUPUESTO
                                 </button>
+
 
                                 <button
                                     className="add-field-button"
