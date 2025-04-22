@@ -284,7 +284,7 @@ const Quote = () => {
               <i className="fas fa-paper-plane forward-icon"></i>
               <h3>Enviar a otra persona</h3>
             </div>
-            <p className="quote-email-forward-text">¿Quieres compartir este presupuesto con un jefe, socio u otra persona?</p>
+            <p className="quote-email-forward-text">¿Quieres compartir este presupuesto?</p>
   
             <form className="forward-form" onSubmit={(e) => { e.preventDefault(); handleSendToOther(); }}>
               <input
