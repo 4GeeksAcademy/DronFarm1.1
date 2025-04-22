@@ -1,9 +1,21 @@
+:root {
+  --accent-color: #fbbf24;
+  --accent-color-dark: #f59e0b;
+  --text-primary: #1f2937;
+  --text-muted: #6b7280;
+  --bg-light: #ffffff;
+  --bg-gradient: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+  --bg-selected: #fef9c3;
+  --green-highlight: #10b981;
+  --green-text: #065f46;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* fondo semi-transparente */
-  backdrop-filter: blur(6px); /* desenfoque para efecto macOS */
-  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,19 +25,19 @@
 
 .modal-content {
   position: relative;
-  background-color: white;
+  background: var(--bg-gradient);
   padding: 2.5rem 2rem 2rem;
-  border-radius: 1rem;
-  max-width: 600px;
+  border-radius: 1.5rem;
+  max-width: 620px;
   width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  animation: popIn 0.25s ease;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  animation: popIn 0.3s ease;
   text-align: center;
 }
 
 @keyframes popIn {
   0% {
-    transform: scale(0.85);
+    transform: scale(0.9);
     opacity: 0;
   }
   100% {
@@ -35,12 +47,12 @@
 }
 
 .modal-content h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #111827;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary); /* negro */
 }
 
-/* Botón de cierre ❌ */
 .close-button {
   position: absolute;
   top: 1rem;
@@ -48,47 +60,57 @@
   background: transparent;
   border: none;
   font-size: 1.5rem;
-  color: #6b7280;
+  color: var(--text-muted);
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .close-button:hover {
-  color: #111827;
+  color: var(--text-primary);
 }
 
-/* Botones de campo */
 .field-button-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 480px) {
-  .field-button-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  }
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 .field-button {
-  background-color: #f3f4f6;
-  border: 2px solid transparent;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #111827;
+  background-color: #fffef9;
+  border: 2px solid var(--accent-color);
+  border-radius: 1rem;
+  padding: 1rem 1rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(to bottom right, #fffaf0, #fef3c7);
 }
 
 .field-button:hover {
-  background-color: #e5e7eb;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .field-button.selected {
-  border-color: #10b981;
-  background-color: #d1fae5;
-  color: #065f46;
+  border-color: var(--green-highlight);
+  background-color: #ecfdf5;
+  color: var(--green-text);
+  box-shadow: 0 0 0 2px var(--green-highlight) inset;
+}
+
+.field-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.field-location {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }

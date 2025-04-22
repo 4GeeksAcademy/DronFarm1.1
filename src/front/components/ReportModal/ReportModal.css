@@ -1,3 +1,99 @@
+:root {
+  --color-bg-light: #ffffff;
+  --color-text-light: #111827;
+  --color-card-light: #f9fafb;
+  --color-border-light: #e5e7eb;
+
+  --color-bg-dark: #121212;
+  --color-card-dark: #2c2c2c;
+  --color-text-dark: #ffffff;
+  --color-border-dark: #333333;
+
+  --color-accent-text: #fbbf24;
+  --color-delete: #ef4444;
+  --color-download: #166534;
+  --color-download-hover: #14532d;
+  --color-download-secondary: #2563eb;
+  --color-download-secondary-hover: #1d4ed8;
+}
+
+/* ===============================
+   FONDO Y CONTENEDOR PRINCIPAL
+================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  position: relative;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light);
+  padding: 2.5rem 2rem 2rem;
+  border-radius: 1rem;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.modal-content.dark-mode {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===============================
+   HEADER
+================================= */
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-light);
+}
+
+.modal-content.dark-mode .modal-header h2 {
+  color: var(--color-accent-text);
+}
+
+.close-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: inherit;
+  cursor: pointer;
+}
+
 /* ===============================
    LISTA DE INFORMES EN MODAL
 ================================= */
@@ -10,22 +106,44 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding-top: 2px;
+}
+
+.report-modal-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.report-modal-list::-webkit-scrollbar-thumb {
+  background-color: #4d9a64;
+  border-radius: 3px;
 }
 
 /* ===============================
    TARJETA INDIVIDUAL DE INFORME
 ================================= */
 .report-card {
-  background-color: #f9fafb;
+  background-color: var(--color-card-light);
   padding: 1rem 1.25rem;
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border-light);
   display: flex;
-  flex-direction: row; /* ✅ horizontal */
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.modal-content.dark-mode .report-card {
+  background-color: var(--color-card-dark);
+  color: var(--color-text-dark);
+  border: 1px solid var(--color-border-dark);
+}
+
+.report-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
 /* ===============================
@@ -39,18 +157,22 @@
 .report-title {
   font-weight: 600;
   font-size: 1rem;
-  color: #111827;
+  color: inherit;
   margin-bottom: 0.25rem;
 }
 
-.report-date {
+.report-date,
+.report-description {
   font-size: 0.85rem;
   color: #6b7280;
 }
 
+.modal-content.dark-mode .report-date,
+.modal-content.dark-mode .report-description {
+  color: #d1d5db;
+}
+
 .report-description {
-  font-size: 0.85rem;
-  color: #4b5563;
   margin-top: 0.25rem;
 }
 
@@ -59,7 +181,7 @@
 ================================= */
 .report-actions {
   display: flex;
-  flex-direction: column; /* ✅ Uno debajo del otro */
+  flex-direction: column;
   align-items: flex-end;
   gap: 0.35rem;
   flex-shrink: 0;
@@ -67,51 +189,48 @@
 
 .report-actions a,
 .report-actions button {
-  padding: 0.35rem 0.75rem;
+  padding: 0.45rem 0.9rem;
   border: none;
-  border-radius: 0.4rem;
-  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: 100px; /* ✅ uniformidad visual */
+  transition: background-color 0.25s ease;
+  width: 100px;
   text-align: center;
+  color: white;
 }
 
-/* ===============================
-   COLORES DE LOS BOTONES
-================================= */
 .download-report-button {
-  background-color: #166534;
-  color: white;
-}
-.download-report-button:hover {
-  background-color: #14532d;
+  background-color: var(--color-download);
 }
 
-.report-actions a:nth-child(2) {
-  background-color: #2563eb;
-  color: white;
+.download-report-button:hover {
+  background-color: var(--color-download-hover);
 }
-.report-actions a:nth-child(2):hover {
-  background-color: #1d4ed8;
+
+.download-report-button.secondary {
+  background-color: var(--color-download-secondary);
+}
+
+.download-report-button.secondary:hover {
+  background-color: var(--color-download-secondary-hover);
 }
 
 .delete-report-button {
-  background-color: #ef4444;
-  color: white;
+  background-color: var(--color-delete);
 }
+
 .delete-report-button:hover {
   background-color: #dc2626;
 }
 
 /* ===============================
-   SCROLL PERSONALIZADO
+   MENSAJE SIN INFORMES
 ================================= */
-.report-modal-list::-webkit-scrollbar {
-  width: 6px;
-}
-.report-modal-list::-webkit-scrollbar-thumb {
-  background-color: #4d9a64;
-  border-radius: 3px;
+.no-reports {
+  color: #6b7280;
+  font-size: 1rem;
+  font-style: italic;
+  margin-top: 1rem;
 }

@@ -1,7 +1,27 @@
 import React from "react";
 import "./WeOffer.css";
+import { useNavigate } from "react-router-dom";
+import { useGlobalReducer } from "../../hooks/useGlobalReducer";
+import { showSuccessAlert } from "../../components/modal_alerts/modal_alerts";
 
 const WeOffer = () => {
+  const navigate = useNavigate();
+  const { store } = useGlobalReducer();
+
+  const handleQuoteClick = () => {
+    const isAuthenticated = !!store.auth?.token;
+
+    if (isAuthenticated) {
+      showSuccessAlert("Redirigiéndote para solicitar tu presupuesto...", () => {
+        navigate("/app/quote");
+      });
+    } else {
+      showSuccessAlert("Regístrate para solicitar tu presupuesto", () => {
+        navigate("/signup");
+      });
+    }
+  };
+
   return (
     <section className="landing-container">
       <div className="weoffer-content">
@@ -20,7 +40,9 @@ const WeOffer = () => {
           <div className="weoffer-card">
             <h3>Procesamiento y análisis</h3>
             <p>Interpretación avanzada de los datos mediante inteligencia artificial y técnicas de teledetección.</p>
-            <button className="quote-button">Solicitar presupuesto</button>
+            <button className="quote-button" onClick={handleQuoteClick}>
+              Solicitar presupuesto
+            </button>
           </div>
           <div className="weoffer-card">
             <h3>Informe personalizado</h3>

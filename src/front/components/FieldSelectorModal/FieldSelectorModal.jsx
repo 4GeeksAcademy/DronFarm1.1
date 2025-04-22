@@ -12,7 +12,7 @@ const FieldSelectorModal = ({ fields, setSelected, onClose, selected }) => {
         <div className="modal-overlay" onClick={handleOutsideClick}>
             <div className="modal-content">
                 <button className="close-button" onClick={onClose}>✖</button>
-                <h2>Selecciona la parcela que quieres ver</h2>
+                <h2>Selecciona la parcela</h2>
 
                 <div className="field-button-grid">
                     {fields.map((field) => (
@@ -22,16 +22,15 @@ const FieldSelectorModal = ({ fields, setSelected, onClose, selected }) => {
                             onClick={() => {
                                 setSelected(field);
                                 localStorage.setItem("selectedField", JSON.stringify(field));
-                                onClose(); // si quieres cerrar al hacer clic en la parcela
+                                onClose();
                             }}
                         >
-                            🌾 {field.name} <br />
-                            📍 {field.city}
+                            <span className="field-name">{field.name}</span>
+                            <span className="field-location">{field.city}</span>
                         </button>
                     ))}
                 </div>
             </div>
-
         </div>
     );
 };

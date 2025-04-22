@@ -332,8 +332,8 @@ body.dark-mode .map-container {
 .add-field-button {
   background-color: rgba(8, 57, 75, 0.88); /* #08394b con 88% opacidad */
   color: #fff;
-  font-weight: bold;
-  font-size: 0.95rem;
+  font-weight: 600px;
+  font-size: 0.9rem;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -362,6 +362,7 @@ body.dark-mode .map-container {
   background-color: transparent;
   border: 1px dashed #aaa;
   color: #333;
+  font-size: 17px !important;
 }
 
 .request-report-button:hover,
@@ -463,4 +464,33 @@ body.dark-mode .map-container {
 .cancel-button:hover {
   background-color: #d97706;
   transform: translateY(-1px);
+}
+
+.change-field-button {
+  margin-top: 8px;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: #3a3a3a;
+  color: #f0f0f0;
+  border: 1px solid #4b4b4b;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.change-field-button:hover {
+  background-color: #4f4f4f;
+}
+
+/* Modo oscuro específico */
+body.dark-mode .change-field-button {
+  background-color: #2f2f2f;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .change-field-button:hover {
+  background-color: #3d3d3d;
 }

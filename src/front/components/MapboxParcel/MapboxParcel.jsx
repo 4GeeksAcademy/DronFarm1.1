@@ -20,7 +20,6 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
         return Math.floor(num * factor) / factor;
     };
 
-
     const isValidGeometry = (geometry) =>
         geometry && typeof geometry === 'object' && geometry.type && geometry.coordinates && Array.isArray(geometry.coordinates);
 
@@ -84,7 +83,6 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
                     }
                 });
 
-                // 👉 LLAMAMOS onDraw PARA REFLEJARLO ARRIBA
                 if (onDraw) {
                     onDraw({
                         geometry: data.geometry,
@@ -104,15 +102,38 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
                 }
             } else {
                 console.warn("⚠️ Geometría inválida desde backend:", data.geometry);
+
+                // 💥 Eliminar lo anterior y permitir dibujar de nuevo
+                dispatch({
+                    type: "SET_DRAWN_FIELD",
+                    payload: null
+                });
+
+                if (draw.current) {
+                    draw.current.deleteAll();
+                    draw.current.changeMode('draw_polygon');
+                }
+
+                polygonDrawn.current = false;
             }
+
         } catch (error) {
             console.error("⚠️ Error cargando geometría desde backend:", error.message);
         }
     };
 
-
     useEffect(() => {
         if (map.current) return;
+
+        if (
+            typeof latitude !== 'number' ||
+            typeof longitude !== 'number' ||
+            isNaN(latitude) ||
+            isNaN(longitude)
+        ) {
+            console.error("❌ Coordenadas inválidas para inicializar el mapa:", latitude, longitude);
+            return;
+        }
 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
@@ -170,8 +191,12 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
         draw.current.deleteAll();
         polygonDrawn.current = false;
 
-        const existingGeometry = store.selectedField?.id && store.drawnFields[store.selectedField.id];
-        if (isValidGeometry(existingGeometry)) {
+        const fieldId = store.selectedField?.id;
+        if (!fieldId) return;
+
+        const existingGeometry = store.drawnFields[fieldId];
+
+        if (existingGeometry && isValidGeometry(existingGeometry)) {
             draw.current.add({
                 type: 'Feature',
                 properties: {},
@@ -182,6 +207,7 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
         } else {
             console.warn("⚠️ Geometría inválida o vacía:", existingGeometry);
         }
+
 
         map.current.flyTo({
             center: [longitude, latitude],
@@ -210,17 +236,15 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
             const areaHa = truncate(area / 10000);
             console.log(`✅ Área estimada: ${areaHa} ha`);
 
-
             dispatch({
                 type: "SET_DRAWN_FIELD",
                 payload: {
                     fieldId: store.selectedField?.id,
                     geometry: polygon.geometry,
-                    area: area / 10000 // hectáreas
+                    area: area / 10000
                 }
             });
 
-            // ✅ Nuevo callback para actualizar inmediatamente en el componente padre
             if (onDraw) {
                 onDraw({
                     geometry: polygon.geometry,
@@ -236,7 +260,6 @@ const MapboxParcel = ({ latitude, longitude, fields = [], onFieldClick, onDraw }
             draw.current.changeMode('simple_select');
             setTimeout(() => (polygonDrawn.current = true), 150);
         });
-
 
         map.current.on('draw.delete', () => {
             polygonDrawn.current = false;
