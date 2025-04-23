@@ -202,8 +202,15 @@ const Dash_user = () => {
             });
 
         } catch (err) {
-            console.error("Error al enviar el presupuesto:", err);
-            showErrorAlert("No se pudo enviar el presupuesto por email.");
+            console.error("❌ Axios Error al enviar presupuesto:", {
+                message: err.message,
+                code: err.code,
+                response: err.response?.data,
+                status: err.response?.status,
+                url: err.config?.url,
+            });
+
+            showErrorAlert("No se pudo enviar el presupuesto. Revisá la consola para más detalles.");
         }
     };
 

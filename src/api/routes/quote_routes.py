@@ -76,6 +76,7 @@ def enviar_presupuesto():
         data = request.get_json()
         destinatario = data.get("email")
         quote_html_preview = data.get("quoteDataHtml")
+        print("🧾 DATA RECIBIDA:", data)  # <- AGREGÁ ESTO
 
         # Formatear fechas
         fecha_hoy = datetime.today().strftime("%d/%m/%Y")
@@ -192,20 +193,26 @@ def generate_pdf(id):
         if not quote:
             return jsonify({"error": "Presupuesto no encontrado"}), 404
 
-        # Simulación de desglose a partir de description
+        # Convertir logo a base64
+        logo_path = os.path.join(
+            current_app.root_path, "static", "img", "Logo_DronFarm_Oficial_sinmarco.png")
+        with open(logo_path, "rb") as logo_file:
+            logo_base64 = base64.b64encode(logo_file.read()).decode("utf-8")
+
         data = {
             "user": f"{quote.user.name} {quote.user.lastname}",
             "field": quote.field.name,
             "cropType": quote.description.split(" | ")[0],
             "frequency": quote.description.split(" | ")[1],
             "services": quote.description.split(" | ")[2].replace("Servicios: ", ""),
-            "hectares": quote.field.area,  # Ajusta según tu modelo
+            "hectares": quote.field.area,
             "price_per_hectare": round(quote.cost / quote.field.area, 2),
             "total": quote.cost,
             "valid_until": (quote.created_at + timedelta(days=30)).strftime("%Y-%m-%d")
         }
 
-        html = render_template("presupuesto.html", **data)
+        html = render_template(
+            "presupuesto.html", logo_base64=logo_base64, **data)
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as f:
             HTML(string=html).write_pdf(f.name)
