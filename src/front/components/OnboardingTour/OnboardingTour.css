@@ -24,7 +24,7 @@
   margin-bottom: 8px;
 }
 
-/* Slightly larger buttons */
+/* Botones */
 .tour-btn {
   padding: 10px 16px;
   font-size: 15px;
@@ -55,7 +55,7 @@
   background-color: #f9fafb;
 }
 
-/* Toast notification */
+/* Toast */
 .tour-toast {
   position: fixed;
   bottom: 32px;
@@ -79,4 +79,27 @@
   display: flex;
   gap: 12px;
   justify-content: flex-end;
+}
+
+/* Elimina animaciones del spotlight y overlay para evitar temblores */
+.joyride-spotlight,
+.joyride-overlay {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Prevenir que el spotlight reaccione a clics fuera del tooltip */
+.joyride-overlay {
+  pointer-events: none !important;
+}
+
+.joyride-tooltip,
+.tour-button-group {
+  pointer-events: auto !important; /* Reactivar clics sólo en el contenido del tour */
+}
+
+/* Evita scroll horizontal durante el tour */
+body.tour-active {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
 }

@@ -36,12 +36,25 @@ const OnboardingTour = () => {
     return () => window.removeEventListener('start-tour', handleExternalStart);
   }, []);
 
+  // En OnboardingTour.jsx
+  useEffect(() => {
+    document.body.classList.toggle('tour-active', run);
+  }, [run]);
+
+
   const startTour = () => {
     setShowToast(false);
     localStorage.setItem('hasSeenTour', 'true');
-    setStepIndex(0);
-    setRun(true);
+
+    // ⏳ Espera 2 frames para asegurar que el layout ya esté estable
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setStepIndex(0);
+        setRun(true);
+      });
+    });
   };
+
 
   const skipTour = () => {
     setShowToast(false);
@@ -59,13 +72,7 @@ const OnboardingTour = () => {
     }
   };
 
-  const Tooltip = ({
-    step,
-    index,
-    size,
-    isLastStep,
-    close,
-  }) => {
+  const Tooltip = ({ step, index, size, isLastStep, close }) => {
     const handleNext = () => {
       if (isLastStep) {
         setRun(false);
@@ -92,13 +99,9 @@ const OnboardingTour = () => {
       <>
         <div className="tour-tooltip">{step.content}</div>
         <div className="tour-button-group">
-          <button onClick={handleSkip} className="tour-btn tour-btn-secondary">
-            Saltar
-          </button>
+          <button onClick={handleSkip} className="tour-btn tour-btn-secondary">Saltar</button>
           {index > 0 && (
-            <button onClick={handleBack} className="tour-btn tour-btn-secondary">
-              Anterior
-            </button>
+            <button onClick={handleBack} className="tour-btn tour-btn-secondary">Anterior</button>
           )}
           <button onClick={handleNext} className="tour-btn tour-btn-primary">
             {isLastStep ? 'Finalizar' : `Siguiente (${index + 1}/${size})`}
@@ -115,11 +118,13 @@ const OnboardingTour = () => {
         run={run}
         stepIndex={stepIndex}
         continuous={false}
-        scrollToFirstStep
+        scrollToFirstStep={false}
+        disableScrolling={true}       // 👈 importante
         showSkipButton={false}
         showProgress={false}
         disableOverlay={false}
-        spotlightClicks={false}
+        spotlightClicks={true}
+        spotlightPadding={12}
         callback={handleJoyrideCallback}
         tooltipComponent={Tooltip}
         styles={{
@@ -127,17 +132,37 @@ const OnboardingTour = () => {
             zIndex: 10000,
             arrowColor: '#ffffff',
             primaryColor: '#f59e0b',
+          },
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.35)', // 💡 más claro
+            transition: 'none',
+            position: 'fixed',
+            inset: 0,
+            pointerEvents: 'none',
+            willChange: 'opacity', // 👈 previene flashes raros
+          },
+          spotlight: {
+            borderRadius: 8,
+            transition: 'none',
+            boxShadow: '0 0 0 9999px rgba(0,0,0,0.35)', // igual al overlay
+            willChange: 'transform',
           }
         }}
+
+
         floaterProps={{
-          disableAnimation: false,
+          disableAnimation: true,
           styles: {
             floater: {
-              filter: 'drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15))'
+              transition: 'none', // <- importantísimo
+              filter: 'drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15))',
             }
           }
         }}
+
       />
+
+
 
       {showToast && (
         <div className="tour-toast">
