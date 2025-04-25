@@ -60,6 +60,8 @@ const Signup = () => {
         navigate("/app/plot_form");
         showSuccessAlert(data.msg || "¡Registro realizado con éxito!");
         setFormData({ name: "", lastname: "", dni: "", email: "", password: "" });
+        localStorage.setItem('hasSeenTour', 'false');
+
       } else {
         showErrorAlert(data.error || "Error en el registro");
       }

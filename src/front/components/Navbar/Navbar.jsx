@@ -121,7 +121,7 @@ const Navbar = () => {
 
         <div className="navbar-right">
           <div className={`hamburger-menu-container ${menuOpen ? "active" : ""}`} ref={hamburgerRef}>
-            <div className="hamburger-icon" onClick={toggleMenu}>
+            <div className="hamburger-icon" id="hamburger-icon" onClick={toggleMenu}>
               <span></span>
               <span></span>
               <span></span>
@@ -134,6 +134,12 @@ const Navbar = () => {
               <a onClick={() => goTo("/contacto")}>Contacto</a>
               <a onClick={toggleDarkMode} className="dark-toggle-link">
                 {isDarkMode ? "Modo claro ☀️" : "Modo oscuro 🌙"}
+              </a>
+              <a onClick={() => {
+                setMenuOpen(false);
+                window.dispatchEvent(new CustomEvent('start-tour'));
+              }}>
+                Ver tour 🚀
               </a>
             </div>
           </div>

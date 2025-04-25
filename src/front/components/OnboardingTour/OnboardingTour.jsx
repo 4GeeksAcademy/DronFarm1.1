@@ -17,36 +17,33 @@ const OnboardingTour = () => {
     { target: '#btn-solicitar-presupuesto', content: 'Solicita un presupuesto personalizado para tus cultivos ✉️', disableBeacon: true },
     { target: '#btn-anadir-cultivo', content: 'Añade nuevas parcelas o cultivos desde aquí 🌱', disableBeacon: true },
     { target: '#btn-gestionar-tierras', content: 'Gestiona o elimina parcelas que ya no uses 🧩', disableBeacon: true },
-    { target: '#btn-ver-tour', content: '¿Quieres ver este recorrido de nuevo? Toca aquí 🚀', disableBeacon: true }
+    { target: '.hamburger-icon', content: 'Aqui encontrarás cómo navegar por el resto de pantallas y volver a ver este tour', disableBeacon: true }
   ];
 
   useEffect(() => {
     const handleExternalStart = () => {
       setShowToast(false);
-      setStepIndex(0);
-      setRun(true);
+      startTour();
     };
 
     window.addEventListener('start-tour', handleExternalStart);
+
     const hasSeenTour = localStorage.getItem('hasSeenTour');
-    if (!hasSeenTour) {
+    if (hasSeenTour === 'false') {
       setTimeout(() => setShowToast(true), 1500);
     }
 
     return () => window.removeEventListener('start-tour', handleExternalStart);
   }, []);
 
-  // En OnboardingTour.jsx
+
   useEffect(() => {
     document.body.classList.toggle('tour-active', run);
   }, [run]);
 
-
   const startTour = () => {
-    setShowToast(false);
     localStorage.setItem('hasSeenTour', 'true');
-
-    // ⏳ Espera 2 frames para asegurar que el layout ya esté estable
+    setShowToast(false);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         setStepIndex(0);
@@ -55,10 +52,9 @@ const OnboardingTour = () => {
     });
   };
 
-
   const skipTour = () => {
-    setShowToast(false);
     localStorage.setItem('hasSeenTour', 'true');
+    setShowToast(false);
   };
 
   const handleJoyrideCallback = ({ status, type }) => {
@@ -75,6 +71,9 @@ const OnboardingTour = () => {
   const Tooltip = ({ step, index, size, isLastStep, close }) => {
     const handleNext = () => {
       if (isLastStep) {
+        setTimeout(() => {
+          window.dispatchEvent(new Event("open-hamburger"));
+        }, 100);
         setRun(false);
         setStepIndex(0);
         close();
@@ -119,7 +118,7 @@ const OnboardingTour = () => {
         stepIndex={stepIndex}
         continuous={false}
         scrollToFirstStep={false}
-        disableScrolling={true}       // 👈 importante
+        disableScrolling={true}
         showSkipButton={false}
         showProgress={false}
         disableOverlay={false}
@@ -134,42 +133,38 @@ const OnboardingTour = () => {
             primaryColor: '#f59e0b',
           },
           overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.35)', // 💡 más claro
+            backgroundColor: 'rgba(37, 61, 38, 0.5)',
             transition: 'none',
             position: 'fixed',
             inset: 0,
             pointerEvents: 'none',
-            willChange: 'opacity', // 👈 previene flashes raros
+            willChange: 'opacity',
           },
           spotlight: {
             borderRadius: 8,
             transition: 'none',
-            boxShadow: '0 0 0 9999px rgba(0,0,0,0.35)', // igual al overlay
+            boxShadow: '0 0 0 9999px rgba(0,0,0,0.7)',
             willChange: 'transform',
           }
         }}
-
-
         floaterProps={{
           disableAnimation: true,
           styles: {
             floater: {
-              transition: 'none', // <- importantísimo
+              transition: 'none',
               filter: 'drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15))',
             }
           }
         }}
-
       />
-
-
 
       {showToast && (
         <div className="tour-toast">
-          <p>¿Quieres un recorrido por la plataforma?</p>
+          <p>¿Eres nuevo por aquí?</p>
+          <p>¿Quieres ver un recorrido rápido de tu panel principal?</p>
           <div className="tour-toast-buttons">
             <button onClick={skipTour} className="tour-btn tour-btn-secondary">No, gracias</button>
-            <button onClick={startTour} className="tour-btn tour-btn-primary">¡Sí, mostrarme!</button>
+            <button onClick={startTour} className="tour-btn tour-btn-primary">Sí, quiero ver cómo funciona!</button>
           </div>
         </div>
       )}

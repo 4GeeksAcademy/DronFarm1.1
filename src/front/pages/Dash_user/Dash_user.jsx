@@ -238,20 +238,6 @@ const Dash_user = () => {
             )}
 
             <div className="dashboard-container">
-
-                <button
-                    className="start-tour-button"
-                    id="btn-ver-tour"
-                    onClick={() => {
-                        localStorage.removeItem("hasSeenTour");
-                        window.dispatchEvent(new Event("start-tour")); // 🚀 Emite evento global
-                    }}
-                >
-                    🚀 Ver el tour otra vez
-                </button>
-
-
-
                 <div className="dashboard-content">
                     <div className="left-panel">
                         <div className="card card-main map-container-wrapper">
