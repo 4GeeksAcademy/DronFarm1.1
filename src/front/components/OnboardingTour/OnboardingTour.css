@@ -1,0 +1,276 @@
+/* =======================
+   🚀 Onboarding Tour - Estilo Mejorado
+   ======================= */
+
+/* Toast de bienvenida */
+.onboarding-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background-color: #ffffff;
+  color: #1f2937;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 22px 26px;
+  z-index: 10010;
+  max-width: 360px;
+  font-family: "Nunito", "Arial", sans-serif;
+  animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+}
+
+.toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.toast-text {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.toast-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.toast-btn {
+  padding: 10px 18px;
+  font-weight: 700;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.toast-btn--primary {
+  background-color: #f59e0b;
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+}
+
+.toast-btn--primary:hover {
+  background-color: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.5);
+}
+
+.toast-btn--secondary {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid #d1d5db;
+}
+
+.toast-btn--secondary:hover {
+  background-color: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* Joyride Tooltip - Donde ocurre la magia */
+.joyride-tooltip {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 28px !important;
+  width: 520px !important;
+  min-height: 200px !important;
+  font-size: 22px !important;
+  font-family: "Nunito", "Arial", sans-serif !important;
+  transition: none !important; /* evita temblores */
+  border: 1px solid rgba(243, 244, 246, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Contenido */
+.joyride-tooltip__content {
+  font-size: 22px !important;
+  line-height: 1.6 !important;
+  color: #374151 !important;
+  margin-bottom: 16px !important;
+  font-weight: 500 !important;
+}
+
+/* Botones */
+.joyride-tooltip__button {
+  padding: 12px 20px !important;
+  border: none !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  font-family: "Nunito", "Arial", sans-serif !important;
+  font-size: 18px !important;
+  transition: all 0.3s ease !important;
+  letter-spacing: 0.3px !important;
+  outline: none !important;
+}
+
+.joyride-tooltip__button--primary {
+  background-color: #f59e0b !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3) !important;
+}
+
+.joyride-tooltip__button--primary:hover {
+  background-color: #d97706 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4) !important;
+}
+
+.joyride-tooltip__button--secondary,
+.joyride-tooltip__button--skip {
+  background-color: #f3f4f6 !important;
+  color: #4b5563 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.joyride-tooltip__button--secondary:hover,
+.joyride-tooltip__button--skip:hover {
+  background-color: #e5e7eb !important;
+  transform: translateY(-2px) !important;
+  color: #1f2937 !important;
+}
+
+/* Pie de página del tooltip */
+.joyride-tooltip__footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: nowrap !important;
+  margin-top: 20px !important;
+}
+
+/* Ocultamos botón cerrar */
+.joyride-tooltip__close {
+  display: none !important;
+}
+
+/* Indicador de progreso */
+.joyride-tooltip__progress {
+  height: 6px !important;
+  background-color: #e5e7eb !important;
+  border-radius: 3px !important;
+  overflow: hidden !important;
+}
+
+.joyride-tooltip__progress-bar {
+  height: 100% !important;
+  background-color: #f59e0b !important;
+  transition: width 0.3s ease !important;
+}
+
+/* Números de paso */
+.joyride-tooltip__step {
+  font-size: 18px !important;
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+}
+
+/* Efecto de spotlight */
+.joyride-spotlight {
+  border-radius: 4px !important;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7) !important;
+  transition: all 0.3s ease-out !important;
+}
+
+/* Título del tooltip (si lo hay) */
+.joyride-tooltip__title {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+  margin-bottom: 14px !important;
+}
+
+/* Botón flotante para reiniciar el tour */
+.tour-restart-button {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 60px;
+  height: 60px;
+  background-color: #f59e0b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.tour-restart-button:hover {
+  transform: scale(1.1) translateY(-4px);
+  background-color: #d97706;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.tour-restart-button svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .joyride-tooltip {
+    max-width: 90vw !important;
+    width: auto !important;
+    font-size: 18px !important;
+    padding: 20px !important;
+  }
+
+  .joyride-tooltip__content {
+    font-size: 18px !important;
+  }
+
+  .joyride-tooltip__button {
+    font-size: 16px !important;
+    padding: 10px 16px !important;
+  }
+
+  .onboarding-toast {
+    max-width: 90vw;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: 20px;
+  }
+
+  .toast-text {
+    font-size: 16px;
+  }
+}

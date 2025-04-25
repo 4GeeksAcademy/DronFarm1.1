@@ -265,3 +265,33 @@ class PasswordResetToken(db.Model):
 
     def __repr__(self):
         return f"<PasswordResetToken {self.id} - {self.token}>"
+
+
+# MODELO DE PRECIO DE PRODUCTOS AGRÍCOLAS
+
+class ProductPrice(db.Model):
+    __tablename__ = "product_prices"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    product: Mapped[str] = mapped_column(String(100), nullable=False)
+    category: Mapped[str] = mapped_column(String(100), nullable=True)
+    origin: Mapped[str] = mapped_column(String(100), nullable=True)
+    min_price: Mapped[float] = mapped_column(Float, nullable=True)
+    max_price: Mapped[float] = mapped_column(Float, nullable=True)
+    market: Mapped[str] = mapped_column(String(100), default="Mercabarna")
+    date: Mapped[Date] = mapped_column(Date, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "product": self.product,
+            "category": self.category,
+            "origin": self.origin,
+            "min_price": self.min_price,
+            "max_price": self.max_price,
+            "market": self.market,
+            "date": self.date.isoformat(),
+        }
+
+    def __repr__(self):
+        return f"<ProductPrice {self.product} - {self.date}>"

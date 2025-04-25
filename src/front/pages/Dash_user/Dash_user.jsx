@@ -9,6 +9,7 @@ import FieldManagerModal from "../../components/FieldManagerModal/FieldManagerMo
 import FieldSelectorModal from "../../components/FieldSelectorModal/FieldSelectorModal";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
 import { showSuccessAlert, showErrorAlert } from "../../components/modal_alerts/modal_alerts";
+import OnboardingTour from '../../components/OnboardingTour/OnboardingTour';
 
 
 const Dash_user = () => {
@@ -219,6 +220,8 @@ const Dash_user = () => {
 
     return (
         <>
+            <OnboardingTour />
+
 
             {!initialSelectionDone && fieldsList.length > 1 && (
                 <FieldSelectorModal
@@ -235,6 +238,20 @@ const Dash_user = () => {
             )}
 
             <div className="dashboard-container">
+
+                <button
+                    className="start-tour-button"
+                    id="btn-ver-tour"
+                    onClick={() => {
+                        localStorage.removeItem("hasSeenTour");
+                        window.dispatchEvent(new Event("start-tour")); // 🚀 Emite evento global
+                    }}
+                >
+                    🚀 Ver el tour otra vez
+                </button>
+
+
+
                 <div className="dashboard-content">
                     <div className="left-panel">
                         <div className="card card-main map-container-wrapper">
@@ -281,6 +298,7 @@ const Dash_user = () => {
                                     <h2>{userData.name?.toUpperCase()}</h2>
                                     <button
                                         className="change-field-button"
+                                        id="btn-cambiar-parcela"
                                         onClick={() => setInitialSelectionDone(false)}
                                     >
                                         Cambiar parcela
@@ -306,6 +324,7 @@ const Dash_user = () => {
                                     )}
                                     <button
                                         className="request-report-button"
+                                        id="btn-ver-informes"
                                         onClick={() => setReportModalOpen(true)}
                                     >
                                         VER TODOS LOS INFORMES
@@ -314,6 +333,7 @@ const Dash_user = () => {
 
                                 <button
                                     className="request-report-button"
+                                    id="btn-solicitar-presupuesto"
                                     onClick={handleRequestQuote}
                                 >
                                     SOLICITAR PRESUPUESTO
@@ -322,6 +342,7 @@ const Dash_user = () => {
 
                                 <button
                                     className="add-field-button"
+                                    id="btn-anadir-cultivo"
                                     onClick={() => navigate("/app/plot_form")}
                                 >
                                     AÑADIR NUEVO CULTIVO
@@ -329,6 +350,7 @@ const Dash_user = () => {
                                 <button
                                     onClick={() => setFieldModalOpen(true)}
                                     className="request-report-button"
+                                    id="btn-gestionar-tierras"
                                 >
                                     GESTIONAR TIERRAS
                                 </button>
