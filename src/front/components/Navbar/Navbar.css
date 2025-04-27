@@ -262,15 +262,48 @@ body.dark-mode .dark-toggle-link:hover {
   color: #9ccc8a;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
+/* RESPONSIVE COMPLETO */
+@media (max-width: 1024px) {
   .logo-navbar {
-    width: 280px;
+    width: 400px; /* Un poco más pequeño en tablets grandes si quieres */
   }
+  .navbar {
+    top: 20px; /* Menos separación en tablets */
+  }
+
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 0; /* Navbar pegado al borde superior en móviles */
+  }
+  .navbar-content {
+    padding: 10px 20px;
+  }
+
+  .logo-navbar {
+    width: 320px; /* Para tablets */
+  }
+
   .nav-buttons {
-    gap: 10px;
+    display: none; /* Ocultamos botones grandes */
+  }
+
+  .hamburger-menu-container {
+    display: block; /* Mostramos hamburguesa */
   }
 }
+
+@media (max-width: 480px) {
+  .navbar-content {
+    padding: 8px 15px;
+  }
+
+  .logo-navbar {
+    width: 250px; /* Para móviles pequeños */
+  }
+}
+
 
 .dropdown-menu {
   opacity: 0;
