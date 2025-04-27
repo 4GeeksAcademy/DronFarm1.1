@@ -1,7 +1,8 @@
+/* === FOOTER BASE === */
 .footer-glass {
   width: 90%;
   max-width: 1300px;
-  margin: 100px auto 30px;
+  margin: 30px auto 0; /* Solo 30px de margen abajo */
   padding: 20px 0;
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
@@ -14,6 +15,13 @@
   z-index: 10;
 }
 
+/* 🌙 MODO OSCURO */
+body.dark-mode .footer-glass {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* === FOOTER CONTENT === */
 .footer-content {
   max-width: 1300px;
   margin: 0 auto;
@@ -49,12 +57,7 @@
   color: #375534;
 }
 
-/* 🌙 Modo oscuro basado en body.dark-mode */
-body.dark-mode .footer-glass {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
+/* 🌙 DARK MODE links */
 body.dark-mode .footer-content p {
   color: #ffffff;
 }
@@ -65,4 +68,42 @@ body.dark-mode .footer-links a {
 
 body.dark-mode .footer-links a:hover {
   color: #9ccc8a;
+}
+
+/* === RESPONSIVE FOOTER === */
+@media (max-width: 768px) {
+  .footer-content p {
+    font-size: 1rem;
+  }
+
+  .footer-links a {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content p {
+    font-size: 0.9rem;
+  }
+
+  .footer-links a {
+    font-size: 0.9rem;
+  }
+}
+
+/* === FADE-IN ELEGANTE PARA FOOTER === */
+.fade-in-footer {
+  opacity: 0;
+  animation: fadeInFooter 1.2s ease-in forwards;
+}
+
+@keyframes fadeInFooter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
