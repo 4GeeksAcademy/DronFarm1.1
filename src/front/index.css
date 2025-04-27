@@ -15,6 +15,7 @@ Importamos las fuentes desde Google Fonts */
 /* Estilos globales */
 html, body, #root {
   height: 100%;
+  margin: 0;
   width: 100%;
   overflow-x: hidden;
 }
