@@ -13,7 +13,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 170px;
+  padding-top: 140px;
   font-family: "Arial", sans-serif;
   box-sizing: border-box;
   position: fixed;
@@ -166,13 +166,18 @@
 
 /* === Ajustes específicos para la pantalla de registro === */
 .signup-container {
-  padding-top: 200px; /* Solo para registro */
-  justify-content: flex-start;
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  min-height: 100vh; /* Ocupar toda la pantalla */
+  padding-top: 180px; /* ✅ Un poco de espacio por el navbar */
+  padding-bottom: 30px; /* ✅ Un poco de espacio bajo */
+  box-sizing: border-box;
 }
 
+
 .signup-container .login-card {
-  margin-top: 120px; /* Espacio extra */
-  margin-bottom: 80px;
+  margin-top: 50px;
 }
 
 /* Mantén el login en su posición original */
@@ -190,5 +195,36 @@
   .signup-container .login-card {
     margin-top: 20px;
     margin-bottom: 40px;
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .signup-container .login-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .signup-container .login-card {
+    padding: 20px;
+  }
+
+  .signup-container .login-title {
+    font-size: 1.7rem;
+  }
+
+  .signup-container .login-input {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .signup-container .login-btn-submit {
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+  }
+
+  .signup-container .login-footer {
+    font-size: 0.85rem;
   }
 }
