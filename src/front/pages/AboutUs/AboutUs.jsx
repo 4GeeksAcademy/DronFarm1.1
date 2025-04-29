@@ -2,7 +2,7 @@ import React from "react";
 import "./AboutUs.css";
 import { motion } from "framer-motion";
 import yeneseyPic from "../../../static/img/yenesey_pic.jpeg";
-import ricardoPic from "../../../static/img/anonimo.jpg"; // Usa esta si lo importas igual
+import ricardoPic from "../../../static/img/ricardo_pic.jpeg"; // Usa esta si lo importas igual
 
 const AboutUs = () => {
   return (
@@ -19,8 +19,9 @@ const AboutUs = () => {
         >
           <h1>Sobre nosotros</h1>
           <p>
-            Somos un equipo de expertos en IT y científicos de datos con experiencia en procesamiento de big data desde 2014.
-            Esta trayectoria nos ha permitido lanzar este potente proyecto de análisis satelital y meteorológico orientado a la agricultura.
+            Somos una empresa de monitoreo de cultivos mediante vuelos con dron. Nuestro equipo, formado por desarrolladores
+            full stack con experiencia en IT y pilotos de dron, transforma información capturada desde el aire en herramientas
+            útiles para la agricultura. Combinamos tecnología web, automatización y visión geoespacial para apoyar tanto a pequeños como grandes productores.
           </p>
         </motion.section>
 
@@ -34,8 +35,8 @@ const AboutUs = () => {
         >
           <h2>Nuestra misión</h2>
           <p>
-            Nuestro objetivo es proporcionar datos climáticos históricos, actuales y futuros para cualquier punto del planeta,
-            así como acceso a la API Agro para desarrolladores y empresas agrícolas.
+            Nuestro objetivo es facilitar la vida de los agricultores, ofreciendo monitoreo agrícola con datos precisos y herramientas digitales
+            que optimicen su trabajo. Apostamos por una tecnología accesible, conectada y útil para el presente y futuro del campo.
           </p>
         </motion.section>
 
@@ -53,7 +54,10 @@ const AboutUs = () => {
             <div>
               <h3>Yenesey</h3>
               <p>
-                Especialista en inteligencia artificial aplicada a la agricultura. Su experiencia en visión por computadora y sistemas de análisis multiespectral permite interpretar datos desde el dron hasta el agricultor.
+                Desarrolladora web full stack con enfoque en el manejo de datos y automatización de procesos.
+                Su motivación principal es crear soluciones tecnológicas que le simplifiquen
+                la vida a agricultores y técnicos en campo. Combina su experiencia en programación con un
+                fuerte compromiso por la eficiencia y la utilidad práctica.
               </p>
             </div>
           </motion.section>
@@ -70,7 +74,9 @@ const AboutUs = () => {
             <div>
               <h3>Ricardo</h3>
               <p>
-                Ingeniero de datos con más de 10 años de experiencia en big data y visualización geoespacial. Diseña la infraestructura que hace posible DronFarm.
+                Desarrollador web full stack y piloto de dron certificado. Apasionado por el escaneo y modelado 3D,
+                se encarga de capturar y transformar datos del terreno en información útil para el monitoreo agrícola.
+                Su experiencia une tecnología, precisión y una mirada innovadora del trabajo en campo.
               </p>
             </div>
           </motion.section>
