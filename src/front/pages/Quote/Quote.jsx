@@ -45,14 +45,25 @@ const Quote = () => {
   };
 
   useEffect(() => {
-    if (!store.selectedField) {
+    if (store.selectedField) {
+      setFieldData(store.selectedField);
+    } else {
+      const storedFields = localStorage.getItem("fields");
       const storedField = localStorage.getItem("selectedField");
+
       if (storedField) {
-        const parsedField = JSON.parse(storedField);
-        setFieldData(parsedField);
+        setFieldData(JSON.parse(storedField));
+      } else if (storedFields) {
+        const fieldsArray = JSON.parse(storedFields);
+        if (fieldsArray.length === 1) {
+          const onlyField = fieldsArray[0];
+          setFieldData(onlyField);
+          localStorage.setItem("selectedField", JSON.stringify(onlyField));
+        }
       }
     }
-  }, []);
+  }, [store.selectedField]);
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -71,13 +82,23 @@ const Quote = () => {
       }
     };
 
-    if (token && userId && store.selectedField) {
-      setFieldData(store.selectedField);
-      fetchUserData();
-    } else if (!store.selectedField) {
-      showErrorAlert("No hay ninguna parcela seleccionada.");
-      setIsLoading(false);
+    if (token && userId) {
+      if (store.selectedField) {
+        setFieldData(store.selectedField);
+        fetchUserData();
+      } else {
+        const storedField = localStorage.getItem("selectedField");
+        if (storedField) {
+          const parsedField = JSON.parse(storedField);
+          setFieldData(parsedField);
+          fetchUserData();
+        } else {
+          showErrorAlert("No hay ninguna parcela seleccionada.");
+          setIsLoading(false);
+        }
+      }
     }
+    
   }, [token, userId, store.selectedField]);
 
   const totalPrice = () => {
@@ -224,7 +245,7 @@ const Quote = () => {
       <div className="quote-background-wrapper">
         <div className="quote-editor-container">
           <h2 className="editor-title">Vista Previa del Presupuesto</h2>
-  
+
           <div className="quote-preview-container">
             <div className="quote-preview">
               <div className="quote-preview-header">
@@ -237,7 +258,7 @@ const Quote = () => {
                   <p><strong>Válido hasta:</strong> {formatDate(validUntil)}</p>
                 </div>
               </div>
-  
+
               <div className="quote-preview-section">
                 <h3>CLIENTE</h3>
                 <table className="quote-preview-table">
@@ -249,7 +270,7 @@ const Quote = () => {
                   </tbody>
                 </table>
               </div>
-  
+
               <div className="quote-preview-section">
                 <h3>SERVICIOS</h3>
                 <table className="quote-preview-table">
@@ -259,7 +280,7 @@ const Quote = () => {
                   </tbody>
                 </table>
               </div>
-  
+
               <div className="quote-preview-section">
                 <h3>DETALLES ECONÓMICOS</h3>
                 <table className="quote-preview-table">
@@ -270,7 +291,7 @@ const Quote = () => {
                   </tbody>
                 </table>
               </div>
-  
+
               <div className="quote-preview-footer">
                 <p>* Este presupuesto no incluye IVA</p>
                 <p>* Los servicios se realizarán según las condiciones meteorológicas</p>
@@ -278,14 +299,14 @@ const Quote = () => {
               </div>
             </div>
           </div>
-  
+
           <div className="quote-email-forward">
             <div className="quote-email-forward-header">
               <i className="fas fa-paper-plane forward-icon"></i>
               <h3>Enviar a otra persona</h3>
             </div>
             <p className="quote-email-forward-text">¿Quieres compartir este presupuesto?</p>
-  
+
             <form className="forward-form" onSubmit={(e) => { e.preventDefault(); handleSendToOther(); }}>
               <input
                 type="text"
@@ -306,7 +327,7 @@ const Quote = () => {
               </button>
             </form>
           </div>
-  
+
           <div className="footer-actions">
             {isPdfReady && (
               <button onClick={handleDownloadPDF} className="action-button orange-button">
@@ -321,7 +342,7 @@ const Quote = () => {
       </div>
     </div>
   );
-  
+
 };
 
 export default Quote;
