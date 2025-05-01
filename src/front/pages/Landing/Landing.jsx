@@ -9,7 +9,7 @@ const Landing = () => {
       <div className="cards-container">
         <div className="card card-main">
           <h1>Plataforma integral de monitoreo agrícola</h1>
-          <h2>Decisiones inteligentes con datos reales</h2>
+          <h4>Decisiones inteligentes con datos reales</h4>
 
           {/* Contenedor para la imagen (antes estaba en card-terms) */}
           <div className="main-image-container">
@@ -18,11 +18,17 @@ const Landing = () => {
         </div>
 
         <div className="card card-support">
-          {/* Contenido que estaba en card-terms */}
-          <h2>Agricultura de Precisión</h2>
-          <p>Optimiza tus cultivos con tecnología de vanguardia. Nuestros drones capturan datos precisos que transforman la forma de gestionar tus campos.</p>
-          <div className="terms-logo">
-            <i className="fas fa-seedling"></i>
+          <div className="cta-container">
+            <div className="cta-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                <circle cx="18" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+              </svg>
+            </div>
+            <h3 className="cta-title">Optimiza tu cultivo hoy, invierte en precisión</h3>
+            <p className="cta-description">Los agricultores que utilizan DronFarm mejoran su rentabilidad gracias a decisiones basadas en datos precisos</p>
+            <button className="cta-button">¡Comienza ahora!</button>
           </div>
         </div>
 
@@ -40,12 +46,30 @@ const Landing = () => {
           </p>
         </div>
 
+        {/* Sustituimos el contenido de la caja de Síguenos por Qué detectamos */}
         <div className="card card-social">
-          <h2>Síguenos</h2>
-          <div className="social-icons">
-            <a href="#instagram" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-            <a href="#facebook" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-            <a href="#twitter" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
+          <h2>Qué detectamos</h2>
+          <div className="services-grid">
+            <div className="service-item">
+              <i className="fas fa-tint-slash"></i>
+              <h3>Estrés hídrico</h3>
+              <p>Identificamos áreas con déficit o exceso de agua</p>
+            </div>
+            <div className="service-item">
+              <i className="fas fa-disease"></i>
+              <h3>Plagas y enfermedades</h3>
+              <p>Detección temprana de problemas fitosanitarios</p>
+            </div>
+            <div className="service-item">
+              <i className="fas fa-seedling"></i>
+              <h3>Vigor del cultivo</h3>
+              <p>Análisis del estado de salud de tus plantaciones</p>
+            </div>
+            <div className="service-item">
+              <i className="fas fa-flask"></i>
+              <h3>Deficiencias nutricionales</h3>
+              <p>Carencias de nutrientes en tiempo real</p>
+            </div>
           </div>
         </div>
       </div>
