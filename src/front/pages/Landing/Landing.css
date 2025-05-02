@@ -310,6 +310,7 @@ body.dark-mode .landing-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--card-support-bg); /* Usamos la variable CSS que ya tienes definida */
 }
 
 .cta-container {
@@ -324,11 +325,12 @@ body.dark-mode .landing-container {
   margin-bottom: 16px;
   display: flex;
   justify-content: center;
-  background-color: rgba(51, 51, 51, 0.1);
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
   align-items: center;
+}
+
+.cta-icon i {
+  font-size: 36px;
+  color: #375534; /* Usamos el verde que has definido */
 }
 
 .cta-title {
@@ -339,31 +341,94 @@ body.dark-mode .landing-container {
 }
 
 .cta-description {
-  color: #555555;
+  color: #2a3629; /* Respetamos el color que has definido */
   margin-bottom: 20px;
   line-height: 1.4;
 }
 
 .cta-button {
-  background-color: #333333;
+  background-color: #375534; /* Usamos el verde que has definido */
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 10px; /* Respetamos el radio de borde que has definido */
   padding: 10px 24px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px #555555;
+  box-shadow: 0 4px 8px rgba(51, 51, 51, 0.3);
+  text-decoration: none; /* Para que el Link no tenga subrayado */
+  display: inline-block; /* Para que el Link se comporte como un botón */
 }
 
 .cta-button:hover {
-  background-color: #555555;
+  background-color: #2c4429; /* Versión ligeramente más oscura del verde */
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px #555555;
+  box-shadow: 0 6px 12px rgba(51, 51, 51, 0.4);
 }
 
 .cta-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px #555555;
+  box-shadow: 0 2px 4px rgba(55, 85, 52, 0.3); /* Color de sombra ajustado */
+}
+
+/* Modo oscuro mejorado y compatible con tus variables CSS */
+body.dark-mode .card-support {
+  /* La tarjeta ya usa var(--card-support-bg) que cambia en modo oscuro */
+}
+
+body.dark-mode .cta-icon i {
+  color: #a0d0a3; /* Verde claro para contraste en modo oscuro */
+}
+
+body.dark-mode .cta-title {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .cta-description {
+  color: #d0e0d0; /* Verde muy claro para mejor legibilidad */
+}
+
+body.dark-mode .cta-button {
+  background-color: #4a7248; /* Verde más claro para mejor visibilidad */
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .cta-button:hover {
+  background-color: #5c8a59;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Para compatibilidad con prefers-color-scheme si lo usas además de la clase dark-mode */
+@media (prefers-color-scheme: dark) {
+  /* Solo aplicar si no se está usando la clase dark-mode explícitamente */
+  body:not(.dark-mode):not(.light-mode) .card-support {
+    background-color: rgba(25, 35, 25, 0.85);
+  }
+  
+  body:not(.dark-mode):not(.light-mode) .cta-icon i {
+    color: #a0d0a3;
+  }
+  
+  body:not(.dark-mode):not(.light-mode) .cta-title {
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  body:not(.dark-mode):not(.light-mode) .cta-description {
+    color: #d0e0d0;
+  }
+  
+  body:not(.dark-mode):not(.light-mode) .cta-button {
+    background-color: #4a7248;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  body:not(.dark-mode):not(.light-mode) .cta-button:hover {
+    background-color: #5c8a59;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./Landing.css";
 import mavicImage from "../../assets/img/Mavic 3 volando.png";
 
@@ -20,17 +21,14 @@ const Landing = () => {
         <div className="card card-support">
           <div className="cta-container">
             <div className="cta-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                <circle cx="18" cy="6" r="3"></circle>
-                <circle cx="6" cy="18" r="3"></circle>
-              </svg>
+              <i className="fas fa-search-dollar"></i>
             </div>
             <h3 className="cta-title">Optimiza tu cultivo hoy, invierte en precisión</h3>
             <p className="cta-description">Los agricultores que utilizan DronFarm mejoran su rentabilidad gracias a decisiones basadas en datos precisos</p>
-            <button className="cta-button">¡Comienza ahora!</button>
+            <Link to="/signup" className="cta-button">¡Comienza ahora!</Link>
           </div>
         </div>
+
 
         <div className="card card-terms">
           {/* Contenido que estaba en card-support */}
