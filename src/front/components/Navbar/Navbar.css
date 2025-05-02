@@ -1,6 +1,6 @@
 .navbar {
   position: fixed;
-  top: 70px;
+  top: 30px;
   left: 0;
   right: 0;
   height: 60px;
@@ -151,12 +151,12 @@
 
 .hamburger-icon span {
   height: 3px;
-  background: #93c093;
+  background: #426e3e;
   border-radius: 3px;
 }
 
 .hamburger-icon:hover span {
-  background: #75e76b;
+  background: #50b048;
 }
 
 .hamburger-menu-container.active .hamburger-icon span:nth-child(1) {
@@ -176,7 +176,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
   width: 200px;
-  background: rgba(73, 133, 81, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 8px;
   padding: 10px 0;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);

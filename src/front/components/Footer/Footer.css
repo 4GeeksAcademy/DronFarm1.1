@@ -2,7 +2,7 @@
 .footer-glass {
   width: 90%;
   max-width: 1300px;
-  margin: 30px auto 0; /* Solo 30px de margen abajo */
+  margin: 30px auto 20px; /* Solo 30px de margen abajo */
   padding: 20px 0;
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
