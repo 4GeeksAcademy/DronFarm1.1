@@ -24,25 +24,30 @@ const Landing = () => {
               <i className="fas fa-search-dollar"></i>
             </div>
             <h3 className="cta-title">Optimiza tu cultivo hoy, invierte en precisión</h3>
-            <p className="cta-description">Los agricultores que utilizan DronFarm mejoran su rentabilidad gracias a decisiones basadas en datos precisos</p>
+            <p className="cta-description">DronFarm mejora la rentabilidad gracias a decisiones basadas en datos precisos</p>
             <Link to="/signup" className="cta-button">¡Comienza ahora!</Link>
           </div>
         </div>
 
 
         <div className="card card-terms">
-          {/* Contenido que estaba en card-support */}
-          <h2>Soporte</h2>
-          <p>
-            ¿Tienes preguntas? Contacta con nuestro equipo o visita
-            el centro de ayuda.
-          </p>
-          <p>
-            <br />
-            <strong>+34 911 23 45 67</strong><br />
-            <a href="mailto:soporte@dronfarm.com">soporte@dronfarm.com</a>
-          </p>
+          <h2>Síguenos</h2>
+          <div className="social-links">
+            <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-x-twitter"></i>
+            </a>
+          </div>
         </div>
+
 
         {/* Sustituimos el contenido de la caja de Síguenos por Qué detectamos */}
         <div className="card card-social">
