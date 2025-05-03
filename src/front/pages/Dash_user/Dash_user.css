@@ -518,3 +518,58 @@ body.dark-mode .change-field-button:hover {
 .start-tour-button:hover {
   background-color: var(--green-dark);
 }
+
+/* Banner promocional */
+.info-banner {
+  position: relative;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0 20px 20px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #F29B3F;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.banner-content {
+  flex: 1;
+}
+
+.info-banner h3 {
+  color: #0E4C6B;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.info-banner p {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.banner-button {
+  background-color: #F29B3F;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.banner-button:hover {
+  background-color: #e58b24;
+}
+
+.close-banner {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #6c757d;
+  margin-left: 15px;
+}
