@@ -151,12 +151,12 @@
 
 .hamburger-icon span {
   height: 3px;
-  background: #426e3e;
+  background: #284a25;
   border-radius: 3px;
 }
 
 .hamburger-icon:hover span {
-  background: #50b048;
+  background: #d37e07;
 }
 
 .hamburger-menu-container.active .hamburger-icon span:nth-child(1) {
