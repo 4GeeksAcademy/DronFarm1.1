@@ -7,6 +7,7 @@
   --card-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
   --glass-border: 1px solid rgba(255, 255, 255, 0.25);
   --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  --card-support-bg: rgba(255, 255, 255, 0.85);
 }
 
 .dashboard-container {
@@ -92,6 +93,11 @@
   }
 }
 /* === MODO OSCURO === */
+
+body.dark-mode {
+  --card-support-bg: rgba(25, 25, 25, 0.85);
+}
+
 body.dark-mode .dashboard-container {
   background: linear-gradient(to bottom, #111, #1d1d1d);
   background-image: url("../../assets/img/background-shape.svg"),
@@ -240,7 +246,7 @@ body.dark-mode .map-container {
 }
 
 .card-support {
-  background: rgba(245, 255, 245, 0.7);
+  background: var(--card-support-bg);
 }
 
 /* PANEL IZQUIERDO */
