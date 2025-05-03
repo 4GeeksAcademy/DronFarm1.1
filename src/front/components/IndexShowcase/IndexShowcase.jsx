@@ -283,7 +283,7 @@ const IndexShowcase = ({ onClose }) => {
     },
     {
       element: '.color-scale-container',
-      content: 'Los colores representan diferentes valores del índice. Pasa el cursor sobre cada color para ver su significado 🌈',
+      content: 'Los colores representan diferentes valores del índice. Pasa el cursor sobre cada color para ver su significado',
     },
     {
       element: '.applications-container',

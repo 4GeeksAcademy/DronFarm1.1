@@ -188,7 +188,7 @@
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
-    z-index: 1000;
+    z-index: 10005;
     max-width: 250px;
     pointer-events: none;
   }
@@ -507,3 +507,93 @@
   .index-showcase-container.transitioning .index-content {
     opacity: 0;
   }
+
+  /* IndexShowcase.css */
+
+/* Aplicar la tipografía consistente con la aplicación principal */
+.index-showcase-container {
+  font-family: 'Roboto', sans-serif;
+}
+
+.index-showcase-container h1,
+.index-showcase-container h2,
+.index-showcase-container h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+/* Selector de índices */
+.index-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background-color: #0E4C6B;
+  padding: 15px 25px;
+  border-radius: 12px;
+  color: white;
+}
+
+.current-index {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.current-index h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.current-index p {
+  margin: 5px 0 0;
+  font-size: 16px;
+  opacity: 0.9;
+  font-family: 'Roboto', sans-serif;
+}
+
+.cultivo-tag {
+  display: inline-block;
+  background-color: #F29B3F;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Estilos para el mensaje del tour */
+.tour-tooltip {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 22px;
+  font-family: 'Roboto', sans-serif; /* Cambiado a Roboto */
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: #1f2937;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  margin-bottom: 12px;
+  margin-top: 8px;
+  max-width: 450px;
+  line-height: 1.5;
+}
+
+/* Estilo específico para todos los diálogos y mensajes */
+.tour-toast p, 
+.tour-tooltip,
+.zone-detail-card p,
+.zone-detail-card h3,
+.zone-detail-card h4,
+.zone-detail-card li {
+  font-family: 'Roboto', sans-serif;
+}
+
+.zone-detail-card h3,
+.zone-detail-card h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
