@@ -277,7 +277,7 @@ const Dash_user = () => {
                         </div>
                     </div>
 
-                    <div className="info-panel card card-support">
+                    <div className="info-panel card">
                         {userData && selectedField && (
                             <>
                                 <div className="user-info">
