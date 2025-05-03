@@ -10,6 +10,7 @@ import FieldSelectorModal from "../../components/FieldSelectorModal/FieldSelecto
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
 import { showSuccessAlert, showErrorAlert } from "../../components/modal_alerts/modal_alerts";
 import OnboardingTour from '../../components/OnboardingTour/OnboardingTour';
+import IndexShowcaseModal from '../../components/IndexShowcaseModal/IndexShowcaseModal';
 
 
 const Dash_user = () => {
@@ -31,6 +32,10 @@ const Dash_user = () => {
     const [isReportModalOpen, setReportModalOpen] = useState(false);
     const [isFieldModalOpen, setFieldModalOpen] = useState(false);
     const isDarkMode = localStorage.getItem("darkMode") === "true";
+    const [showIndexModal, setShowIndexModal] = useState(false);
+    const [userHasSeenExamples, setUserHasSeenExamples] = useState(
+        localStorage.getItem("hasSeenExamples") === "true"
+    );
 
 
     useEffect(() => {
@@ -215,13 +220,16 @@ const Dash_user = () => {
         }
     };
 
+    const handleExamplesSeen = () => {
+        setUserHasSeenExamples(true);
+        localStorage.setItem("hasSeenExamples", "true");
+    };
 
     if (error) return <div className="error-message">{error}</div>;
 
     return (
         <>
             <OnboardingTour />
-
 
             {!initialSelectionDone && fieldsList.length > 1 && (
                 <FieldSelectorModal
@@ -238,6 +246,26 @@ const Dash_user = () => {
             )}
 
             <div className="dashboard-container">
+                {/* Banner promocional */}
+                {!userHasSeenExamples && (
+                    <div className="info-banner">
+                        <div className="banner-content">
+                            <h3>¿Sabes qué información podemos obtener de tus cultivos?</h3>
+                            <p>Descubre los diferentes tipos de análisis que ofrecemos y cómo pueden ayudarte a mejorar tus rendimientos.</p>
+                            <button 
+                                className="banner-button"
+                                onClick={() => {
+                                    setShowIndexModal(true);
+                                    handleExamplesSeen();
+                                }}
+                            >
+                                Ver ejemplos de análisis
+                            </button>
+                        </div>
+                        <button className="close-banner" onClick={handleExamplesSeen}>×</button>
+                    </div>
+                )}
+
                 <div className="dashboard-content">
                     <div className="left-panel">
                         <div className="card card-main map-container-wrapper">
@@ -324,6 +352,13 @@ const Dash_user = () => {
                                 >
                                     SOLICITAR PRESUPUESTO
                                 </button>
+                                <button
+                                    id="btn-ver-ejemplos"
+                                    className="request-report-button"
+                                    onClick={() => setShowIndexModal(true)}
+                                >
+                                    VER EJEMPLOS DE ANÁLISIS
+                                </button>
 
 
                                 <button
@@ -366,9 +401,13 @@ const Dash_user = () => {
                         }
                     }}
                 />
-
             )}
 
+            {/* Modal para ejemplos de índices */}
+            <IndexShowcaseModal 
+                isOpen={showIndexModal} 
+                onClose={() => setShowIndexModal(false)} 
+            />
         </>
     );
 };
