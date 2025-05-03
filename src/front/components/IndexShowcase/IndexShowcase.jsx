@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './IndexShowcase.css';
+
+// Importar las imágenes
 import ndviImage from '../../assets/img/index-examples/NDVI2.png';
 import ndreImage from '../../assets/img/index-examples/NVRE1.png';
 import gndviImage from '../../assets/img/index-examples/GNDVI1.jpg';
@@ -151,7 +154,15 @@ const sampleZones = [
   { id: 'C', x: 75, y: 75, description: 'Zona con estrés severo (NDVI: 0.25)' },
 ];
 
-const IndexShowcase = () => {
+const IndexShowcase = ({ onClose }) => {
+  // Intentar usar el hook de navegación solo si está disponible
+  let navigate;
+  try {
+    navigate = useNavigate();
+  } catch (error) {
+    console.warn("useNavigate no está disponible");
+  }
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipContent, setTooltipContent] = useState('');
@@ -160,17 +171,25 @@ const IndexShowcase = () => {
   const [activeZone, setActiveZone] = useState(null);
   const [showTour, setShowTour] = useState(false);
   const [tourStep, setTourStep] = useState(0);
+  const [showWelcomeDialog, setShowWelcomeDialog] = useState(true);
+  const [hasShownWelcome, setHasShownWelcome] = useState(false);
 
-  const currentData = indexData[currentIndex];
+  // Asegurarse de que currentData nunca sea undefined
+  const currentData = indexData[currentIndex] || indexData[0];
 
+  // Deshabilitamos el auto-inicio del tour y del diálogo
+  // Se mostrará solo la primera vez que se abre el componente
   useEffect(() => {
-    // Mostrar el diálogo inicial después de un pequeño retraso
-    const timer = setTimeout(() => {
-      setShowTour(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    if (!hasShownWelcome) {
+      // Solo mostramos el diálogo la primera vez
+      const timer = setTimeout(() => {
+        setShowWelcomeDialog(true);
+        setHasShownWelcome(true);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [hasShownWelcome]);
 
   const handleNextIndex = () => {
     setCurrentIndex((prev) => (prev + 1) % indexData.length);
@@ -206,6 +225,7 @@ const IndexShowcase = () => {
 
   const startTour = () => {
     setShowTour(true);
+    setShowWelcomeDialog(false);
     setTourStep(0);
   };
 
@@ -225,6 +245,29 @@ const IndexShowcase = () => {
   const prevTourStep = () => {
     if (tourStep > 0) {
       setTourStep(tourStep - 1);
+    }
+  };
+
+  // Función para cerrar el diálogo de bienvenida y el modal completo
+  const closeWelcomeAndModal = () => {
+    setShowWelcomeDialog(false);
+    if (onClose && typeof onClose === 'function') {
+      onClose(); // Llamamos a la función onClose que recibimos como prop
+    }
+  };
+
+  // Función para manejar la solicitud de presupuesto
+  const handleRequestQuote = () => {
+    if (onClose && typeof onClose === 'function') {
+      onClose(); // Primero cerramos el modal
+    }
+
+    // Navegar solo si el hook está disponible
+    if (navigate) {
+      navigate('/app/quote'); // Luego navegamos a la página de presupuesto
+    } else {
+      console.warn("No se puede navegar: useNavigate no está disponible");
+      window.location.href = '/app/quote'; // Alternativa si no funciona el hook
     }
   };
 
@@ -258,7 +301,7 @@ const IndexShowcase = () => {
   return (
     <div className="index-showcase-container">
       {/* Tour overlay */}
-      {showTour && (
+      {showTour && currentTourStep && (
         <div className="tour-overlay">
           <div className="tour-spotlight" style={{
             top: document.querySelector(currentTourStep.element)?.getBoundingClientRect().top - 10 || 0,
@@ -266,7 +309,7 @@ const IndexShowcase = () => {
             width: (document.querySelector(currentTourStep.element)?.getBoundingClientRect().width || 0) + 20,
             height: (document.querySelector(currentTourStep.element)?.getBoundingClientRect().height || 0) + 20
           }}></div>
-
+          
           <div className="tour-tooltip-container" style={{
             top: (document.querySelector(currentTourStep.element)?.getBoundingClientRect().bottom || 0) + 20,
             left: document.querySelector(currentTourStep.element)?.getBoundingClientRect().left || 0,
@@ -291,9 +334,9 @@ const IndexShowcase = () => {
       <div className="index-selector">
         <button className="nav-button" onClick={handlePrevIndex}>&lt;</button>
         <div className="current-index">
-          <h2>{currentData.name} {currentData.icono}</h2>
-          <p>{currentData.fullName}</p>
-          <span className="cultivo-tag">Ejemplo en: {currentData.cultivo}</span>
+          <h2>{currentData?.name || 'Índice'} {currentData?.icono || ''}</h2>
+          <p>{currentData?.fullName || ''}</p>
+          <span className="cultivo-tag">Ejemplo en: {currentData?.cultivo || 'Cultivo'}</span>
         </div>
         <button className="nav-button" onClick={handleNextIndex}>&gt;</button>
       </div>
@@ -303,12 +346,18 @@ const IndexShowcase = () => {
         {/* Imagen y explicación */}
         <div className="index-image-container">
           <div className="image-placeholder">
-            <img
-              src={currentData.imagePlaceholder}
-              alt={`Ejemplo de ${currentData.name} en cultivo de ${currentData.cultivo}`}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-
+            {currentData?.imagePlaceholder ? (
+              <img
+                src={currentData.imagePlaceholder}
+                alt={`Ejemplo de ${currentData.name || 'índice'} en cultivo de ${currentData.cultivo || 'ejemplo'}`}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                Imagen no disponible
+              </div>
+            )}
+            
             {/* Zonas de ejemplo */}
             {sampleZones.map((zone) => (
               <div
@@ -325,7 +374,7 @@ const IndexShowcase = () => {
             ))}
           </div>
           <div className="index-description">
-            <p>{currentData.description}</p>
+            <p>{currentData?.description || 'Descripción no disponible'}</p>
           </div>
         </div>
 
@@ -334,7 +383,7 @@ const IndexShowcase = () => {
           <div className="color-scale-container">
             <h3>Interpretación de Colores</h3>
             <div className="color-scale">
-              {currentData.colorScale.map((item, idx) => (
+              {currentData?.colorScale?.map((item, idx) => (
                 <div
                   key={idx}
                   className="color-block-container"
@@ -347,24 +396,27 @@ const IndexShowcase = () => {
                   ></div>
                   <span className="color-label">{item.label}</span>
                 </div>
-              ))}
+              )) || <p>Escala de colores no disponible</p>}
             </div>
           </div>
 
           {/* Aplicaciones */}
           <div className="applications-container">
-            <h3>Aplicaciones para {currentData.cultivo}</h3>
+            <h3>Aplicaciones para {currentData?.cultivo || 'el cultivo'}</h3>
             <ul className="applications-list">
-              {currentData.applications.map((app, idx) => (
+              {currentData?.applications?.map((app, idx) => (
                 <li key={idx}>{app}</li>
-              ))}
+              )) || <li>Aplicaciones no disponibles</li>}
             </ul>
           </div>
 
           {/* Botón de solicitud */}
           <div className="action-container">
-            <button className="request-button">
-              Solicitar análisis de {currentData.name} para mis cultivos
+            <button 
+              className="request-button"
+              onClick={handleRequestQuote} 
+            >
+              Solicitar análisis de {currentData?.name || 'índice'} para mis cultivos
             </button>
           </div>
         </div>
@@ -420,13 +472,18 @@ const IndexShowcase = () => {
         </div>
       )}
 
-      {/* Diálogo inicial */}
-      {!showTour && (
+      {/* Diálogo inicial - solo se muestra si showWelcomeDialog es true y no estamos en el tour */}
+      {showWelcomeDialog && !showTour && (
         <div className="tour-toast">
           <p>¡Bienvenido a los informes de DronFarm! 🚜 🌱</p>
           <p>¿Quieres ver un recorrido sobre los distintos tipos de análisis que ofrecemos?</p>
           <div className="tour-toast-buttons">
-            <button onClick={() => setShowTour(false)} className="tour-btn tour-btn-secondary">No, gracias</button>
+            <button 
+              onClick={closeWelcomeAndModal}
+              className="tour-btn tour-btn-secondary"
+            >
+              No, gracias
+            </button>
             <button onClick={startTour} className="tour-btn tour-btn-primary">¡Sí, muéstrame!</button>
           </div>
         </div>
