@@ -131,6 +131,7 @@ const Navbar = () => {
               <a onClick={() => goTo("/")}>Inicio</a>
               <a onClick={() => goTo("/servicios")}>Servicios</a>
               <a onClick={() => goTo("/nosotros")}>Nosotros</a>
+              <a onClick={() => goTo("/why-us")}>¿Por qué DronFarm?</a>
               <a onClick={() => goTo("/contacto")}>Contacto</a>
               <a onClick={toggleDarkMode} className="dark-toggle-link">
                 {isDarkMode ? "Modo claro ☀️" : "Modo oscuro 🌙"}

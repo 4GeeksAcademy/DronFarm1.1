@@ -24,6 +24,7 @@ import WeOffer from "./pages/WeOffer/WeOffer";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import WhyUs from "./pages/WhyUs/WhyUs";
 
 
 export const router = createBrowserRouter(
@@ -40,6 +41,7 @@ export const router = createBrowserRouter(
         <Route path="contacto" element={<Contact />} />
         <Route path="servicios" element={<WeOffer />} />
         <Route path="nosotros" element={<AboutUs />} />
+        <Route path="why-us" element={<WhyUs />} />
       </Route>
 
       {/* Rutas privadas */}
