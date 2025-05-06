@@ -366,3 +366,226 @@ body.dark-mode .info-item i {
   resize: vertical;
   min-height: 80px; /* Altura reducida */
 }
+
+/* === ESTILOS PARA LA SECCIÓN DE CONTACTO === */
+
+/* Contenedor principal */
+.contacto-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.2rem;
+  height: 100%;
+}
+
+/* Sección superior (Información de contacto) */
+.info-top-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.info-top-section h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  color: #375534;
+  text-align: center;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.info-item i {
+  color: #375534;
+  font-size: 1.2rem;
+  width: 20px;
+  text-align: center;
+}
+
+.info-item span {
+  color: #444;
+  font-size: 1rem;
+}
+
+/* Línea divisoria */
+.contact-divider {
+  width: 80%;
+  height: 3px;
+  background: rgba(55, 85, 52, 0.2);
+  margin: 1rem 0;
+  border-radius: 1px;
+}
+
+/* Sección inferior (Redes sociales) */
+.info-bottom-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.info-bottom-section h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.0rem;
+  margin-bottom: 3.0rem;
+  color: #375534;
+  text-align: center;
+}
+
+.social-links-contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Tamaño por defecto de los iconos - Ajusta estos valores para cambiar el tamaño */
+.social-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 55px;  /* Tamaño ajustable */
+  height: 45px; /* Tamaño ajustable */
+  background-color: rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-item i {
+  font-size: 28px; /* Tamaño ajustable */
+  color: #375534;
+  transition: all 0.3s ease;
+}
+
+.social-item:hover {
+  background-color: #375534;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.social-item:hover i {
+  color: #ffffff;
+}
+
+/* Modo oscuro */
+body.dark-mode .contacto-info {
+  background-color: rgba(30, 30, 30, 0.7);
+  color: #eee;
+}
+
+body.dark-mode .info-top-section h2,
+body.dark-mode .info-bottom-section h2 {
+  color: #9ccc8a;
+}
+
+body.dark-mode .info-item span {
+  color: #ddd;
+}
+
+body.dark-mode .info-item i {
+  color: #9ccc8a;
+}
+
+body.dark-mode .contact-divider {
+  background: rgba(156, 204, 138, 0.2);
+}
+
+body.dark-mode .social-item {
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(156, 204, 138, 0.2);
+}
+
+body.dark-mode .social-item i {
+  color: #9ccc8a;
+}
+
+body.dark-mode .social-item:hover {
+  background-color: #4a7248;
+}
+
+body.dark-mode .social-item:hover i {
+  color: #ffffff;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .contacto-columns {
+    flex-direction: column;
+  }
+  
+  .contacto-info,
+  .contacto-form-container {
+    width: 100%;
+  }
+  
+  .info-top-section h2, 
+  .info-bottom-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .social-links-contact {
+    gap: 14px;
+  }
+  
+  /* Tamaño para tablets */
+  .social-item {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .social-item i {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-top-section h2, 
+  .info-bottom-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .info-item span {
+    font-size: 0.95rem;
+  }
+  
+  /* Tamaño para móviles */
+  .social-item {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .social-item i {
+    font-size: 18px;
+  }
+}

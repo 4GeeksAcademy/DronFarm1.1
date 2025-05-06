@@ -14,9 +14,6 @@ const Contact = () => {
   const [enviado, setEnviado] = useState(false);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem('token');
-  const isLoggedIn = token && token !== 'undefined' && token !== 'null' && token.trim() !== '';
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -38,7 +35,6 @@ const Contact = () => {
 
   return (
     <div className="landing-container fade-in">
-
       <div className="contacto-container">
         {/* HERO */}
         <motion.section
@@ -54,7 +50,7 @@ const Contact = () => {
 
         {/* COLUMNS (CONTACTO INFO + FORM) */}
         <div className="contacto-columns">
-          {/* INFO DE CONTACTO - Versión simplificada */}
+          {/* INFO DE CONTACTO - Con dos secciones */}
           <motion.div
             className="contacto-info contacto-item"
             initial={{ opacity: 0, x: -30 }}
@@ -62,19 +58,46 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2>Información de contacto</h2>
-            <div className="info-item">
-              <p><i className="fa fa-map-marker"></i> Av. del Bootcamp 1234, Madrid, España</p>
+            <div className="info-top-section">
+              <h2>Información de contacto</h2>
+              <div className="info-list">
+                <div className="info-item">
+                  <i className="fa fa-map-marker"></i>
+                  <span>Av. del Bootcamp 1234, Madrid, España</span>
+                </div>
+                <div className="info-item">
+                  <i className="fa fa-phone"></i>
+                  <span>+34 912 345 678</span>
+                </div>
+                <div className="info-item">
+                  <i className="fa fa-envelope"></i>
+                  <span>info@dronfarm.com</span>
+                </div>
+              </div>
             </div>
-            <div className="info-item">
-              <p><i className="fa fa-phone"></i> +34 912 345 678</p>
-            </div>
-            <div className="info-item">
-              <p><i className="fa fa-envelope"></i> info@dronfarm.com</p>
+            
+            <div className="contact-divider"></div>
+            
+            <div className="info-bottom-section">
+              <h2>Síguenos</h2>
+              <div className="social-links-contact">
+                <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="social-item">
+                  <i className="fab fa-instagram"></i>
+                </a>
+                <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="social-item">
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" className="social-item">
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer" className="social-item">
+                  <i className="fab fa-x-twitter"></i>
+                </a>
+              </div>
             </div>
           </motion.div>
 
-          {/* FORMULARIO - Mejorado visualmente */}
+          {/* FORMULARIO */}
           <motion.div
             className="contacto-form-container contacto-item"
             initial={{ opacity: 0, x: 30 }}
