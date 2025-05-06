@@ -338,10 +338,10 @@ const Dash_user = () => {
                                             <p>{filteredReports.length} informes disponibles</p>
                                             <button
                                                 id="btn-ver-ejemplos"
-                                                className="examples-button"
+                                                className="examples-button boxed"
                                                 onClick={() => setShowIndexModal(true)}
                                             >
-                                                ¿Informes?
+                                                <i className="fas fa-chart-bar"></i> ¿Informes?
                                             </button>
                                         </div>
                                     )}
