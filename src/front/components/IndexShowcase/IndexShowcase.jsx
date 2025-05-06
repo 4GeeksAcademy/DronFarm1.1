@@ -192,7 +192,7 @@ const IndexShowcase = ({ onClose }) => {
         setShowWelcomeDialog(true);
         setHasShownWelcome(true);
       }, 1000);
-      
+
       return () => clearTimeout(timer);
     }
   }, [hasShownWelcome]);
@@ -277,27 +277,27 @@ const IndexShowcase = ({ onClose }) => {
     }
   };
 
-  // Pasos del tour
+  // Pasos del tour con iconos Font Awesome
   const tourSteps = [
     {
       element: '.index-selector',
-      content: 'Elige entre diferentes índices para ver cómo analizamos tu cultivo con DronFarm 🛰️',
+      content: 'Elige entre diferentes índices para ver cómo analizamos tu cultivo con DronFarm <i class="fa-solid fa-satellite"></i>',
     },
     {
       element: '.index-image-container',
-      content: 'Cada imagen muestra diferentes aspectos de la salud de tu cultivo. Haz clic en las zonas marcadas para más detalles 🔍',
+      content: 'Cada imagen muestra diferentes aspectos de la salud de tu cultivo. Haz clic en las zonas marcadas para más detalles <i class="fa-solid fa-magnifying-glass-plus"></i>',
     },
     {
       element: '.color-scale-container',
-      content: 'Los colores representan diferentes valores del índice. Pasa el cursor sobre cada color para ver su significado',
+      content: 'Los colores representan diferentes valores del índice. Pasa el cursor sobre cada color para ver su significado <i class="fa-solid fa-palette"></i>',
     },
     {
       element: '.applications-container',
-      content: 'Descubre cómo puedes utilizar cada índice para mejorar la gestión de tus cultivos 📈',
+      content: 'Descubre cómo puedes utilizar cada índice para mejorar la gestión de tus cultivos <i class="fa-solid fa-chart-line"></i>',
     },
     {
       element: '.request-button',
-      content: '¡Solicita un presupuesto para obtener estos análisis en tus propios cultivos! 📝',
+      content: '¡Solicita un presupuesto para obtener estos análisis en tus propios cultivos! <i class="fa-solid fa-file-invoice-dollar"></i>',
     }
   ];
 
@@ -315,14 +315,12 @@ const IndexShowcase = ({ onClose }) => {
             width: (document.querySelector(currentTourStep.element)?.getBoundingClientRect().width || 0) + 20,
             height: (document.querySelector(currentTourStep.element)?.getBoundingClientRect().height || 0) + 20
           }}></div>
-          
+
           <div className="tour-tooltip-container" style={{
             top: (document.querySelector(currentTourStep.element)?.getBoundingClientRect().bottom || 0) + 20,
             left: document.querySelector(currentTourStep.element)?.getBoundingClientRect().left || 0,
           }}>
-            <div className="tour-tooltip">
-              {currentTourStep.content}
-            </div>
+            <div className="tour-tooltip" dangerouslySetInnerHTML={{ __html: currentTourStep.content }}></div>
             <div className="tour-button-group">
               <button onClick={closeTour} className="tour-btn tour-btn-secondary">Saltar</button>
               {tourStep > 0 && (
@@ -340,7 +338,7 @@ const IndexShowcase = ({ onClose }) => {
       <div className="index-selector">
         <button className="nav-button" onClick={handlePrevIndex}>&lt;</button>
         <div className="current-index">
-        <h2>{currentData?.name || 'Índice'} <i className={`fa-solid ${currentData?.iconoFA || 'fa-leaf'}`}></i></h2>
+          <h2>{currentData?.name || 'Índice'} <i className={`fa-solid ${currentData?.iconoFA || 'fa-leaf'}`}></i></h2>
           <p>{currentData?.fullName || ''}</p>
           <span className="cultivo-tag">Ejemplo en: {currentData?.cultivo || 'Cultivo'}</span>
         </div>
@@ -363,7 +361,7 @@ const IndexShowcase = ({ onClose }) => {
                 Imagen no disponible
               </div>
             )}
-            
+
             {/* Zonas de ejemplo */}
             {sampleZones.map((zone) => (
               <div
@@ -418,9 +416,9 @@ const IndexShowcase = ({ onClose }) => {
 
           {/* Botón de solicitud */}
           <div className="action-container">
-            <button 
+            <button
               className="request-button"
-              onClick={handleRequestQuote} 
+              onClick={handleRequestQuote}
             >
               Solicitar análisis de {currentData?.name || 'índice'} para mis cultivos
             </button>
@@ -484,7 +482,7 @@ const IndexShowcase = ({ onClose }) => {
           <p>¡Bienvenido a los informes de DronFarm! 🚜 🌱</p>
           <p>¿Quieres ver un recorrido sobre los distintos tipos de análisis que ofrecemos?</p>
           <div className="tour-toast-buttons">
-            <button 
+            <button
               onClick={closeWelcomeAndModal}
               className="tour-btn tour-btn-secondary"
             >
