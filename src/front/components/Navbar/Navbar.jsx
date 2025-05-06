@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/img/Logo_DronFarm_Iconocolor_sinmarcoDEF.png";
-import logoDark from "../../assets/img/Logo_DronFarm_IconoBlanco_sinmarco.png";
+import logoDark from "../../assets/img/Logo_DronFarm_Iconocolor_sinmarcoDEF_blanco.png";
 import { showSuccessAlert } from '../../components/modal_alerts/modal_alerts';
 
 const Navbar = () => {

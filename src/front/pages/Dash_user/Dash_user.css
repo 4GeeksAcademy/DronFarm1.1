@@ -600,3 +600,59 @@ body.dark-mode .change-field-button:hover {
 .examples-button:hover {
   text-decoration: underline;
 }
+
+/* Estilos para el botón de ejemplos con caja */
+.examples-button.boxed {
+  background-color: rgba(76, 154, 100, 0.15);
+  border: 1px solid #4d9a64;
+  color: #284d30;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.examples-button.boxed:hover {
+  background-color: rgba(76, 154, 100, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.examples-button.boxed:active {
+  transform: translateY(0);
+}
+
+/* Estilo para el icono de Font Awesome */
+.examples-button.boxed i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+/* Estilos para modo oscuro */
+body.dark-mode .examples-button.boxed {
+  background-color: rgba(108, 178, 129, 0.15);
+  border-color: #3d7a54;
+  color: #b2d4bc;
+}
+
+body.dark-mode .examples-button.boxed:hover {
+  background-color: rgba(108, 178, 129, 0.25);
+  border-color: #4d9a64;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .examples-button.boxed {
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+}
