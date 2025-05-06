@@ -499,3 +499,92 @@ body.dark-mode .cta-button:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
   }
 }
+
+/* === NUEVOS ESTILOS PARA CAJITAS DE REDES SOCIALES === */
+
+.social-links-contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.social-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;  /* Tamaño grande para las cajitas */
+  height: 60px; /* Tamaño grande para las cajitas */
+  background-color: rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-item i {
+  font-size: 30px; /* Tamaño grande para los iconos */
+  color: #375534;
+  transition: all 0.3s ease;
+}
+
+.social-item:hover {
+  background-color: #375534;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.social-item:hover i {
+  color: #ffffff;
+}
+
+/* Modo oscuro */
+body.dark-mode .social-item {
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(156, 204, 138, 0.2);
+}
+
+body.dark-mode .social-item i {
+  color: #9ccc8a;
+}
+
+body.dark-mode .social-item:hover {
+  background-color: #4a7248;
+}
+
+body.dark-mode .social-item:hover i {
+  color: #ffffff;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .social-links-contact {
+    gap: 14px;
+  }
+  
+  .social-item {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .social-item i {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-links-contact {
+    gap: 10px;
+  }
+  
+  .social-item {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .social-item i {
+    font-size: 22px;
+  }
+}

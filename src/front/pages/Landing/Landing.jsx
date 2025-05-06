@@ -32,17 +32,17 @@ const Landing = () => {
 
         <div className="card card-terms">
           <h2>Síguenos</h2>
-          <div className="social-links">
-            <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <div className="social-links-contact">
+            <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="social-item">
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="social-item">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" className="social-item">
               <i className="fab fa-linkedin-in"></i>
             </a>
-            <a href="#" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+            <a href="#" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer" className="social-item">
               <i className="fab fa-x-twitter"></i>
             </a>
           </div>
