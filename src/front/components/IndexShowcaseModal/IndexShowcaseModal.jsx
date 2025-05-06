@@ -21,7 +21,9 @@ const IndexShowcaseModal = ({ isOpen, onClose }) => {
   return (
     <div className="index-showcase-modal-overlay" onClick={onClose}>
       <div className="index-showcase-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="index-showcase-modal-close" onClick={onClose}>&times;</button>
+        <button className="index-showcase-modal-close" onClick={onClose}>
+          <i className="fa-solid fa-xmark"></i>
+        </button>
         <IndexShowcase onClose={onClose} /> {/* Pasamos la función onClose como prop */}
       </div>
     </div>
