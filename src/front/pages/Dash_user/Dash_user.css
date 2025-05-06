@@ -527,7 +527,7 @@ body.dark-mode .change-field-button:hover {
   padding: 20px;
   margin: 0 20px 20px 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #F29B3F;
+  border-left: 4px solid #f29b3f;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -538,7 +538,7 @@ body.dark-mode .change-field-button:hover {
 }
 
 .info-banner h3 {
-  color: #0E4C6B;
+  color: #0e4c6b;
   margin-top: 0;
   margin-bottom: 10px;
   font-size: 18px;
@@ -551,7 +551,7 @@ body.dark-mode .change-field-button:hover {
 }
 
 .banner-button {
-  background-color: #F29B3F;
+  background-color: #f29b3f;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -572,4 +572,31 @@ body.dark-mode .change-field-button:hover {
   cursor: pointer;
   color: #6c757d;
   margin-left: 15px;
+}
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.reports-count {
+  color: #333;
+  font-weight: normal;
+}
+
+.examples-button {
+  background: none;
+  border: none;
+  color: #284d30;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+.examples-button:hover {
+  text-decoration: underline;
 }

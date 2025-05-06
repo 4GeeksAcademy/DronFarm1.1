@@ -14,6 +14,7 @@ const OnboardingTour = () => {
     { target: '#btn-cambiar-parcela', content: '¿Tienes varias parcelas? Usa este botón para cambiar cuál estás viendo ahora 🧭', disableBeacon: true },
     { target: '.user-info', content: 'Aquí tienes los datos de tu campo: ubicación, superficie, cultivo y más 🧾', disableBeacon: true },
     { target: '#btn-ver-informes', content: 'Desde aquí puedes acceder a todos los informes generados 📋', disableBeacon: true },
+    { target: '#btn-ver-ejemplos', content: '¿No sabes que contiene un informe? Aquí podrás ver uno de ejemplo', disableBeacon: true },
     { target: '#btn-solicitar-presupuesto', content: 'Solicita un presupuesto personalizado para tus cultivos ✉️', disableBeacon: true },
     { target: '#btn-anadir-cultivo', content: 'Añade nuevas parcelas o cultivos desde aquí 🌱', disableBeacon: true },
     { target: '#btn-gestionar-tierras', content: 'Gestiona o elimina parcelas que ya no uses 🧩', disableBeacon: true },
