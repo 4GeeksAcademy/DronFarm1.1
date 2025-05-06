@@ -2,7 +2,7 @@ import React from "react";
 import "./AboutUs.css";
 import { motion } from "framer-motion";
 import yeneseyPic from "../../../static/img/yenesey_pic.jpeg";
-import ricardoPic from "../../../static/img/ricardo_pic.jpeg"; // Usa esta si lo importas igual
+import ricardoPic from "../../../static/img/Fotoperfil_Riki_v1.png"; // Usa esta si lo importas igual
 
 const AboutUs = () => {
   return (
