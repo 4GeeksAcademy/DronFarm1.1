@@ -252,7 +252,7 @@ const Dash_user = () => {
                         <div className="banner-content">
                             <h3>¿Sabes qué información podemos obtener de tus cultivos?</h3>
                             <p>Descubre los diferentes tipos de análisis que ofrecemos y cómo pueden ayudarte a mejorar tus rendimientos.</p>
-                            <button 
+                            <button
                                 className="banner-button"
                                 onClick={() => {
                                     setShowIndexModal(true);
@@ -334,7 +334,16 @@ const Dash_user = () => {
                                     {loading.reports ? (
                                         <p className="loading-msg">🔄 Actualizando informes...</p>
                                     ) : (
-                                        <p>{filteredReports.length} informes disponibles</p>
+                                        <div className="reports-header">
+                                            <p>{filteredReports.length} informes disponibles</p>
+                                            <button
+                                                id="btn-ver-ejemplos"
+                                                className="examples-button"
+                                                onClick={() => setShowIndexModal(true)}
+                                            >
+                                                ¿Informes?
+                                            </button>
+                                        </div>
                                     )}
                                     <button
                                         className="request-report-button"
@@ -352,14 +361,6 @@ const Dash_user = () => {
                                 >
                                     SOLICITAR PRESUPUESTO
                                 </button>
-                                <button
-                                    id="btn-ver-ejemplos"
-                                    className="request-report-button"
-                                    onClick={() => setShowIndexModal(true)}
-                                >
-                                    VER EJEMPLOS DE ANÁLISIS
-                                </button>
-
 
                                 <button
                                     className="add-field-button"
@@ -404,9 +405,9 @@ const Dash_user = () => {
             )}
 
             {/* Modal para ejemplos de índices */}
-            <IndexShowcaseModal 
-                isOpen={showIndexModal} 
-                onClose={() => setShowIndexModal(false)} 
+            <IndexShowcaseModal
+                isOpen={showIndexModal}
+                onClose={() => setShowIndexModal(false)}
             />
         </>
     );
