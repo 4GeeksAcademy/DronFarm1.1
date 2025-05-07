@@ -43,8 +43,10 @@ export const router = createBrowserRouter(
         <Route path="servicios" element={<WeOffer />} />
         <Route path="nosotros" element={<AboutUs />} />
         <Route path="why-us" element={<WhyUs />} />
-        <Route path="casos" element={<Cases />} />
+       
       </Route>
+
+      <Route path="casos" element={<Cases />} />
 
       {/* Rutas privadas */}
       <Route
