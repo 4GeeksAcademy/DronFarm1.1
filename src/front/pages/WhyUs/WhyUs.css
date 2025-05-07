@@ -1,35 +1,46 @@
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
-/* Contenedor general */
+/* Fondo que cubre toda la vista incluyendo navbar y footer */
+.whyus-page-background {
+  background-image: url("../../assets/img/background-shape-verdeOscuro.svg"),
+    linear-gradient(to top right, #b0dad3, #e3eed4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px 1000px, cover;
+  animation: fadeInOnly 1.2s ease-out forwards;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wrapper: toma el espacio entre navbar y footer y centra contenido */
 .whyus-wrapper {
-  width: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px 20px;
+  padding: 40px 20px;
   box-sizing: border-box;
 }
 
 /* Carrusel */
-.carousel-container,
-.carousel-wrapper {
+.carousel-container {
   width: 100%;
   max-width: 1200px;
   height: 600px;
   border-radius: 20px;
+  margin-top: 80px;
   overflow: hidden;
   position: relative;
-  box-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.15));
-  border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.18));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Slides */
 .carousel-slide {
-  position: relative;
   width: 100%;
   height: 600px;
-  overflow: hidden;
+  position: relative;
 }
 
 .carousel-image {
@@ -39,12 +50,11 @@
   transition: transform 5s ease;
 }
 
-/* Efecto zoom en la imagen activa */
 .slick-active .carousel-image {
   transform: scale(1.05);
 }
 
-/* Overlay semitransparente */
+/* Capa oscura */
 .carousel-overlay {
   position: absolute;
   top: 0;
@@ -55,7 +65,7 @@
   z-index: 1;
 }
 
-/* Texto centrado animado */
+/* Texto */
 .text-content {
   position: absolute;
   top: 50%;
@@ -67,37 +77,19 @@
   max-width: 90%;
   padding: 2rem 1.5rem;
   box-sizing: border-box;
-  opacity: 0;
 }
 
-/* Animación de entrada */
-@keyframes fadeInStart {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -40%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.fade-in {
-  animation: fadeInStart 1s ease forwards;
-}
-
-/* Títulos y subtítulos */
 .highlight {
-  font-size: 3.4rem;
+  font-size: 3rem;
   font-weight: 800;
-  margin-bottom: 1.2rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .subtext {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 400;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 /* Dots */
@@ -106,12 +98,16 @@
   font-size: 12px;
   opacity: 0.7;
 }
-
 .slick-dots li.slick-active button:before {
   opacity: 1;
 }
 
 /* Dark mode */
+body.dark-mode .whyus-page-background {
+  background-image: url("../../assets/img/background-shape.svg"),
+    linear-gradient(to bottom, #111, #1d1d1d);
+}
+
 body.dark-mode .carousel-overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -123,32 +119,30 @@ body.dark-mode .slick-dots li button:before {
 /* Responsive */
 @media (max-width: 768px) {
   .carousel-container,
-  .carousel-slide,
-  .carousel-wrapper {
+  .carousel-slide {
     height: 400px;
   }
 
   .highlight {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
   }
 
   .subtext {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
   .carousel-container,
-  .carousel-slide,
-  .carousel-wrapper {
+  .carousel-slide {
     height: 300px;
   }
 
   .highlight {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .subtext {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
