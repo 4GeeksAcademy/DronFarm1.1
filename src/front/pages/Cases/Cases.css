@@ -1,0 +1,97 @@
+.cases-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/img/background-shape-verdeOscuro.svg"), linear-gradient(to top right, #b0dad3, #e3eed4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px 1000px, cover;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed; /* <-- Esta es la clave */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  animation: fadeInOnly 1.2s ease-out forwards;
+}
+
+  
+  .cases-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #033547;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 60px; /* 👈 Espacio extra antes del texto final */
+  }
+  
+  .case-card {
+    background: rgba(255, 255, 255, 0.5); /* 👈 Un poco más opaco */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .case-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .case-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .case-card h3 {
+    font-size: 1.5rem;
+    margin: 20px 0 10px;
+    color: #375534;
+  }
+  
+  .case-card p {
+    padding: 0 20px 20px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .cases-footer {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.6); /* 👈 Fondo glassmorphism para el texto */
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #2a3629;
+    max-width: 800px;
+    line-height: 1.5;
+  }
+  
+  /* 🌙 Dark mode */
+  body.dark-mode .cases-container {
+    background-image: url("../../assets/img/background-shape.svg"), linear-gradient(to bottom, #111, #1d1d1d);
+    color: #eee;
+  }
+  
+  body.dark-mode .case-card {
+    background: rgba(30, 30, 30, 0.7);
+  }
+  
+  body.dark-mode .cases-footer {
+    background-color: rgba(30, 30, 30, 0.7); /* 👈 Fondo oscuro para el texto */
+    color: #9ccc8a;
+  }
+  
