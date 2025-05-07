@@ -38,18 +38,47 @@ body {
 }
 
 .weoffer-header-box {
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 16px;
-  padding: 2rem 3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  max-width: 1000px;
+  position: relative;
+  width: 100%;
+  max-width: 82%;
+  min-height: 260px; /* Más grande */
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  background-image: url("../../assets/img/Mavic3_v2.jpg"); /* Imagen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 60px;
+  margin-top: 30px;
+  margin-bottom: 3rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
+/* Capa oscura encima de la imagen */
+.weoffer-header-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 57, 75, 0.4); /* Overlay oscuro semi-transparente */
+  z-index: 1;
+  border-radius: 20px;
+}
+
+/* El contenido va encima del overlay */
+.weoffer-header-box .section-title,
+.weoffer-header-box .weoffer-text {
+  position: relative;
+  z-index: 2;
+  color: white; /* Asegura que el texto sea blanco para contraste */
+}
 
 .section-title {
   font-family: "Montserrat", sans-serif;
@@ -195,4 +224,59 @@ body.dark-mode .dark-mode-toggle {
 
 body.dark-mode .dark-mode-toggle i {
   color: #f0f0f0;
+}
+
+
+.weoffer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.weoffer-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 300px;
+  height: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex; /* NUEVO */
+  flex-direction: column; /* NUEVO */
+  justify-content: space-between; /* NUEVO */
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weoffer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.quote-button {
+  background-color: #198754; /* Verde DronFarm */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 1rem;
+}
+
+.quote-button:hover {
+  background-color: #146c43; /* Verde más oscuro al hacer hover */
+  transform: scale(1.05);
+}
+
+.orange-button {
+  background-color: #F19A3E;
+}
+
+.orange-button:hover {
+  background-color: #d48806; /* Un naranja un poco más oscuro al hacer hover */
 }

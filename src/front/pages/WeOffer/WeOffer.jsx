@@ -22,6 +22,14 @@ const WeOffer = () => {
     }
   };
 
+  const handleWhyUsClick = () => {
+    navigate("/why-us");
+  };
+
+  const handleCasesClick = () => {
+    navigate("/casos");
+  };
+
   return (
     <section className="landing-container">
       <div className="weoffer-content">
@@ -36,17 +44,23 @@ const WeOffer = () => {
           <div className="weoffer-card">
             <h3>Vuelo técnico con drones</h3>
             <p>Captura aérea de imágenes en diferentes bandas espectrales para analizar el estado fisiológico de las plantas.</p>
+            <button className="quote-button" onClick={handleWhyUsClick}>
+              ¿Por qué DronFarm?
+            </button>
           </div>
           <div className="weoffer-card">
             <h3>Procesamiento y análisis</h3>
             <p>Interpretación avanzada de los datos mediante inteligencia artificial y técnicas de teledetección.</p>
-            <button className="quote-button" onClick={handleQuoteClick}>
+            <button className="quote-button orange-button" onClick={handleQuoteClick}>
               Solicitar presupuesto
             </button>
           </div>
           <div className="weoffer-card">
             <h3>Informe personalizado</h3>
             <p>Entregamos mapas NDVI, análisis zonales y recomendaciones específicas adaptadas a cada cultivo.</p>
+            <button className="quote-button" onClick={handleCasesClick}>
+              Casos de éxito
+            </button>
           </div>
         </div>
       </div>
