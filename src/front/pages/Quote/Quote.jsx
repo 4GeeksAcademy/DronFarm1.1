@@ -4,6 +4,7 @@ import "./Quote.css";
 import { showSuccessAlert, showErrorAlert } from "../../components/modal_alerts/modal_alerts";
 import { useGlobalReducer } from "../../hooks/useGlobalReducer";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 
 const Quote = () => {
   const [userData, setUserData] = useState(null);
@@ -98,7 +99,7 @@ const Quote = () => {
         }
       }
     }
-    
+
   }, [token, userId, store.selectedField]);
 
   const totalPrice = () => {
@@ -242,6 +243,7 @@ const Quote = () => {
 
   return (
     <div className="quote-page-wrapper">
+      <div className="navbar-fade-shadow"></div> {/* ← Aquí lo metes */}
       <div className="quote-background-wrapper">
         <div className="quote-editor-container">
           <h2 className="editor-title">Vista Previa del Presupuesto</h2>
@@ -338,6 +340,7 @@ const Quote = () => {
               Aceptar Presupuesto
             </button>
           </div>
+          <Footer />
         </div>
       </div>
     </div>

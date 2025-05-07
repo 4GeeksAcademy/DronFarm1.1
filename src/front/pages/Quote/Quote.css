@@ -58,6 +58,30 @@
   text-align: center;
 }
 
+
+
+
+/* Capa difuminada bajo el navbar */
+.navbar-fade-shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* Ajusta según altura real del navbar */
+  z-index: 3; /* Justo debajo del navbar */
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  backdrop-filter: blur(8px); /* Difuminado */
+}
+
+/* Dark mode para el efecto */
+body.dark-mode .navbar-fade-shadow {
+  background: linear-gradient(to bottom, rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0));
+}
+
+
+
+
 /* Vista previa */
 .quote-preview-container {
   margin-bottom: 2rem;
