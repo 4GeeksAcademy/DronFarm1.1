@@ -41,8 +41,9 @@ export const router = createBrowserRouter(
         <Route path="contacto" element={<Contact />} />
         <Route path="servicios" element={<WeOffer />} />
         <Route path="nosotros" element={<AboutUs />} />
-        <Route path="why-us" element={<WhyUs />} />
+
       </Route>
+      <Route path="/why-us" element={<WhyUs />} />
 
       {/* Rutas privadas */}
       <Route

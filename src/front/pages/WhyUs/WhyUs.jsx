@@ -1,5 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import "./WhyUs.css";
 
 import img1 from "../../assets/img/carrucel/why5.jpeg";
@@ -8,10 +10,30 @@ import img3 from "../../assets/img/carrucel/why3.jpeg";
 import img4 from "../../assets/img/carrucel/why4.jpeg";
 
 const slides = [
-  { image: img1, alt: "Pérdida de cosechas", highlight: "PÉRDIDA DEL 30%", subtext: "debido a problemas que no detectan a tiempo" },
-  { image: img2, alt: "Pérdidas económicas", highlight: "34.500 MILLONES", subtext: "en pérdidas anuales" },
-  { image: img3, alt: "Recursos naturales", highlight: "RECURSOS DESPERDICIADOS", subtext: "agua + fertilizantes + pesticidas" },
-  { image: img4, alt: "Detección temprana", highlight: "2 SEMANAS ANTES", subtext: "la diferencia entre éxito y fracaso" }
+  {
+    image: img1,
+    alt: "Pérdida de cosechas",
+    highlight: "PÉRDIDA DEL 30%",
+    subtext: "debido a problemas que no detectan a tiempo",
+  },
+  {
+    image: img2,
+    alt: "Pérdidas económicas",
+    highlight: "34.500 MILLONES",
+    subtext: "en pérdidas anuales",
+  },
+  {
+    image: img3,
+    alt: "Recursos naturales",
+    highlight: "RECURSOS DESPERDICIADOS",
+    subtext: "agua + fertilizantes + pesticidas",
+  },
+  {
+    image: img4,
+    alt: "Detección temprana",
+    highlight: "2 SEMANAS ANTES",
+    subtext: "la diferencia entre éxito y fracaso",
+  },
 ];
 
 const WhyUs = () => {
@@ -25,38 +47,29 @@ const WhyUs = () => {
     autoplaySpeed: 6000,
     arrows: false,
     pauseOnHover: true,
-    beforeChange: () => {
-      document.querySelectorAll(".text-content").forEach((content) => {
-        content.style.opacity = "0";
-        content.classList.remove("fade-in");
-      });
-    },
-    afterChange: () => {
-      document.querySelectorAll(".text-content").forEach((content) => {
-        void content.offsetWidth; // reinicia animación
-        content.classList.add("fade-in");
-        content.style.opacity = "1";
-      });
-    },
   };
 
   return (
-    <section className="landing-container">
-      <div className="carousel-wrapper">
-        <Slider {...settings}>
-          {slides.map((slide, idx) => (
-            <div key={idx} className="carousel-slide">
-              <img src={slide.image} alt={slide.alt} className="carousel-image" />
-              <div className="carousel-overlay" />
-              <div className="text-content">
-                <h2 className="highlight">{slide.highlight}</h2>
-                <p className="subtext">{slide.subtext}</p>
+    <div className="whyus-page-background">
+      <Navbar />
+      <section className="whyus-wrapper">
+        <div className="carousel-container">
+          <Slider {...settings}>
+            {slides.map((slide, idx) => (
+              <div key={idx} className="carousel-slide">
+                <img src={slide.image} alt={slide.alt} className="carousel-image" />
+                <div className="carousel-overlay" />
+                <div className="text-content">
+                  <h2 className="highlight">{slide.highlight}</h2>
+                  <p className="subtext">{slide.subtext}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
-    </section>
+            ))}
+          </Slider>
+        </div>
+      </section>
+      <Footer />
+    </div>
   );
 };
 
