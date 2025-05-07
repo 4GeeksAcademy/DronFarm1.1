@@ -1,99 +1,161 @@
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  font-family: "Arial", sans-serif;
-}
 
-.landing-container {
+/* Contenedor general */
+.whyus-wrapper {
   width: 100%;
-  min-height: 100vh;
-  background-image: url("../../assets/img/background-shape-verdeOscuro.svg"),
-    linear-gradient(to top right, #b0dad3, #e3eed4);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 900px 1000px, cover;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 140px 30px;
+  align-items: center;
+  padding: 100px 20px;
   box-sizing: border-box;
-  animation: fadeInOnly 1.2s ease-out forwards;
 }
 
-.carousel-wrapper {
+/* Carrusel */
+.carousel-container {
   width: 100%;
   max-width: 1200px;
+  height: 600px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
   position: relative;
+  box-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.15));
+  border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.18));
 }
 
-.carousel-title {
-  font-size: 2.8rem;
-  font-family: "Montserrat", sans-serif;
-  color: #91b4c0;
-  margin-bottom: 2rem;
-  text-align: center;
-  animation: fadeInOnly 1s ease-in-out;
-}
-
-body.dark-mode .carousel-title {
-  color: #9ccc8a;
-}
-
+/* Slides */
 .carousel-slide {
   position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
 }
 
 .carousel-image {
   width: 100%;
-  height: 650px;
+  height: 100%;
   object-fit: cover;
-  display: block;
+  transition: transform 5s ease;
 }
 
-.carousel-caption {
+/* Efecto zoom en la imagen activa */
+.slick-active .carousel-image {
+  transform: scale(1.05);
+}
+
+/* Overlay semitransparente */
+.carousel-overlay {
   position: absolute;
-  bottom: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  background: rgba(8, 57, 75, 0.75);
-  color: #fff;
-  padding: 2rem;
-  font-size: 1.5rem;
-  font-weight: 600;
+  height: 100%;
+  background-color: rgba(8, 57, 75, 0.4);
+  z-index: 1;
+}
+
+/* Textos */
+.text-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
   text-align: center;
-  font-family: "Montserrat", sans-serif;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeInStart 1s ease forwards;
 }
 
-.slick-dots li button:before {
-  color: #375534;
-  font-size: 14px;
+/* Destacado */
+.highlight {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
-@keyframes fadeInOnly {
+/* Subtexto */
+.subtext {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Animaciones */
+@keyframes fadeInStart {
   from {
     opacity: 0;
+    transform: translate(-50%, -40%);
   }
   to {
     opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }
 
-/* Dark mode */
-body.dark-mode .landing-container {
-  background-image: url("../../assets/img/background-shape.svg"),
-    linear-gradient(to bottom, #111, #1d1d1d);
+.fade-in {
+  animation: fadeInStart 1s ease forwards;
 }
 
-body.dark-mode .carousel-caption {
-  background: rgba(0, 0, 0, 0.75);
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+}
+
+/* Dots */
+.slick-dots li button:before {
+  color: #375534;
+  font-size: 12px;
+  opacity: 0.7;
+}
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+}
+
+/* Dark mode */
+body.dark-mode .carousel-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 body.dark-mode .slick-dots li button:before {
   color: #9ccc8a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .carousel-container,
+  .carousel-slide {
+    height: 400px;
+  }
+  .highlight {
+    font-size: 2.2rem;
+  }
+  .subtext {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-container,
+  .carousel-slide {
+    height: 300px;
+  }
+  .highlight {
+    font-size: 1.8rem;
+  }
+  .subtext {
+    font-size: 1rem;
+  }
 }
