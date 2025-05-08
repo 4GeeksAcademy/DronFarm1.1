@@ -7,7 +7,7 @@ body {
 
 .landing-container {
   width: 100%;
-  min-height: 100vh; /* para ocupar toda la pantalla siempre */
+  min-height: 100vh;
   background-image: url("../../assets/img/background-shape-verdeOscuro.svg"),
     linear-gradient(to top right, #b0dad3, #e3eed4);
   background-repeat: no-repeat;
@@ -20,9 +20,8 @@ body {
   color: #333;
   box-sizing: border-box;
   animation: fadeInOnly 1.2s ease-out forwards;
-
-  padding-top: 180px; /* 👈 Aumentado claramente para compensar posición del Navbar */
-  padding-bottom: 120px; /* 👈 Espacio suficiente para Footer */
+  padding-top: 120px; /* Reducido de 180px para separar del navbar */
+  padding-bottom: 120px;
 }
 
 .weoffer-content {
@@ -31,7 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
+  gap: 0; /* Eliminado el gap general */
   padding: 20px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -39,12 +38,15 @@ body {
 
 .weoffer-header-box {
   position: relative;
-  width: 100%;
-  max-width: 82%;
-  min-height: 260px; /* Más grande */
-  padding: 2.5rem 2rem;
+  width: calc(300px * 3 + 2rem * 2); /* Exactamente el ancho de 3 cards + gaps */
+  min-height: 320px; /* Reducido de 480px a 320px */
+  padding: 2.5rem 2rem; /* Reducido el padding vertical */
   border-radius: 20px;
-  background-image: url("../../assets/img/Mavic3_v2.jpg"); /* Imagen */
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-image: url("../../assets/img/Mavic3_v4.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -54,12 +56,9 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  margin: 0 auto 0 auto;
 }
 
-/* Capa oscura encima de la imagen */
 .weoffer-header-box::before {
   content: "";
   position: absolute;
@@ -67,17 +66,48 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(8, 57, 75, 0.4); /* Overlay oscuro semi-transparente */
+  background: rgba(8, 57, 75, 0.1); /* Reducido de 0.2 a 0.1 */
   z-index: 1;
   border-radius: 20px;
 }
 
-/* El contenido va encima del overlay */
+/* Añadir un pseudo-elemento adicional para aclarar más la imagen */
+.weoffer-header-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25); /* Aumentado de 0.15 a 0.3 */
+  z-index: 0;
+  border-radius: 20px;
+  mix-blend-mode: screen; /* Modo de mezcla para aclarar */
+}
+
 .weoffer-header-box .section-title,
 .weoffer-header-box .weoffer-text {
   position: relative;
   z-index: 2;
-  color: white; /* Asegura que el texto sea blanco para contraste */
+  color: #f5f5f5;
+}
+
+.weoffer-header-box .section-title {
+  text-shadow: 
+    0 0 10px rgba(0, 0, 0, 0.8),     /* Resplandor suave negro */
+    0 2px 4px rgba(0, 0, 0, 0.9),    /* Sombra fuerte */
+    0 0 20px rgba(0, 0, 0, 0.6);     /* Halo más amplio */
+  font-weight: 700;                   /* Hacer el título más grueso */
+  letter-spacing: 0.5px;              /* Espaciado entre letras */
+}
+
+.weoffer-header-box .weoffer-text {
+  text-shadow: 
+    0 0 8px rgba(0, 0, 0, 0.7),      /* Resplandor suave */
+    0 1px 3px rgba(0, 0, 0, 0.9),    /* Sombra nítida */
+    0 0 15px rgba(0, 0, 0, 0.5);     /* Halo exterior */
+  font-weight: 500;                   /* Ligeramente más grueso */
+  line-height: 1.7;                   /* Mejor espaciado entre líneas */
 }
 
 .section-title {
@@ -85,166 +115,38 @@ body {
   font-size: 2.5rem;
   margin-bottom: 1.2rem;
 }
-.weoffer-header-box .section-title {
-  color: #08394b !important; /* !important temporal para diagnóstico */
-}
+
 .weoffer-text {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #444;
-}
-
-.weoffer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  width: 100%;
-  max-width: 1100px;
-}
-
-.weoffer-card {
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  text-align: center;
-}
-
-.weoffer-card:hover {
-  transform: translateY(-5px);
-}
-
-.weoffer-card h3 {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.3rem;
-  margin-bottom: 0.8rem;
-  color: #375534;
-}
-
-.weoffer-card p {
-  font-size: 1rem;
-  color: #555;
-}
-
-.quote-button {
-  background: #F19A3E;
-  border: 1px solid rgba(5, 45, 23, 0.2);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.quote-button:hover {
-  background: #426a3e;
-  transform: scale(1.05);
-}
-
-@keyframes fadeInOnly {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .weoffer-text {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-
-  .weoffer-header-box {
-    padding: 1.5rem 1.2rem;
-  }
-
-  .weoffer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* Dark mode styles */
-body.dark-mode .landing-container {
-  background-image: url("../../assets/img/background-shape.svg"),
-    linear-gradient(to bottom, #111, #1d1d1d);
-  color: #eee;
-}
-
-body.dark-mode .weoffer-header-box,
-body.dark-mode .weoffer-card {
-  background: rgba(30, 30, 30, 0.85);
-  color: #f5f5f5;
-}
-
-body.dark-mode .weoffer-header-box .section-title {
-  color: #9ccc8a !important; /* Verde claro */
-}
-body.dark-mode .section-title {
-  color: #f5f5f5;
-}
-
-body.dark-mode .weoffer-text {
-  color: #ddd;
-}
-
-body.dark-mode .weoffer-card h3 {
-  color: #9ccc8a;
-}
-
-body.dark-mode .weoffer-card p {
-  color: #bbb;
-}
-
-body.dark-mode .quote-button {
-  background: rgba(63, 189, 63, 0.2);
-  color: #f0f0f0;
-  border: 1px solid rgba(1, 185, 84, 0.5);
-}
-
-body.dark-mode .quote-button:hover {
-  background: rgba(63, 189, 63, 0.3);
-}
-
-body.dark-mode .dark-mode-toggle {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(156, 204, 138, 0.3);
-}
-
-body.dark-mode .dark-mode-toggle i {
+  padding: 0 1rem;
   color: #f0f0f0;
 }
-
 
 .weoffer-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 0; /* Eliminado el margin-top para unir con el header */
+  padding-top: 2rem; /* Añadido solo un poco de padding para no pegar las cajas */
 }
 
 .weoffer-card {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(30, 30, 30, 0.45); /* Oscurecido de 255,255,255,0.25 a 30,30,30,0.45 */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2rem;
   width: 300px;
   height: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  display: flex; /* NUEVO */
-  flex-direction: column; /* NUEVO */
-  justify-content: space-between; /* NUEVO */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -252,11 +154,33 @@ body.dark-mode .dark-mode-toggle i {
 
 .weoffer-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.weoffer-card h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px rgba(0, 0, 0, 0.7),      /* Resplandor negro */
+    0 2px 4px rgba(0, 0, 0, 0.8);    /* Sombra definida */
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.weoffer-card p {
+  font-size: 1rem;
+  color: #f0f0f0;
+  text-shadow: 
+    0 0 3px rgba(0, 0, 0, 0.6),      /* Resplandor suave */
+    0 1px 3px rgba(0, 0, 0, 0.7);    /* Sombra nítida */
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .quote-button {
-  background-color: #198754; /* Verde DronFarm */
+  background-color: #198754;
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
@@ -269,14 +193,101 @@ body.dark-mode .dark-mode-toggle i {
 }
 
 .quote-button:hover {
-  background-color: #146c43; /* Verde más oscuro al hacer hover */
+  background-color: #146c43;
   transform: scale(1.05);
 }
 
 .orange-button {
-  background-color: #F19A3E;
+  background-color: #f19a3e;
 }
 
 .orange-button:hover {
-  background-color: #d48806; /* Un naranja un poco más oscuro al hacer hover */
+  background-color: #d48806;
+}
+
+/* Fade In Animation */
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .weoffer-header-box {
+    width: calc(100% - 2.5rem); /* Ajuste para tablets y móviles */
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .weoffer-text {
+    font-size: 1rem;
+  }
+
+  .weoffer-header-box {
+    padding: 2rem 1.2rem;
+    min-height: 280px; /* Reducido proporcionalmente */
+    width: calc(100% - 2rem);
+  }
+
+  .weoffer-grid {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 1.5rem;
+  }
+}
+
+/* Dark mode */
+body.dark-mode .landing-container {
+  background-image: url("../../assets/img/background-shape.svg"),
+    linear-gradient(to bottom, #111, #1d1d1d);
+  color: #eee;
+}
+
+body.dark-mode .weoffer-header-box,
+body.dark-mode .weoffer-card {
+  background: rgba(30, 30, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f5f5f5;
+}
+
+body.dark-mode .weoffer-header-box .section-title {
+  color: #9ccc8a;
+}
+
+body.dark-mode .section-title {
+  color: #f5f5f5;
+}
+
+body.dark-mode .weoffer-text {
+  color: #ddd;
+}
+
+body.dark-mode .weoffer-card h3 {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .weoffer-card p {
+  color: #dddddd;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .quote-button {
+  background: rgba(63, 189, 63, 0.2);
+  color: #f0f0f0;
+  border: 1px solid rgba(1, 185, 84, 0.5);
+}
+
+body.dark-mode .quote-button:hover {
+  background: rgba(63, 189, 63, 0.3);
 }
