@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/img/Logo_DronFarm_Iconocolor_sinmarcoDEF.png";
 import logoDark from "../../assets/img/Logo_DronFarm_Iconocolor_sinmarcoDEF_blanco.png";
@@ -12,6 +12,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation(); // Agregamos useLocation para detectar la ruta actual
 
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
@@ -109,6 +110,9 @@ const Navbar = () => {
     }
   };
 
+  // Verificar si estamos en la página de dashboard
+  const isOnDashboard = location.pathname === "/app/dashboard";
+
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-content">
@@ -131,17 +135,18 @@ const Navbar = () => {
               <a onClick={() => goTo("/")}>Inicio</a>
               <a onClick={() => goTo("/servicios")}>Servicios</a>
               <a onClick={() => goTo("/nosotros")}>Nosotros</a>
-              <a onClick={() => goTo("/why-us")}>¿Por qué DronFarm?</a>
               <a onClick={() => goTo("/contacto")}>Contacto</a>
               <a onClick={toggleDarkMode} className="dark-toggle-link">
                 {isDarkMode ? "Modo claro ☀️" : "Modo oscuro 🌙"}
               </a>
-              <a onClick={() => {
-                setMenuOpen(false);
-                window.dispatchEvent(new CustomEvent('start-tour'));
-              }}>
-                Ver tour 🚀
-              </a>
+              {isOnDashboard && (
+                <a onClick={() => {
+                  setMenuOpen(false);
+                  window.dispatchEvent(new CustomEvent('start-tour'));
+                }}>
+                  Ver tour 🚀
+                </a>
+              )}
             </div>
           </div>
 
