@@ -33,13 +33,13 @@ const Cases = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 800,
+    speed: 1200,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 8000,
     arrows: false,
-    pauseOnHover: true,
+    pauseOnHover: false,
   };
 
   return (
