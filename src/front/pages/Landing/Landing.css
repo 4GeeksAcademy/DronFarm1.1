@@ -414,7 +414,7 @@ body.dark-mode .landing-container .social-links a:hover {
 }
 
 .cta-button {
-  background-color: #375534; /* Usamos el verde que has definido */
+  background-color: #0E4C6B; /* Usamos el verde que has definido */
   color: white;
   border: none;
   border-radius: 10px; /* Respetamos el radio de borde que has definido */
