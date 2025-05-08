@@ -165,8 +165,12 @@
   padding-top: 10px;
 }
 
+.landing-container .card-main h1{
+  margin-bottom: 1.5rem;
+}
+
 .landing-container .main-image-container {
-  margin-top: 90px;
+  margin-top: 60px;
   width: 90%;
   max-width: 500px;
   display: flex;
